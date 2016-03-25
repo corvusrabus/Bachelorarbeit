@@ -1,0 +1,304 @@
+% Vorlage für eine Bachelorarbeit
+% Siehe auch LaTeX-Kurs von Mathematik-Online
+% www.mathematik-online.org/kurse
+% Anpassungen für die Fakultät für Mathematik
+% am KIT durch Klaus Spitzmüller und Roland Schnaubelt Dezember 2011
+
+\documentclass[12pt,a4paper]{scrartcl}
+% scrartcl ist eine abgeleitete Artikel-Klasse im Koma-Skript
+% zur Kontrolle des Umbruchs Klassenoption draft verwenden
+
+
+% die folgenden Packete erlauben den Gebrauch von Umlauten und ß
+% in der Latex Datei
+\usepackage[utf8]{inputenc}
+% \usepackage[latin1]{inputenc} %  Alternativ unter Windows
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+
+
+\usepackage[pdftex]{graphicx}
+\usepackage{latexsym}
+\usepackage{amsmath,amssymb,amsthm}
+
+% Abstand obere Blattkante zur Kopfzeile ist 2.54cm - 15mm
+\setlength{\topmargin}{-15mm}
+
+
+% Umgebungen für Definitionen, Sätze, usw.
+% Es werden Sätze, Definitionen etc innerhalb einer Section mit
+% 1.1, 1.2 etc durchnummeriert, ebenso die Gleichungen mit (1.1), (1.2) ..
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Definition}[Theorem]{Definition} 
+\newtheorem{Lemma}[Theorem]{Lemma}		   
+\newtheorem{Problem}{Problem}           
+\newtheorem{Construction}[Theorem]{Construction}           
+
+\numberwithin{equation}{section} 
+
+% einige Abkuerzungen
+\newcommand{\C}{\mathbb{C}} % komplexe
+\newcommand{\K}{\mathbb{K}} % komplexe
+\newcommand{\R}{\mathbb{R}} % reelle
+\newcommand{\Q}{\mathbb{Q}} % rationale
+\newcommand{\Z}{\mathbb{Z}} % ganze
+\newcommand{\N}{\mathbb{N}} % natuerliche
+
+
+
+\begin{document}
+  % Keine Seitenzahlen im Vorspann
+  \pagestyle{empty}
+
+  % Titelblatt der Arbeit
+  \begin{titlepage}
+
+    \includegraphics[scale=0.45]{kit-logo.jpg} 
+    \vspace*{2cm} 
+
+ \begin{center} \large 
+    
+    Bachelorarbeit
+    \vspace*{2cm}
+
+    {\huge Titel der Bachelorarbeit}
+    \vspace*{2.5cm}
+
+    Corvin Paul
+    \vspace*{1.5cm}
+
+    Datum der Abgabe
+    \vspace*{4.5cm}
+
+
+    Betreuung: Name der Betreuerin / des Betreuers \\[1cm]
+    Fakultät für Mathematik \\[1cm]
+		Karlsruher Institut für Technologie
+  \end{center}
+\end{titlepage}
+
+
+
+  % Inhaltsverzeichnis
+  \tableofcontents
+
+\newpage
+ 
+
+
+  % Ab sofort Seitenzahlen in der Kopfzeile anzeigen
+  \pagestyle{headings}
+
+\section{Introduction}
+
+\subsection{Basics in computational complexity theory}
+At first we want to introduce some basic notions in complexity theory which will be needed to state the main results of this thesis.
+Readers who are familiar with computational complexity theory may want to skip this section.
+
+Computational complexity theory is mainly about classifying under which restrictions problems can be algorithmically solved.
+Let's begin with defining what a problem is :
+
+\begin{Definition}
+ Let $f \colon {\lbrace 0,1 \rbrace}^* \to {\lbrace 0,1 \rbrace}$ be a function and $L_f := {\lbrace 
+ x \in {\lbrace 0,1 \rbrace}^*  \; | \; f(x) = 1 \rbrace} $ its corresponding language. We now call the 
+ problem to decide if a given $x \in {\lbrace 0,1 \rbrace}^*$ lies in $L_f$ the \emph{decision problem for $f$}
+\end{Definition}
+
+This definition is somehow impractical and one should think of elements $x \in {\lbrace 0,1 \rbrace}^*$ as binary encoding
+of some information. It's useful to introduce decision problems like this, because then we have a common basis how problems
+are represented, however we will implicitly think of problems being encoded as bit strings in the following. Now let's 
+have a look at a first problem:
+
+\begin{Problem}{$k$-COLOUR}
+ Given an undirected graph $ G = (V,E)$ is it possible to assign a colour (chosen from $k$ different colours) to every vertex 
+ $v \in V$ such that adjacent vertices have different colours ?
+\end{Problem}
+
+You may have noticed that we don't want to get such a colouring of a graph, we only ask if one exists ! Problems
+like this one are called \emph{decision problems}. We could also formulate a similar problem where we ask to calculate 
+such a colouring or to state that there's no such colouring. Problems like this one are called \emph{search problems}.
+In computational complexity theory often the decision problem are the more interesting ones.
+
+\subsection{Graded Algebras}
+
+In this section $R$ will always be a (not necessarily commutative) ring. If not stated otherwise ``module'' will
+always mean $R$-module and ``linear'' will mean $R$-linear.
+
+First we want to define some basic algebraic structures which will allow us to define our main algebraic tool
+in this thesis, namely Sullivan Algebras.
+
+\begin{Definition}{Graded modules and maps of graded modules}
+
+A \emph{graded module} $M$ consists of a collection of modules $(M^i)_{i \in \Z}$, we will also write
+$M = \bigcup_{i \in \Z} M^i$. We call an element 
+$m_i \in M^i$ an \emph{element of degree $i$} and write $|m_i| = deg (m_i) = i$. Accordingly a \emph{submodule} $N$ of
+a graded module $M$ is a collection of modules $(N^i)_{i \in \Z}$ such that $N^i$ is a submodule of $M^i$. \
+
+A \emph{linear map of degree k} $f \colon M \to N$ of graded modules $M$ and $N$ is a collection $(f_i)_{i \in \Z}$ of
+linear maps $f_i \colon M^i \to N^{i + k}$. If we leave out the degree, we mean a map of degree $0$.
+\end{Definition}
+
+We will say that a graded module $M := \cup_i M^i$ has a property $P$ (e.g. free) if every module $M^i$ has the property $P$.
+ 
+\begin{Definition}{Differential graded modules}
+
+For a graded module $M$ we call a linear map $d \colon M \to M$ of degree $+1$ which satisfies $ d^2 = 0$ a \emph{differential}.
+Then we also call the pair $(M , d)$ a \emph{differential graded module}.
+
+\end{Definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \newpage  % neuer Abschnitt auf neue Seite, kann auch entfallen
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\section{Sullivan algebras}
+
+\begin{Definition}
+ Given a free graded module V we call $(\Lambda V, d)$ a \emph{Sullivan algebra} if it has the following properties :
+ 
+  There exists a filtration of graded subspaces $V(0) \subseteq V(1) \subset V(2) \subseteq \cdots $ of $V$
+  with $\cup_{i \in \N_0} V(i) = V$ such that 
+  $$ d(V(0)) = 0 \; \text{and} \; d( V(k)) \subseteq  \Lambda V(k-1) $$
+  
+ Furthermore we call a Sullivan Algebra $(\Lambda V,d)$ \emph{minimal} if $im(d) \subseteq \Lambda^{\geq 2} V$
+\end{Definition}
+
+To get a better understanding of this structure we will now present some examples.
+
+
+ \section{NP-complete problems concerning Sullivan algebras}
+ 
+ In this section we want to show the %TODO Hier NP formatieren!
+ NP completeness of certain problems concerning Sullivan algebras. Later we will see that these problems
+ translate directly to topological problems.
+ 
+ In the following we want our ground ring $R$ to be  $\Q$, hence we just consider rational Sullivan algebras.
+ 
+ \begin{Definition}
+  A Sullivan algebra $(\Lambda V, d)$ is called \emph{elliptic} if both $\pi^*(\Lambda V,d)$ and $H(\Lambda V,d)$ have
+  finite dimension.
+ \end{Definition}
+ 
+ The first result we want to establish is the following:
+ 
+ \begin{Theorem}
+ \label{cohomologyFinTheorem}
+  It's a NP-hard problem to decide if a given a Sullivan algebra $(\Lambda V,d)$ with $\pi^*(\Lambda V,d)$ finite dimensional 
+  is elliptic . %TODO NP formatieren
+ \end{Theorem}
+
+ To prove this theorem we want to reduce $k$-COLOUR to deciding if $(\Lambda V,d)$ is elliptic for some special 
+ Sullivan algebra $(\Lambda V,d)$ which we will construct as follows : \\
+ 
+ \begin{Construction}[The Lechuga-Murillo construction]
+ \label{constructionOfSullivanAlgebra}
+ Let $G = (V,E)$ be an undirected, simple, connected, finite graph with vertices $ V = \lbrace v_1, \dotsc , v_n \rbrace $
+ and edges $ E = \lbrace (v_r, v_s) \; | \; (r,s) \in J \rbrace$. From this we construct for a given $k \in \N$ the following
+ Sullivan algebra $(\Lambda V_{G,k} , d)$ : \\
+ 
+ $ V^{even}_{G,k} := \langle x_1, \dotsc , x_n \rangle $ \; with \; $|x_i| = 2$ \; for \; $ i = 1, \dotsc , n$ \; 
+ and \; $dx_i := 0$ \\
+ 
+ $V^{odd}_{G,k} := \langle y_{(r,s)} \rangle$ , $(r,s) \in J$ \; with \; $|y_{(r,s)}| = 2k - 3$ \; and \; $dy_{(r,s)} := 
+ \sum_{l = 1}^k x_r^{k -l} x_s^{l - 1}$ \\
+ 
+ \end{Construction}
+
+  If $k \geq 3$ the differential of the $y_{(r,s)}$ contains no linear term, hence
+  $(\Lambda V_{G,s} ,d)$ is minimal for $k \geq 3$. To prove theorem \ref{cohomologyFinTheorem}, we first need the following lemma:
+  
+  
+\begin{Lemma}
+\label{lma:cohomoly+equations}
+ $H^*(\Lambda V_{G,k})$ has infinite dimension $\iff$ The system of equations \\
+ \begin{equation}
+ \label{systemofequations}
+ {\lbrace \sum_{l = 1}^k u_r^{k - l} u_s^{l - 1} = 0 \; | \; (r,s) \in J \rbrace}  
+ \end{equation}
+ 
+ has a non trivial solution 
+ $(\lambda_1 , \dotsc, \lambda_n) \in \C^n$
+\end{Lemma}
+
+\begin{proof}
+ We use the result of .. that $H^*(\Lambda V_{G,k})$ has infinite dimension if and only if %TODO Referenz einfügen!
+ there's a non trivial morphism of differential graded algebras 
+ $\varphi \colon (\Lambda V_{G,k},d) \to ( \C [\alpha] ,\acute{d} = 0)$ with $|\alpha| = 2$. How can such a morphism look like?
+ Clearly $\varphi(x_i) = \lambda_i \alpha$ for some $\lambda_i \in \C$ and $\varphi(y_{(r,s)}) = 0$ , because 
+ $(\C [\alpha] , 0)$ is zero in odd degrees. Furthermore $\varphi$ must commute with the differentials, hence 
+ for all $(r,s) \in J$
+ $$ 0 = \acute{d} (\varphi(y_{(r,s)})) = \varphi(dy_{(r,s)}) = \varphi(\sum_{l = 1}^k x_r^{k -l} x_s^{l - 1})
+ = \sum_{l = 1}^k \varphi(x_r)^{k -l} \varphi(x_s)^{l - 1}$$
+ 
+ And this shows that $(\varphi(x_i))_{i = 1, \dotsc , n}$ must be a solution of \ref{systemofequations}, which is not trivial
+ if $\varphi$ is not trivial.
+ This also works the other way round and every non trivial solution  $(\lambda_1 , \dotsc, \lambda_n)$ of \ref{systemofequations}
+ can be used to define a non trivial morphism $\varphi(x_i) = \lambda_i \alpha$.
+ \end{proof}
+
+ \begin{Theorem}
+   $G = (V,E)$ is k-colourable $\iff$ $(\Lambda V_{(G,k)},d)$ is not elliptic
+ \end{Theorem}
+
+ \begin{proof}
+  From the construction of $(\Lambda V_{(G,k)},d)$ we see that  $\pi^*(\Lambda V_{(G,k)},d)$ is finite dimensional, therefore
+  we only have to care about its cohomology. Suppose now that $G$ is $k$-colourable and we have a colouring
+  $f \colon V \to { \lbrace 1, \dotsc , k \rbrace }$ with $f(x_r) \neq f(x_s)$ for $(r,s) \in J$. Let $\zeta_k$ be a primitive 
+  $k$-th root of unity, then for $(r,s) \in J$ it holds that
+  
+  $$ \sum_{l = 1}^k (\zeta_k^{f(x_r)})^{k-l} (\zeta_k^{f(x_s)})^{l-1}
+  = \frac{(\zeta_k^{f(x_r)})^{k} - (\zeta_k^{f(x_s)})^{k}}{ \zeta_k^{f(x_r)} - \zeta_k^{f(x_s)}} = 0
+  $$
+  
+  Hence $(\zeta_k^{f(x_i)})_{i = 1, \dotsc, n}$ defines a non trivial solution of \ref{systemofequations}
+  and lemma \ref{lma:cohomoly+equations} tells us that $(\Lambda V_{(G,k)},d)$ is not elliptic and this shows
+  ``$\implies$''. \\
+  Let now $(\Lambda V_{(G,k)},d)$ be not elliptic. Then lemma \ref{lma:cohomoly+equations} gives us a non trivial
+  solution $(\lambda_1 , \dotsc, \lambda_n) \in \C^n$ of \ref{systemofequations}. We now use this solution to construct
+  a colouring of $G$. First observe that $G$ being connected implies that $\lambda_i \neq 0$ for all $\lambda_i$. Then we have
+  for $(r,s) \in J$ that $ \lambda_r^k - \lambda_s^k = ( \lambda_r - \lambda_s) 
+  \sum_{l = 1}^k \lambda_r^{k - l} \lambda_s^{l - 1} = 0$ . And since $G$ is connected we have 
+  $\lambda_1^k = \dotsc = \lambda_n^k$ , which we can wlog assume to equal $1$. Therefore every $\lambda_i$ is a 
+  $k$-th root of unity and we can define $f \colon V \to { \lbrace 1, \dotsc , k \rbrace }$ such that 
+  $\lambda_i = \zeta_k^{f(x_i)}$. This $f$ now defines a colouring, because if we assume that for a $(i,j) \in J$
+  $f(x_i) = f(x_j)$ holds we also get that 
+  $$\sum_{l = 1}^k \lambda_i^{k - l} \lambda_j^{l - 1} = \sum_{l = 1}^k (\zeta_k^{f(x_i)})^{k-l} (\zeta_k^{f(x_j)})^{l-1}
+  = \sum_{l = 1}^k (\zeta_k^{f(x_i)})^{k-1} = k (\zeta_k^{f(x_i)})^{k-1} \neq 0$$ 
+  which is a contradiction to $(\lambda_1 , \dotsc, \lambda_n)$ being a solution of \ref{systemofequations}.
+  
+ \end{proof}
+
+ Since the construction \ref{constructionOfSullivanAlgebra} is polynomial this also proves theorem \ref{cohomologyFinTheorem}.
+ 
+% Literaturverzeichnis (beginnt auf einer ungeraden Seite)
+  \newpage
+  
+\begin{thebibliography}{Lam00}
+ 
+\end{thebibliography}
+ 
+      
+  % ggf. hier Tabelle mit Symbolen 
+  % (kann auch auf das Inhaltsverzeichnis folgen)
+
+\newpage
+  
+ \thispagestyle{empty}
+
+
+\vspace*{8cm}
+
+
+\section*{Erklärung}
+
+Hiermit versichere ich, dass ich diese Arbeit selbständig verfasst und keine anderen, als die angegebenen Quellen und Hilfsmittel benutzt, die wörtlich oder inhaltlich übernommenen Stellen als solche kenntlich gemacht und die Satzung des Karlsruher Instituts für Technologie zur Sicherung guter wissenschaftlicher Praxis in der jeweils gültigen Fassung beachtet habe. \\[2ex] 
+
+\noindent
+Ort, den Datum\\[5ex]
+
+% Unterschrift (handgeschrieben)
+
+
+
+\end{document}
+
