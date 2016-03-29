@@ -14,13 +14,16 @@
 \usepackage[utf8]{inputenc}
 % \usepackage[latin1]{inputenc} %  Alternativ unter Windows
 \usepackage[T1]{fontenc}
-\usepackage[ngerman]{babel}
+%\usepackage[ngerman]{babel}
 
 
 \usepackage[pdftex]{graphicx}
 \usepackage{latexsym}
 \usepackage{amsmath,amssymb,amsthm}
+\usepackage[arrow, matrix, curve]{xy}
+\usepackage{pxfonts}
 
+\usepackage{hyperref}
 % Abstand obere Blattkante zur Kopfzeile ist 2.54cm - 15mm
 \setlength{\topmargin}{-15mm}
 
@@ -29,6 +32,7 @@
 % Es werden Sätze, Definitionen etc innerhalb einer Section mit
 % 1.1, 1.2 etc durchnummeriert, ebenso die Gleichungen mit (1.1), (1.2) ..
 \newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Proposition}[Theorem]{Proposition}
 \newtheorem{Definition}[Theorem]{Definition} 
 \newtheorem{Lemma}[Theorem]{Lemma}		   
 \newtheorem{Problem}{Problem}           
@@ -43,7 +47,11 @@
 \newcommand{\Q}{\mathbb{Q}} % rationale
 \newcommand{\Z}{\mathbb{Z}} % ganze
 \newcommand{\N}{\mathbb{N}} % natuerliche
+\newcommand{\Pcomplexity}{\mathbf{P}}
+\newcommand{\NPcomplexity}{\mathbf{NP}}
 
+\DeclareSymbolFont{symbolsC}{U}{pxsyc}{m}{n}
+\DeclareMathSymbol{\coloneqq}{\mathrel}{symbolsC}{"42}
 
 
 \begin{document}
@@ -99,29 +107,95 @@ Computational complexity theory is mainly about classifying under which restrict
 Let's begin with defining what a problem is :
 
 \begin{Definition}
- Let $f \colon {\lbrace 0,1 \rbrace}^* \to {\lbrace 0,1 \rbrace}$ be a function and $L_f := {\lbrace 
- x \in {\lbrace 0,1 \rbrace}^*  \; | \; f(x) = 1 \rbrace} $ its corresponding language. We now call the 
- problem to decide if a given $x \in {\lbrace 0,1 \rbrace}^*$ lies in $L_f$ the \emph{decision problem for $f$}
+ Let $f \colon {\lbrace 0,1 \rbrace}^* \to {\lbrace 0,1 \rbrace}$ be a function and $L_f \coloneqq {\lbrace 
+ x \in {\lbrace 0,1 \rbrace}^*  \; | \; f(x) = 1 \rbrace} $ its corresponding language. We call the 
+ problem to decide if a given $x \in {\lbrace 0,1 \rbrace}^*$ lies in $L_f$ the \emph{decision problem} for $f$.
+ Or more generally given a language $L \subseteq {\lbrace 0,1 \rbrace}^*$ the decision problem for $L$ is to decide
+ if for a given $x \in {\lbrace 0,1 \rbrace}^* $ , $x \in L$ holds.
 \end{Definition}
 
 This definition is somehow impractical and one should think of elements $x \in {\lbrace 0,1 \rbrace}^*$ as binary encoding
-of some information. It's useful to introduce decision problems like this, because then we have a common basis how problems
-are represented, however we will implicitly think of problems being encoded as bit strings in the following. Now let's 
-have a look at a first problem:
+of some information. It's useful to introduce decision problems like this because we then have a common basis how problems
+are represented. However we will implicitly think of problems being encoded as bit strings in the following. Now
+we want to look at a first problem, namely $k$-COLOUR. Informally it can be stated like this : \\
+ Given an undirected graph $ G = (V,E)$ is it possible to assign a colour (chosen from $k$ different colours) to every vertex 
+ $v \in V$ such that adjacent vertices have different colours? In more mathematical language it looks like this:
 
 \begin{Problem}{$k$-COLOUR}
- Given an undirected graph $ G = (V,E)$ is it possible to assign a colour (chosen from $k$ different colours) to every vertex 
- $v \in V$ such that adjacent vertices have different colours ?
+ For $k \in \N$ we define $$L_{k-COLOUR} \coloneqq \lbrace G  = (V,E) \; | \; \text{there is} \; f \colon V \to \lbrace 1, \dotsc k \rbrace
+ \; \text{with} \; f(i) \neq f(j) \; \text{for} \; (i,j) \in E \rbrace $$
+ 
+ Then the decision problem for $L_{k-COLOUR}$ is called \emph{$k$-COLOUR}
 \end{Problem}
 
-You may have noticed that we don't want to get such a colouring of a graph, we only ask if one exists ! Problems
-like this one are called \emph{decision problems}. We could also formulate a similar problem where we ask to calculate 
-such a colouring or to state that there's no such colouring. Problems like this one are called \emph{search problems}.
-In computational complexity theory often the decision problem are the more interesting ones.
+Next we want to classify the ``hardness'' of decision problems and therefore introduce complexity classes. A \emph{complexity class}
+ is a set of languages (or functions) that can be computed under certain restrictions. We only want to introduce two 
+ of the most important complexity classes namely $\Pcomplexity$ and $\NPcomplexity$. We will informally use the term algorithm
+ to mean a deterministic Turing maschine (refer to \cite{Arora2009} chapter 1 for a more formal treatment). 
+ 
+\begin{Definition}
+ The class $\Pcomplexity$ consists of those problems $f \colon {\lbrace 0,1 \rbrace}^* \to {\lbrace 0,1 \rbrace}$ for
+ which there exists an algorithm $A$ which given an input $x \in {\lbrace 0,1 \rbrace}^*$
+ computes $f(x)$ and whose running time can be bounded by a fixed polynomial $p$ (i.e.
+ for every input $x \in {\lbrace 0,1 \rbrace}^*$ A runs for at most $p(|x|)$ steps where $|x|$ denotes the length of $x$).
+\end{Definition}
 
+We could now think of a complexity class in which every algorithm gets a witness (or proof) that a given input is in the language.
+This leads to :
+
+\begin{Definition}
+ The class $\NPcomplexity$ consists of those $f \colon {\lbrace 0,1 \rbrace}^* \to {\lbrace 0,1 \rbrace}$ for which there is
+ an algorithm $A$ whose running time is polynomially bounded and that can verify for two given inputs $x \in {\lbrace 0,1 \rbrace}^*$ and 
+ $w \in {\lbrace 0,1 \rbrace}^*$ (where $|w|$ is bounded by a fixed polynomial in the length of $x$) if $w$ is a proof
+ that $f(x) = 1$.
+\end{Definition}
+
+To illustrate how one should think of such a ``proof''  we will show the following :
+
+\begin{Proposition}
+ $k$-COLOUR $\in \NPcomplexity$.
+\end{Proposition}
+
+\begin{proof}
+ To prove this we describe an algorithm : \
+ If we are given an input $x$ which encodes an undirected graph $G = (V,E)$ and a witness $w$ which encodes a 
+ function $\varphi \colon V \to \lbrace 1, \dotsc, k \rbrace$ we accept iff for every $(i,j) \in E$  $\varphi(i) \neq \varphi(j)$ holds.
+ This algorithm clearly runs in linear time in the number of edges and accepts iff $w$ encoded a  colouring for $G$ or in other words if
+ $w$ was a proof that $x$ lies in $k$-COLOUR.
+\end{proof}
+
+Next we want to classify how hard some problems are in comparison with other problems.
+
+\begin{Definition}
+ We say that a language $A \subseteq {\lbrace 0,1 \rbrace}^*$ is \emph{polynomial time reducible} to a language 
+ $B \subseteq {\lbrace 0,1 \rbrace}^*$ if there is a polynomial time computable function 
+ ${\varphi \colon {\lbrace 0,1 \rbrace}^* \to {\lbrace 0,1 \rbrace}^*}$ such that for every $x \in {\lbrace 0,1 \rbrace}^*$ 
+ it holds that $x \in A$ iff $\varphi (x) \in B$. We then denote this by $ A \leq_p B$. \\
+ A language $B$ is called \emph{$\NPcomplexity$-hard} if $A \leq_p B$ for every $A \in \NPcomplexity$. If $B$ is $\NPcomplexity$-hard
+ and $B \in \NPcomplexity$ we also say that $B$ is \emph{$\NPcomplexity$-complete}.
+\end{Definition}
+
+To illustrate how polynomial reductions look like we prove the following :
+
+\begin{Theorem}
+  $k$-COLOUR is $\NPcomplexity$-complete for $k \geq 3$.
+\end{Theorem}
+
+\begin{proof}
+ We will show this by induction over $k$ .
+ The base case $k = 3$ is essentially the hardest part in the proof and we refer the reader to \cite{Rothe2005}.
+ Hence we only have to reduce $k$-COLOUR to $(k+1)$-COLOUR. The reduction works as follows :
+ Given a graph $G = (V,E)$ we construct a new graph $G' = (V', E')$ where $V' \coloneqq V \cup \lbrace v_{new} \rbrace$ with
+ $v_{new} \notin V$ and $E' \coloneqq E \cup \lbrace (v_{new}, v) \; | \; v \in V \rbrace$, i.e. we just add one new vertex to the graph
+ and connect it with every existing vertex. One can now verify that $V$ is $k$-colourable iff $V'$ is $(k+1)$-colourable and the
+ construction of $V'$ is linear in the number of vertices.
+ 
+\end{proof}
+
+ 
 \subsection{Graded Algebras}
 
-In this section $R$ will always be a (not necessarily commutative) ring. If not stated otherwise ``module'' will
+In this section $R$ will always be a ring. If not stated otherwise ``module'' will
 always mean $R$-module and ``linear'' will mean $R$-linear.
 
 First we want to define some basic algebraic structures which will allow us to define our main algebraic tool
@@ -133,17 +207,47 @@ A \emph{graded module} $M$ consists of a collection of modules $(M^i)_{i \in \Z}
 $M = \bigcup_{i \in \Z} M^i$. We call an element 
 $m_i \in M^i$ an \emph{element of degree $i$} and write $|m_i| = deg (m_i) = i$. Accordingly a \emph{submodule} $N$ of
 a graded module $M$ is a collection of modules $(N^i)_{i \in \Z}$ such that $N^i$ is a submodule of $M^i$. \
-
+Likewise direct sums, quotients, kernels and images are defined degreewise for graded modules.
 A \emph{linear map of degree k} $f \colon M \to N$ of graded modules $M$ and $N$ is a collection $(f_i)_{i \in \Z}$ of
 linear maps $f_i \colon M^i \to N^{i + k}$. If we leave out the degree, we mean a map of degree $0$.
 \end{Definition}
 
-We will say that a graded module $M := \cup_i M^i$ has a property $P$ (e.g. free) if every module $M^i$ has the property $P$.
+We will say that a graded module $M \coloneqq \bigcup_i M^i$ has a property $P$ (e.g. free) if every module $M^i$ has the property $P$.
  
 \begin{Definition}{Differential graded modules}
 
 For a graded module $M$ we call a linear map $d \colon M \to M$ of degree $+1$ which satisfies $ d^2 = 0$ a \emph{differential}.
-Then we also call the pair $(M , d)$ a \emph{differential graded module}.
+Then we also call the pair $(M , d)$ a \emph{differential graded module} or a \emph{complex}.
+A morphism $f \colon M \to N$ of differential graded modules $(M,d)$ and $(N,d')$ is a linear map of graded modules that commutes with the 
+differentials, i.e. the diagram \\
+
+\xymatrix{
+\dotsc \ar[r]^{d} & M^{i-1} \ar[d]^{f^{i-1}} \ar[r]^d & M^i \ar[d]^{f^i} \ar[r]^d &M^{i+1}\ar[d]^{f^{i+1}} \ar[r]^{d} & \dotsc\\
+\dotsc \ar[r]^{d'} & N^{i-1} \ar[r]^{d'} & N^{i} \ar[r]^{d'} & N^{i+1} \ar[r]^{d'} & \dotsc}
+
+commutes.
+\end{Definition}
+
+Often we will be interested in complexes $M$ with $M^i = 0$ for all $i < 0$, we call such complexes \emph{cochain complexes}.
+\begin{Definition}
+The \emph{homology} of a differential graded module $(M,d)$ is defined as \newline ${H(M) \coloneqq 
+H(M,d) \coloneqq ker \, d / im \, d}$.
+We call elements of $ker \, d$ \emph{cocycles} and elements of $im \, d$ \emph{coboundaries}.
+\end{Definition}
+
+A morphism $f \colon M \to N$ of differential graded modules commutes with the differentials and hence maps cocycles to cocycles
+and coboundaries to coboundaries. Therefore it induces a well defined map $H(f) \colon H(M) \to H(N) \; \; [x] \mapsto [f(x)]$. 
+
+Most of the times we will mainly be interested in the homology of a chain complex. Therefore we will sometimes want to replace
+a cochain complex with a somehow simpler cochain complex that has the same homology. This motivates the following definition:
+
+\begin{Definition}
+ A morphism $f$ of differential graded modules that induces isomorphisms $H^i(f)$ for all $i \in \Z \;$ is called \emph{quasi-isomorphism} and will
+ be denoted by ``$\overset{\simeq}{\longrightarrow}$''. \newline
+ We call two differential graded modules $(M,d)$ and $(N,d)$ \emph{weakly equivalent} if there's a finite chain of quasi-isomorphisms of differential
+ graded modules
+ $$ (M,d) \overset{\simeq}{\leftarrow} (M_1,d) \overset{\simeq}{\rightarrow} \cdots 
+ \overset{\simeq}{\leftarrow} (M_n,d) \overset{\simeq}{\rightarrow} (N,d)$$
 
 \end{Definition}
 
@@ -156,8 +260,8 @@ Then we also call the pair $(M , d)$ a \emph{differential graded module}.
 \begin{Definition}
  Given a free graded module V we call $(\Lambda V, d)$ a \emph{Sullivan algebra} if it has the following properties :
  
-  There exists a filtration of graded subspaces $V(0) \subseteq V(1) \subset V(2) \subseteq \cdots $ of $V$
-  with $\cup_{i \in \N_0} V(i) = V$ such that 
+  There exists a filtration of graded subspaces $V(0) \subseteq V(1) \subseteq V(2) \subseteq \cdots $ of $V$
+  with $\bigcup_{i \in \N_0} V(i) = V$ such that 
   $$ d(V(0)) = 0 \; \text{and} \; d( V(k)) \subseteq  \Lambda V(k-1) $$
   
  Furthermore we call a Sullivan Algebra $(\Lambda V,d)$ \emph{minimal} if $im(d) \subseteq \Lambda^{\geq 2} V$
@@ -169,10 +273,10 @@ To get a better understanding of this structure we will now present some example
  \section{NP-complete problems concerning Sullivan algebras}
  
  In this section we want to show the %TODO Hier NP formatieren!
- NP completeness of certain problems concerning Sullivan algebras. Later we will see that these problems
- translate directly to topological problems.
+ $\NPcomplexity$ completeness of certain problems concerning Sullivan algebras. Later we will see that these problems
+ translate directly to topological problems. The theorems and proofs in this section mainly follow  \cite{Lechuga2000}.
  
- In the following we want our ground ring $R$ to be  $\Q$, hence we just consider rational Sullivan algebras.
+ In the following we want our ground ring $R$ to be  $\Q$, hence we only consider rational Sullivan algebras.
  
  \begin{Definition}
   A Sullivan algebra $(\Lambda V, d)$ is called \emph{elliptic} if both $\pi^*(\Lambda V,d)$ and $H(\Lambda V,d)$ have
@@ -183,23 +287,24 @@ To get a better understanding of this structure we will now present some example
  
  \begin{Theorem}
  \label{cohomologyFinTheorem}
-  It's a NP-hard problem to decide if a given a Sullivan algebra $(\Lambda V,d)$ with $\pi^*(\Lambda V,d)$ finite dimensional 
+  It's a $\NPcomplexity$-hard problem to decide if a given a Sullivan algebra $(\Lambda V,d)$ with $\pi^*(\Lambda V,d)$ finite dimensional 
   is elliptic . %TODO NP formatieren
  \end{Theorem}
-
- To prove this theorem we want to reduce $k$-COLOUR to deciding if $(\Lambda V,d)$ is elliptic for some special 
+ 
+ 
+ We will prove this theorem by reducing $k$-COLOUR to deciding if $(\Lambda V,d)$ is elliptic for some special 
  Sullivan algebra $(\Lambda V,d)$ which we will construct as follows : \\
  
- \begin{Construction}[The Lechuga-Murillo construction]
+ \begin{Construction}
  \label{constructionOfSullivanAlgebra}
  Let $G = (V,E)$ be an undirected, simple, connected, finite graph with vertices $ V = \lbrace v_1, \dotsc , v_n \rbrace $
  and edges $ E = \lbrace (v_r, v_s) \; | \; (r,s) \in J \rbrace$. From this we construct for a given $k \in \N$ the following
  Sullivan algebra $(\Lambda V_{G,k} , d)$ : \\
  
- $ V^{even}_{G,k} := \langle x_1, \dotsc , x_n \rangle $ \; with \; $|x_i| = 2$ \; for \; $ i = 1, \dotsc , n$ \; 
- and \; $dx_i := 0$ \\
+ $ V^{even}_{G,k} \coloneqq \langle x_1, \dotsc , x_n \rangle $ \; with \; $|x_i| = 2$ \; for \; $ i = 1, \dotsc , n$ \; 
+ and \; $dx_i \coloneqq 0$ \\
  
- $V^{odd}_{G,k} := \langle y_{(r,s)} \rangle$ , $(r,s) \in J$ \; with \; $|y_{(r,s)}| = 2k - 3$ \; and \; $dy_{(r,s)} := 
+ $V^{odd}_{G,k} \coloneqq \langle y_{(r,s)} \rangle$ , $(r,s) \in J$ \; with \; $|y_{(r,s)}| = 2k - 3$ \; and \; $dy_{(r,s)} \coloneqq 
  \sum_{l = 1}^k x_r^{k -l} x_s^{l - 1}$ \\
  
  \end{Construction}
@@ -221,10 +326,10 @@ To get a better understanding of this structure we will now present some example
 \end{Lemma}
 
 \begin{proof}
- We use the result of .. that $H^*(\Lambda V_{G,k})$ has infinite dimension if and only if %TODO Referenz einfügen!
- there's a non trivial morphism of differential graded algebras 
- $\varphi \colon (\Lambda V_{G,k},d) \to ( \C [\alpha] ,\acute{d} = 0)$ with $|\alpha| = 2$. How can such a morphism look like?
- Clearly $\varphi(x_i) = \lambda_i \alpha$ for some $\lambda_i \in \C$ and $\varphi(y_{(r,s)}) = 0$ , because 
+ We use the result of Halperin (\cite{Halperin1988} p. 6) that $H^*(\Lambda V_{G,k})$ has infinite dimension if and only if %TODO Referenz einfügen!
+ there's a non trivial morphism of differential graded algebras \\
+ ${\varphi \colon (\Lambda V_{G,k},d) \to ( \C [\alpha] ,\acute{d} = 0)}$ with $|\alpha| = 2$. How can such a morphism look like?
+ Clearly $\varphi(x_i) = \lambda_i \alpha$ for some $\lambda_i \in \C$ and $\varphi(y_{(r,s)}) = 0$ for all $(r,s) \in J$ , because 
  $(\C [\alpha] , 0)$ is zero in odd degrees. Furthermore $\varphi$ must commute with the differentials, hence 
  for all $(r,s) \in J$
  $$ 0 = \acute{d} (\varphi(y_{(r,s)})) = \varphi(dy_{(r,s)}) = \varphi(\sum_{l = 1}^k x_r^{k -l} x_s^{l - 1})
@@ -269,13 +374,11 @@ To get a better understanding of this structure we will now present some example
  \end{proof}
 
  Since the construction \ref{constructionOfSullivanAlgebra} is polynomial this also proves theorem \ref{cohomologyFinTheorem}.
- 
 % Literaturverzeichnis (beginnt auf einer ungeraden Seite)
   \newpage
   
-\begin{thebibliography}{Lam00}
- 
-\end{thebibliography}
+\bibliography{bachelorthesis}{}
+\bibliographystyle{plain}
  
       
   % ggf. hier Tabelle mit Symbolen 
