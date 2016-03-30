@@ -34,7 +34,8 @@
 \newtheorem{Theorem}{Theorem}[section]
 \newtheorem{Proposition}[Theorem]{Proposition}
 \newtheorem{Definition}[Theorem]{Definition} 
-\newtheorem{Lemma}[Theorem]{Lemma}		   
+\newtheorem{Lemma}[Theorem]{Lemma}		
+\newtheorem{Example}[Theorem]{Example}
 \newtheorem{Problem}{Problem}           
 \newtheorem{Construction}[Theorem]{Construction}           
 
@@ -248,8 +249,58 @@ a cochain complex with a somehow simpler cochain complex that has the same homol
  graded modules
  $$ (M,d) \overset{\simeq}{\leftarrow} (M_1,d) \overset{\simeq}{\rightarrow} \cdots 
  \overset{\simeq}{\leftarrow} (M_n,d) \overset{\simeq}{\rightarrow} (N,d)$$
-
 \end{Definition}
+
+\begin{Example}
+ Hier sollte singuläre Kohomologie stehen.
+\end{Example}
+
+Now that we have modules, we want to enrich their structure with a multiplication and get to graded algebras.
+
+\begin{Definition}
+ Given two graded modules $V$ and $W$ we define their \emph{tensor product} \newline
+ ${(V \otimes W) = \bigcup_{n \in \Z} (V \otimes W)^n }$ by 
+ $$ (V \otimes W)^n \coloneqq \bigoplus_{p + q = n} V^p \otimes W^q$$
+ 
+ and for linear maps $f \colon V \to V'$ of degree p and $g \colon W \to W'$ of degree q we define the induced linear map
+ of degree p+q \;  ${f \otimes g \colon V \otimes W \to V' \otimes W'}$ by
+ $$ (f \otimes g) ( x \otimes y) = (-1)^{deg \, x \; deg \,y} f(x) \otimes g(y) $$
+
+ A multiplication on a differential graded module M is an associative linear map \newline
+ ${m \colon M \otimes M \to M }$ that has a neutral element $1_M \in M^0$, i.e. $m(x \otimes 1_M) = m(1_M \otimes x) = x$.
+ In the following we will just write $xy \coloneqq m(x \otimes y)$.
+ \end{Definition}
+
+ Given this information the reader probably can guess how a graded algebra could look like and here is the definition:
+\begin{Definition}
+ A graded module $A$ with a multiplication is called a \emph{graded algebra}. We say that $A$ is \emph{commutative} if
+ $xy = (-1)^{deg \, x \; deg \, y} yx$ for all $x,y \in A$ holds. Furthermore a \emph{morphism of graded algebras} 
+ $f \colon A \to B$ is a morphism of graded modules that respects multiplication, i.e. 
+ $$f(xy) = f(x)f(y) \quad \text{for all} \; x,y \in A \quad \text{and} \; f(1_A) = 1_B $$
+\end{Definition}
+
+One should not get confused by the term commutative because it only means commutative in the regular sense in even degrees but
+anti commutative if both elements are in odd degrees.
+We can also introduce differentials to the world of algebras :
+\begin{Definition}
+ If $A$ is a (commutative) graded algebra and $d$ is a differential on $A$ that satisfies 
+ $$ d(xy) = (dx)y + (-1)^{deg x} x(dy)$$
+ then we call $(A,d)$ a \emph{(commutative) differential graded algebra}. If $A^i = 0$ for all $i < 0$ we also
+ speak of a \emph{cochain algebra}. \newline
+ Given two differential graded algebras $(A,d_1)$ and $(B, d_2)$ we can also make their tensor product a 
+ differential graded algebra $(A \otimes B, d)$ by defining 
+ $$ d(a \otimes b) \coloneqq d_1(a) \otimes b + (-1)^{deg \, a} a \otimes d_2(b)$$
+\end{Definition}
+
+Note that the homology of a (commutative) graded differential algebra is a (commutative) graded algebra.
+Next we want to introduce the so called tensor algebra $TV$ of a graded module $V$. It has the nice property
+that for every graded module morphism $\varphi \colon V \to A$ to a graded algebra $A$ there's a unique 
+graded algebra(!) morphism $\psi \colon TV \to A$ that extends $\varphi$, namely the following diagram commutes :
+
+\xymatrix{
+V \ar[dr]^{\varphi} \ar[r] & TV \ar@{-->}[d]^{\exists! \psi} \\
+& A
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  \newpage  % neuer Abschnitt auf neue Seite, kann auch entfallen
