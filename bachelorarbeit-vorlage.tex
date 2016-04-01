@@ -106,7 +106,7 @@ At first we want to introduce some basic notions in complexity theory which will
 Readers who are familiar with computational complexity theory may want to skip this section.
 
 Computational complexity theory is mainly about classifying under which restrictions problems can be algorithmically solved.
-Let's begin with defining what a problem is :
+Let us begin with defining what a problem is :
 
 \begin{Definition}
  Let $f \colon {\lbrace 0,1 \rbrace}^* \to {\lbrace 0,1 \rbrace}$ be a function and $L_f \coloneqq {\lbrace 
@@ -117,9 +117,9 @@ Let's begin with defining what a problem is :
 \end{Definition}
 
 This definition is somehow impractical and one should think of elements $x \in {\lbrace 0,1 \rbrace}^*$ as binary encoding
-of some information. It's useful to introduce decision problems like this because we then have a common basis how problems
+of some information. It is useful to introduce decision problems like this because it provides a common basis how problems
 are represented. However we will implicitly think of problems being encoded as bit strings in the following. Now
-we want to look at a first problem, namely $k$-COLOUR. Informally it can be stated like this : \\
+we want to look at a first problem, namely $k$-COLOUR. It can be stated like this : \\
  Given an undirected graph $ G = (V,E)$ is it possible to assign a colour (chosen from $k$ different colours) to every vertex 
  $v \in V$ such that adjacent vertices have different colours? In more mathematical language it looks like this:
 
@@ -132,7 +132,7 @@ we want to look at a first problem, namely $k$-COLOUR. Informally it can be stat
 
 Next we want to classify the ``hardness'' of decision problems and therefore introduce complexity classes. A \emph{complexity class}
  is a set of languages (or functions) that can be computed under certain restrictions. We only want to introduce two 
- of the most important complexity classes namely $\Pcomplexity$ and $\NPcomplexity$. We will informally use the term algorithm
+ of the most important complexity classes namely $\Pcomplexity$ and $\NPcomplexity$. We will use the term algorithm
  to mean a deterministic Turing maschine (refer to \cite{Arora2009} chapter 1 for a more formal treatment). 
  
 \begin{Definition}
@@ -223,10 +223,11 @@ Then we also call the pair $(M , d)$ a \emph{differential graded module} or a \e
 A morphism $f \colon M \to N$ of differential graded modules $(M,d)$ and $(N,d')$ is a linear map of graded modules that commutes with the 
 differentials, i.e. the diagram \\
 
+\centerline{
 \xymatrix{
 \dotsc \ar[r]^{d} & M^{i-1} \ar[d]^{f^{i-1}} \ar[r]^d & M^i \ar[d]^{f^i} \ar[r]^d &M^{i+1}\ar[d]^{f^{i+1}} \ar[r]^{d} & \dotsc\\
 \dotsc \ar[r]^{d'} & N^{i-1} \ar[r]^{d'} & N^{i} \ar[r]^{d'} & N^{i+1} \ar[r]^{d'} & \dotsc}
-
+}
 commutes.
 \end{Definition}
 
@@ -246,14 +247,19 @@ a cochain complex with a somehow simpler cochain complex that has the same homol
 \begin{Definition}
  A morphism $f$ of differential graded modules that induces isomorphisms $H^i(f)$ for all $i \in \Z \;$ is called \emph{quasi-isomorphism} and will
  be denoted by ``$\overset{\simeq}{\longrightarrow}$''. \newline
- We call two differential graded modules $(M,d)$ and $(N,d)$ \emph{weakly equivalent} if there's a finite chain of quasi-isomorphisms of differential
+ We call two differential graded modules $(M,d)$ and $(N,d)$ \emph{weakly equivalent} if there is a finite chain of quasi-isomorphisms of differential
  graded modules
  $$ (M,d) \overset{\simeq}{\leftarrow} (M_1,d) \overset{\simeq}{\rightarrow} \cdots 
  \overset{\simeq}{\leftarrow} (M_n,d) \overset{\simeq}{\rightarrow} (N,d)$$
 \end{Definition}
 
-\begin{Example}
- Hier sollte singuläre Kohomologie stehen.
+\begin{Example}[Singular Cohomology]
+ Let $\triangle^n \coloneqq {\lbrace (x_0, \dotsc , x_n) \in \R^{n+1} \; | \; \sum_{i = 0}^n x_i = 1\rbrace}$ be the standard
+ $n$-simplex. Let $X$ be a topological space and denote by
+ $S_n(X) \coloneqq {\lbrace \sigma \colon \triangle^n \to X \; | \; \sigma \, continous \rbrace}$ the set of
+ \emph{singular simplices}. Now take the free $R$-module with basis $S_n$ and denote it by $C_n$.
+ 
+ 
 \end{Example}
 
 Now that we have modules, we want to enrich their structure with a multiplication and get to graded algebras.
@@ -276,32 +282,34 @@ Now that we have modules, we want to enrich their structure with a multiplicatio
  Given this information the reader probably can guess how a graded algebra could look like and here is the definition:
 \begin{Definition}
  A graded module $A$ with a multiplication is called a \emph{graded algebra}. We say that $A$ is \emph{commutative} if
- $xy = (-1)^{deg \, x \; deg \, y} yx$ for all $x,y \in A$ holds. Furthermore a \emph{morphism of graded algebras} 
+ $xy = (-1)^{deg \, x \; deg \, y} yx$ for all $x,y \in A$ holds. Furthermore, a \emph{morphism of graded algebras} 
  $f \colon A \to B$ is a morphism of graded modules that respects multiplication, i.e. 
  $$f(xy) = f(x)f(y) \quad \text{for all} \; x,y \in A \quad \text{and} \; f(1_A) = 1_B $$
 \end{Definition}
 
-One should not get confused by the term commutative because it only means commutative in the regular sense in even degrees but
+One should not get confused by the term commutative since it only means commutative in the regular sense in even degrees but
 anti commutative if both elements are in odd degrees.
 We can also introduce differentials to the world of algebras :
 \begin{Definition}
- If $A$ is a (commutative) graded algebra and $d$ is a differential on $A$ that satisfies 
+ If $A$ is a (commutative) graded algebra and $d$ is a differential on $A$ that is a \emph{derivation} which means
+ that it satisfies 
  $$ d(xy) = (dx)y + (-1)^{deg x} x(dy)$$
  then we call $(A,d)$ a \emph{(commutative) differential graded algebra}. If $A^i = 0$ for all $i < 0$ we also
  speak of a \emph{cochain algebra}. \newline
- Given two differential graded algebras $(A,d_1)$ and $(B, d_2)$ we can also make their tensor product a 
+ Given two differential graded algebras $(A,d_1)$ and $(B, d_2)$ we can make their tensor product a 
  differential graded algebra $(A \otimes B, d)$ by defining 
  $$ d(a \otimes b) \coloneqq d_1(a) \otimes b + (-1)^{deg \, a} a \otimes d_2(b)$$
 \end{Definition}
 
 Note that the homology of a (commutative) graded differential algebra is a (commutative) graded algebra. \newline
-Next we want to introduce the so called tensor algebra $TV$ of a graded module $V$. It has the nice property
-that for every graded module morphism $\varphi \colon V \to A$ to a graded algebra $A$ there's a unique 
+Next we want to introduce the tensor algebra $TV$ of a graded module $V$. It has the nice property
+that for every graded module morphism $\varphi \colon V \to A$ to a graded algebra $A$ there is a unique 
 graded algebra(!) morphism $\psi \colon TV \to A$ that extends $\varphi$, namely the following diagram commutes :
 
-\xymatrix{
+\centerline{ \xymatrix{
 V \ar[dr]^{\varphi} \ar[r] & TV \ar@{-->}[d]^{\exists! \psi} \\
 & A
+}
 }
 
 \begin{Definition}
@@ -309,11 +317,12 @@ V \ar[dr]^{\varphi} \ar[r] & TV \ar@{-->}[d]^{\exists! \psi} \\
  $$ TV \coloneqq \bigoplus_{i = 0}^\infty T^i V$$
  where $T^0 V \coloneqq R$ and $T^i V \coloneqq \bigotimes_{k=1}^i V$. \newline
  As a direct sum of graded modules it is again a graded module and the induced grading on an element
- $ v = \otimes_{i = 1}^k v_i $ (with $v_i \in V$ homogeneous) is given by $ |v| = \sum_{ i = 1}^k |v_i|$
- Furthermore it becomes a graded algebra by the multiplication $xy \coloneqq x \otimes y$.
+ $ v = \otimes_{i = 1}^k v_i $ (with $v_i \in V$ homogeneous) is given by $ |v| = \sum_{ i = 1}^k |v_i|$.
+ For such $v$ we will say that $v$ has \emph{wordlength} $k$.
+ Furthermore, it becomes a graded algebra by the multiplication $xy \coloneqq x \otimes y$.
 \end{Definition}
 
-Although the tensor algebra is a very nice algebra it has the problem that it's not commutative in general. We can fix this by
+Although the tensor algebra is a very nice algebra it has the problem that it is not commutative in general. We can fix this by
 defining the free commutative algebra for rings $R$ where $0 \neq 2$.
 
 \begin{Definition}
@@ -323,7 +332,26 @@ defining the free commutative algebra for rings $R$ where $0 \neq 2$.
 \end{Definition}
 
 The free commutative graded algebra is always commutative since we divide out all elements which would prevent it 
-from being commutative. 
+from being commutative. Furthermore, it has a similar universal property like the tensor algebra: For every graded
+module $V$, commutative graded algebra $A$ and linear map $\varphi \colon V \to A$ there is a unique morphism of
+graded algebras $\psi \colon \Lambda V \to A$ which makes the following diagram commutative
+
+ 
+
+\centerline{\xymatrix{
+V \ar[dr]^{\varphi} \ar[r] & \Lambda V \ar@{-->}[d]^{\exists! \psi} \\
+& A
+}
+}
+
+
+
+Moreover, we have to introduce some more notation: Given a free graded module $V$, we denote 
+by $\Lambda^{\geq k} V$ the vector space of elements in $\Lambda V$ with wordlength at least $k$.
+Additionally $V^{\geq k}$ denotes the subspace of elements of degree at least k and ${\Lambda V}^{\geq k}$ 
+is the free commutative algebra over this subspace $V^{\geq k}$. Unfortunately these two notations look 
+very similar and are very different in their nature, one should not confuse them.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  \newpage  % neuer Abschnitt auf neue Seite, kann auch entfallen
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -331,23 +359,41 @@ from being commutative.
 \section{Sullivan algebras}
 
 \begin{Definition}
- Given a free graded module V we call $(\Lambda V, d)$ a \emph{Sullivan algebra} if it has the following properties :
+ Given a free graded module $V = {\lbrace {V^i}\rbrace}_{ i \geq 1} $ we call $(\Lambda V, d)$ a \emph{Sullivan algebra} 
+ if it satisfies the following properties :
  
   There exists a filtration of graded subspaces $V(0) \subseteq V(1) \subseteq V(2) \subseteq \cdots $ of $V$
   with $\bigcup_{i \in \N_0} V(i) = V$ such that 
   $$ d(V(0)) = 0 \; \text{and} \; d( V(k)) \subseteq  \Lambda V(k-1) $$
   
- Furthermore we call a Sullivan Algebra $(\Lambda V,d)$ \emph{minimal} if $im(d) \subseteq \Lambda^{\geq 2} V$
+ This property is called the \emph{nilpotence} property.
+ Furthermore, we call a Sullivan Algebra $(\Lambda V,d)$ \emph{minimal} if $im(d) \subseteq \Lambda^{\geq 2} V$
 \end{Definition}
 
+Note that the structure of a Sullivan algebra $\Sullivan$ is completely encoded by the graded module $V$ and its
+differential $d$. That is, if we are given a differential (which is a derivation) $d \colon V \to \Lambda V$ then the
+universal property of free commutative algebras tells us that $d$ extends uniquely to $d \colon \Lambda V \to \Lambda V$.
+Therefore it is enough to specify the differential of a Sullivan algebra $\Sullivan$ on the basis of $V$.
 To get a better understanding of this structure we will now present some examples.
 
+\begin{Example}
+ First we want to present an algebra which is not a Sullivan algebra. 
+ Consider the graded $\Q$-vector space $V = \langle x,y,z \rangle$ with $|x| = |y| = |z| = 1$ and 
+ equip it with a differential $d$ which is defined by $dx = yz$ , $dy = xz$, $dz = xy$. \newline
+ If $\Sullivan$ were a Sullivan algebra it would be minimal since 
+ the differential only hits elements of wordlength greater $2$. But this tells us that we could choose a filtration 
+ ${\lbrace V(i) \rbrace}_{i \geq 0}$ for
+ the nilpotence condition which respects the degree of elements, hence $ x $ would be in some $V(i)$ and $yz$ in some $V(j)$
+ with $i \leq j$ but this contradicts $dx \in \Lambda V(i-1)$ ($x$ can not be in $V(0)$ since it is not a cocycle).
+ 
+ 
+\end{Example}
 
  \section{NP-complete problems concerning Sullivan algebras}
  
- In this section we want to show the %TODO Hier NP formatieren!
+ In this section we want to show the 
  $\NPcomplexity$ completeness of certain problems concerning Sullivan algebras. Later we will see that these problems
- translate directly to topological problems. The theorems and proofs in this section mainly follow  \cite{Lechuga2000}.
+ translate directly to topological problems. The Theorems and proofs in this section mainly follow  \cite{Lechuga2000}.
  
  In the following we want our ground ring $R$ to be  $\Q$, hence we only consider rational Sullivan algebras.
  
@@ -360,12 +406,12 @@ To get a better understanding of this structure we will now present some example
  
  \begin{Theorem}[Lechuga, Murrilo]
  \label{cohomologyFinTheorem}
-  It's a $\NPcomplexity$-hard problem to decide if a given a Sullivan algebra $(\Lambda V,d)$ with $\pi^*(\Lambda V,d)$ finite dimensional 
-  is elliptic . %TODO NP formatieren
+  It is a $\NPcomplexity$-hard problem to decide if a given a Sullivan algebra $(\Lambda V,d)$ with $\pi^*(\Lambda V,d)$ finite dimensional 
+  is elliptic . 
  \end{Theorem}
  
  
- We will prove this theorem by reducing $k$-COLOUR to deciding if $(\Lambda V,d)$ is elliptic for some special 
+ We will prove this Theorem by reducing $k$-COLOUR to deciding if $(\Lambda V,d)$ is elliptic for some special 
  Sullivan algebra $(\Lambda V,d)$ which we will construct as follows : \\
  
  \begin{Construction}
@@ -383,10 +429,11 @@ To get a better understanding of this structure we will now present some example
  \end{Construction}
 
   If $k \geq 3$ the differential of the $y_{(r,s)}$ contains no linear term, hence
-  $(\Lambda V_{G,s} ,d)$ is minimal for $k \geq 3$. To prove theorem \ref{cohomologyFinTheorem}, we first need the following lemmata:
+  $(\Lambda V_{G,s} ,d)$ is minimal for $k \geq 3$. To prove Theorem \ref{cohomologyFinTheorem}, we first need the following Lemmata:
  
  \begin{Lemma}
-  Let $\K$ be an algebraically closed field and $(\Lambda V,d)$ a minimal Sullivan algebra over $\K$ with finite $V^i$ for all $i \geq 0$. \newline
+  Let $\K$ be an algebraically closed field and $(\Lambda V,d)$ a minimal Sullivan
+  algebra over $\K$ with finite dimensional $V$. \newline5
   Then $H^*(\Sullivan)$ has finite dimension if and only if   
   the only morphism of differential graded algebras 
   $$ \varphi : \Sullivan \to (\K[\alpha],0) \; |\alpha| = 2 $$ 
@@ -410,7 +457,7 @@ To get a better understanding of this structure we will now present some example
  $[v^k]$ of $[v]$ the finiteness condition on homology implies that this will land in a $0$-module for big enough $k$, hence 
  $[z^k] = 0$. This is equivalent to $v^k$ being a coboundary. Now consider the induced morphism
  $$ \bar{\varphi} \colon (\Lambda V^{\geq i} , \bar{d}) \to (\K[\alpha],0)$$
- Since boundaries get mapped to boundaries $\bar{\varphi}(v^k)$ is a coboundary. And $(\K[\alpha],0)$ is zero in odd degrees thus
+ Since boundaries get mapped to boundaries $\bar{\varphi}(v^k)$ is a coboundary. Besides, $(\K[\alpha],0)$ is zero in odd degrees thus
  $0$ is the only coboundary and therefore $\varphi(v^k) = 0$. Now that $(\K[\alpha],0)$ is integer we have 
  $\varphi(v)= \bar{\varphi}(v) = 0$ and this closes the induction.
    
@@ -431,15 +478,15 @@ To get a better understanding of this structure we will now present some example
 
 \begin{proof}
  We use the result of Halperin (\cite{Halperin1988} p. 6) that $H^*(\Lambda V_{G,k})$ has infinite dimension if and only if %TODO Referenz einfügen!
- there's a non trivial morphism of differential graded algebras \\
+ there is a non trivial morphism of differential graded algebras \\
  ${\varphi \colon (\Lambda V_{G,k},d) \to ( \C [\alpha] ,\acute{d} = 0)}$ with $|\alpha| = 2$. How can such a morphism look like?
- Clearly $\varphi(x_i) = \lambda_i \alpha$ for some $\lambda_i \in \C$ and $\varphi(y_{(r,s)}) = 0$ for all $(r,s) \in J$ , because 
- $(\C [\alpha] , 0)$ is zero in odd degrees. Furthermore $\varphi$ must commute with the differentials, hence 
+ Clearly $\varphi(x_i) = \lambda_i \alpha$ for some $\lambda_i \in \C$ and $\varphi(y_{(r,s)}) = 0$ for all $(r,s) \in J$ , since 
+ $(\C [\alpha] , 0)$ is zero in odd degrees. Furthermore, $\varphi$ must commute with the differentials, hence 
  for all $(r,s) \in J$
  $$ 0 = \acute{d} (\varphi(y_{(r,s)})) = \varphi(dy_{(r,s)}) = \varphi(\sum_{l = 1}^k x_r^{k -l} x_s^{l - 1})
  = \sum_{l = 1}^k \varphi(x_r)^{k -l} \varphi(x_s)^{l - 1}$$
  
- And this shows that $(\varphi(x_i))_{i = 1, \dotsc , n}$ must be a solution of \ref{systemofequations}, which is not trivial
+ This shows that $(\varphi(x_i))_{i = 1, \dotsc , n}$ must be a solution of \ref{systemofequations}, which is not trivial
  if $\varphi$ is not trivial.
  This also works the other way round and every non trivial solution  $(\lambda_1 , \dotsc, \lambda_n)$ of \ref{systemofequations}
  can be used to define a non trivial morphism $\varphi(x_i) = \lambda_i \alpha$.
@@ -460,13 +507,13 @@ To get a better understanding of this structure we will now present some example
   $$
   
   Hence $(\zeta_k^{f(x_i)})_{i = 1, \dotsc, n}$ defines a non trivial solution of \ref{systemofequations}
-  and lemma \ref{lma:cohomoly+equations} tells us that $(\Lambda V_{(G,k)},d)$ is not elliptic and this shows
+  and Lemma \ref{lma:cohomoly+equations} tells us that $(\Lambda V_{(G,k)},d)$ is not elliptic and this shows
   ``$\implies$''. \\
-  Let now $(\Lambda V_{(G,k)},d)$ be not elliptic. Then lemma \ref{lma:cohomoly+equations} gives us a non trivial
+  Let now $(\Lambda V_{(G,k)},d)$ be not elliptic. Then Lemma \ref{lma:cohomoly+equations} gives us a non trivial
   solution $(\lambda_1 , \dotsc, \lambda_n) \in \C^n$ of \ref{systemofequations}. We now use this solution to construct
   a colouring of $G$. First observe that $G$ being connected implies that $\lambda_i \neq 0$ for all $\lambda_i$. Then we have
   for $(r,s) \in J$ that $ \lambda_r^k - \lambda_s^k = ( \lambda_r - \lambda_s) 
-  \sum_{l = 1}^k \lambda_r^{k - l} \lambda_s^{l - 1} = 0$ . And since $G$ is connected we have 
+  \sum_{l = 1}^k \lambda_r^{k - l} \lambda_s^{l - 1} = 0$ . Since $G$ is connected we have 
   $\lambda_1^k = \dotsc = \lambda_n^k$ , which we can wlog assume to equal $1$. Therefore every $\lambda_i$ is a 
   $k$-th root of unity and we can define $f \colon V \to { \lbrace 1, \dotsc , k \rbrace }$ such that 
   $\lambda_i = \zeta_k^{f(x_i)}$. This $f$ now defines a colouring, because if we assume that for a $(i,j) \in J$
@@ -477,7 +524,7 @@ To get a better understanding of this structure we will now present some example
   
  \end{proof}
 
- Since the construction \ref{constructionOfSullivanAlgebra} is polynomial this also proves theorem \ref{cohomologyFinTheorem}.
+ Since the construction \ref{constructionOfSullivanAlgebra} is polynomial this also proves Theorem \ref{cohomologyFinTheorem}.
 % Literaturverzeichnis (beginnt auf einer ungeraden Seite)
   \newpage
   
