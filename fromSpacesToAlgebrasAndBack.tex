@@ -1,0 +1,108 @@
+
+ \section{From spaces to algebras and back}
+ 
+ \subsection{From spaces to algebras}
+ 
+ \begin{Definition}
+  A \emph{simplicial object} $K$ in a category $\mathscr{C}$ %TODO nachschauen wie man hier Kategorie typsetted
+  is a collection of objects $(K_n)_{n \geq 0}$ in $\mathscr{C}$ with $\mathscr{C}$-morphism
+  $\partial_i \colon K_{n+1} \to K_n$ for $i = 0, \cdots, n+1$ called the \emph{face morphisms} and \newline
+  $s_i \colon K_n \to K_{n+1}$ for $i = 0, \cdots, n$ called the \emph{degeneracy morphisms}
+  
+  They must fulfill the following equations : %TODO irgendwie noch schauen ob man das auch horizontal nebeneinander machen kann
+  \begin{itemize}
+   \item $\partial_i \partial_j = \partial_{j-1} \partial_i$ for $i < j$
+   \item  $s_i s_j = s_{j+1} s_j$ for $ i \leq j$
+   \item $ \partial_i s_j = \begin{cases}
+              s_{j-1} \partial_i 	&\text{if $i < j$} \\
+              id 	&\text{if $i = j, j+1$} \\
+              s_j \partial_{i-1}	 &\text{if $ i > j + 1$}
+             
+             \end{cases}
+    $	
+    
+    As one might expect a map $f \colon K \to L$ of simplicial objects $K$ and $L$ (in the same category $\mathscr{C}$), is a collection
+    of $\mathscr{C}$-morphism $( f_n \colon K_n \to L_n)_{ n \geq 0}$ that commute with the face and degeneracy maps, i.e.
+    \begin{multicols}{3}
+    %TODO das hier irgendwie nebeneinander bringen
+    \xymatrix{
+    K_{n+1} \ar[d]^{\partial_i} \ar[r]^{f_{n+1}} & L_{n+1} \ar[d]^{\partial_i} \\
+    K_n \ar[r]^{f_n} & L_n
+    }
+     \columnbreak
+    \begin{center}
+     and
+    \end{center}
+    \columnbreak
+    \xymatrix{
+    K_n \ar[r]^{f_n} & L_n \\
+    K_{n-1} \ar[u]^{s_i} \ar[r]^{f_{n-1}} & L_{n-1} \ar[u]^{s_i}     
+    }
+    \end{multicols}
+    
+    
+    
+    commute for all $i,j,n$. \\
+   A simplicial object in the category of sets will also be called a \emph{simplicial set} and a map 
+   of simplicial objects between such \emph{simplicial map}.
+  \end{itemize}
+ \end{Definition}
+
+ \begin{Example}
+    We already have seen an example of a simplicial set, namely the singular simplices 
+    $S^{sing}_*(X) \coloneqq (S_n^{sing}(X))_{n \geq 0}$ of a topological space $X$.
+    We define the face maps $\partial_i \coloneqq \lambda^i$ by the $\lambda^i$ defined in \ref{ex:SingularChainComplex} and
+    the degeneracy maps by $s_i (x_0, \dotsc, x_n) \coloneqq (x_0, \dotsc, x_{i-1}, x_{i+1}, \dotsc, x_n)$.
+ \end{Example}
+
+ \begin{Definition}
+  Let $K$ be a simplicial set and $A$ a simplicial cochain algebra, we define the cochain algebra
+  $$ A(K) = { \lbrace A^p(K) \rbrace}_{ p \geq 0} $$
+  as follows :
+  \begin{itemize}
+   \item $A^p(K)$ is the set of simplicial maps between $K$ and $A^p$, i.e. 
+  \end{itemize}
+  %TODO fertig schreiben
+ \end{Definition}
+
+ \subsection{From algebras to spaces}
+ 
+ Now we want to see how we can can realise a Sullivan algebra $\Sullivan$ as a topological space 
+ $| \langle \Sullivan \rangle |$. Moreover, we will see that $\Sullivan \simeq A_{PL}(| \langle \Sullivan \rangle |)$ for a
+ ``sufficient nice'' class of Sullivan algebras $\Sullivan$. \\
+ We begin with constructing a contravariant functor that turns commutative cochain algebras into simplicial sets.
+ 
+ \begin{Definition}
+  Given a commutative cochain algebra $(A,d)$ we construct the simplicial set $\langle A , d \rangle$ as follows : \\
+  \begin{itemize}
+   \item $(\langle A,d \rangle)_n$ consists of the morphisms of differential graded algebras 
+   $\varphi (A,d) \to (A_{PL})_n$.
+  \item The face and degeneracy morphism are defined by $\partial_i \varphi = \partial_i \circ \varphi$ and
+  accordingly ${s_j \varphi = s_j \circ \varphi}$
+  \end{itemize}
+
+  Additionally, for a morphism of cochain algebras ${f \colon (A,d) \to (B,d)}$ we define a simplicial map
+  ${\langle f \rangle \colon \langle (B,d) \rangle \to \langle (A,d) \rangle}$ by
+  ${\varphi \mapsto \varphi \circ f}$. \newline
+  This defines a contravariant functor from the category of commutative cochain algebras to the category of simplicial sets
+  and is called the \emph{Sullivan realisation}.
+ \end{Definition}
+
+ Going one step further we now want to make topological spaces out of simplicial sets.
+ 
+ \begin{Definition}
+  Given a simplicial set $K$ we equip each $K_n$ with the discrete topology and define its \emph{Milnor realisation} by :
+  
+  $$|K| \coloneqq (\coprod_{n \geq 0} K_n \times \Delta^n) / \sim$$
+  
+  where $\sim ~$ is the equivalence relation induced by the relations
+  %TODO aligning verbessern damit die auf gleicher Ebene sind
+  $$ s_j \sigma \times x \sim \sigma \times \varrho^j x \; \; \; \; \text{for $\sigma \in K_n$ , $x \in \Delta^n$}$$
+  $$ \partial_i \sigma \times x \sim \sigma \lambda^j x \; \; \; \; \text{for $\sigma \in K_{n+1}$ , $x \in \Delta^n$}$$
+  
+  for the maps $\varrho^j \colon \Delta^k \to \Delta^{k+1}$ ,
+  ${\varrho^j(x_0, \dotsc , x_k) \coloneqq (x_0 , \dotsc, x_j , x_j , \dotsc, x_n)}$ and \newline
+  ${\lambda^j \colon \Delta^{k+1} \to \Delta^k}$ , 
+  ${\lambda^j(x_0, \dotsc, x_{k+1} \coloneqq }$ %TODO fertig schreiben
+ 
+ \end{Definition}

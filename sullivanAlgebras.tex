@@ -1,0 +1,33 @@
+
+\section{Sullivan algebras}
+
+\begin{Definition}
+ Given a free graded module $V = {\lbrace {V^i}\rbrace}_{ i \geq 1} $ we call $(\Lambda V, d)$ a \emph{Sullivan algebra} 
+ if it satisfies the following properties :
+ 
+  There exists a filtration of graded subspaces $V(0) \subseteq V(1) \subseteq V(2) \subseteq \cdots $ of $V$
+  with $\bigcup_{i \in \N_0} V(i) = V$ such that 
+  $$ d(V(0)) = 0 \; \text{and} \; d( V(k)) \subseteq  \Lambda V(k-1) $$
+  
+ This property is called the \emph{nilpotence} property.
+ Furthermore, we call a Sullivan Algebra $(\Lambda V,d)$ \emph{minimal} if $im(d) \subseteq \Lambda^{\geq 2} V$
+\end{Definition}
+
+Note that the structure of a Sullivan algebra $\Sullivan$ is completely encoded by the graded module $V$ and its
+differential $d$. That is, if we are given a differential (which is a derivation) $d \colon V \to \Lambda V$ then the
+universal property of free commutative algebras tells us that $d$ extends uniquely to $d \colon \Lambda V \to \Lambda V$.
+Therefore it is enough to specify the differential of a Sullivan algebra $\Sullivan$ on the basis of $V$.
+To get a better understanding of this structure we will now present some examples.
+
+\begin{Example}
+ First we want to present an algebra which is not a Sullivan algebra. 
+ Consider the graded $\Q$-vector space $V = \langle x,y,z \rangle$ with $|x| = |y| = |z| = 1$ and 
+ equip it with a differential $d$ which is defined by $dx = yz$ , $dy = xz$, $dz = xy$. \newline
+ If $\Sullivan$ was a Sullivan algebra it would be minimal since 
+ the differential only hits elements of wordlength greater $2$. But this tells us that we could choose a filtration 
+ ${\lbrace V(i) \rbrace}_{i \geq 0}$ for
+ the nilpotence condition which respects the degree of elements, hence $ x $ would be in some $V(i)$ and $yz$ in some $V(j)$
+ with $i \leq j$ but this contradicts $dx \in \Lambda V(i-1)$ ($x$ can not be in $V(0)$ since it is not a cocycle).
+ 
+ 
+\end{Example}
