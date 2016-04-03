@@ -4,7 +4,7 @@
  \subsection{From spaces to algebras}
  
  \begin{Definition}
-  A \emph{simplicial object} $K$ in a category $\mathscr{C}$ %TODO nachschauen wie man hier Kategorie typsetted
+  A \emph{simplicial object} $K$ in a category $\mathscr{C}$
   is a collection of objects $(K_n)_{n \geq 0}$ in $\mathscr{C}$ with $\mathscr{C}$-morphism
   $\partial_i \colon K_{n+1} \to K_n$ for $i = 0, \cdots, n+1$ called the \emph{face morphisms} and \newline
   $s_i \colon K_n \to K_{n+1}$ for $i = 0, \cdots, n$ called the \emph{degeneracy morphisms}
@@ -20,7 +20,7 @@
              
              \end{cases}
     $	
-    
+    \end{itemize}
     As one might expect a map $f \colon K \to L$ of simplicial objects $K$ and $L$ (in the same category $\mathscr{C}$), is a collection
     of $\mathscr{C}$-morphism $( f_n \colon K_n \to L_n)_{ n \geq 0}$ that commute with the face and degeneracy maps, i.e.
     \begin{multicols}{3}
@@ -45,14 +45,25 @@
     commute for all $i,j,n$. \\
    A simplicial object in the category of sets will also be called a \emph{simplicial set} and a map 
    of simplicial objects between such \emph{simplicial map}.
-  \end{itemize}
+  
  \end{Definition}
 
  \begin{Example}
+ \label{ex:SingularSimplicesAreSimplicialSets}
     We already have seen an example of a simplicial set, namely the singular simplices 
     $S^{sing}_*(X) \coloneqq (S_n^{sing}(X))_{n \geq 0}$ of a topological space $X$.
-    We define the face maps $\partial_i \coloneqq \lambda^i$ by the $\lambda^i$ defined in \ref{ex:SingularChainComplex} and
-    the degeneracy maps by $s_i (x_0, \dotsc, x_n) \coloneqq (x_0, \dotsc, x_{i-1}, x_{i+1}, \dotsc, x_n)$.
+    Let
+    $\varrho^j \colon \Delta^k \to \Delta^{k - 1}$ ,
+    ${\varrho^j(x_0, \dotsc , x_k) \coloneqq (x_0 , \dotsc, x_j + x_{j + 1} , \dotsc, x_k)}$ and 
+    $\lambda^i$ as defined in \ref{ex:SingularChainComplex}. We use them to define the face
+    and degeneracy maps as follows:
+    \begin{align*}
+     \partial_i \colon S_{n+1}^{sing}(X) \to S_n^{sing}(X) \quad	 &	 \partial_i(\sigma) =
+      \sigma \circ \lambda^i  & \text{for $\sigma \in S_{n+1}^{sing}(X)$} 	\\
+     s_i \colon S_n^{sing}(X) \to S_{n+1}^{sing}(X) \quad	&	s_i( \sigma) =
+     \sigma \circ \varrho^i  & \text{for $\sigma \in S_{n}^{sing}(X)$}
+    \end{align*}
+    A calculation shows that they satisfy the corresponding equations.
  \end{Example}
 
  \begin{Definition}
@@ -73,12 +84,13 @@
  We begin with constructing a contravariant functor that turns commutative cochain algebras into simplicial sets.
  
  \begin{Definition}
-  Given a commutative cochain algebra $(A,d)$ we construct the simplicial set $\langle A , d \rangle$ as follows : \\
+  Given a commutative cochain algebra $(A,d)$ we construct the simplicial set 
+  $\langle A , d \rangle = {\lbrace (\langle A , d \rangle)_n \rbrace}_{n \geq 0}$ as follows : \\
   \begin{itemize}
    \item $(\langle A,d \rangle)_n$ consists of the morphisms of differential graded algebras 
    $\varphi (A,d) \to (A_{PL})_n$.
-  \item The face and degeneracy morphism are defined by $\partial_i \varphi = \partial_i \circ \varphi$ and
-  accordingly ${s_j \varphi = s_j \circ \varphi}$
+  \item The face and degeneracy morphisms are defined by $\partial_i \varphi \coloneqq \partial_i \circ \varphi$ and
+  accordingly ${s_j \varphi \coloneqq s_j \circ \varphi}$ 
   \end{itemize}
 
   Additionally, for a morphism of cochain algebras ${f \colon (A,d) \to (B,d)}$ we define a simplicial map
@@ -91,18 +103,22 @@
  Going one step further we now want to make topological spaces out of simplicial sets.
  
  \begin{Definition}
-  Given a simplicial set $K$ we equip each $K_n$ with the discrete topology and define its \emph{Milnor realisation} by :
+  Given a simplicial set $K = {\lbrace K_n \rbrace}_{n \geq 0}$ we equip each $K_n$ with the discrete topology and define its \emph{Milnor realisation} by :
   
   $$|K| \coloneqq (\coprod_{n \geq 0} K_n \times \Delta^n) / \sim$$
   
   where $\sim ~$ is the equivalence relation induced by the relations
   %TODO aligning verbessern damit die auf gleicher Ebene sind
-  $$ s_j \sigma \times x \sim \sigma \times \varrho^j x \; \; \; \; \text{for $\sigma \in K_n$ , $x \in \Delta^n$}$$
-  $$ \partial_i \sigma \times x \sim \sigma \lambda^j x \; \; \; \; \text{for $\sigma \in K_{n+1}$ , $x \in \Delta^n$}$$
+  $$ s_j \sigma \times x \sim \sigma \times \varrho^j x \; \; \; \; \text{for $\sigma \in K_n$ , $x \in \Delta^{n+1}$}$$
+  $$ \partial_i \sigma \times x \sim \sigma \times \lambda^j x \; \; \; \; \text{for $\sigma \in K_{n+1}$ , $x \in \Delta^n$}$$
   
-  for the maps $\varrho^j \colon \Delta^k \to \Delta^{k+1}$ ,
-  ${\varrho^j(x_0, \dotsc , x_k) \coloneqq (x_0 , \dotsc, x_j , x_j , \dotsc, x_n)}$ and \newline
-  ${\lambda^j \colon \Delta^{k+1} \to \Delta^k}$ , 
-  ${\lambda^j(x_0, \dotsc, x_{k+1} \coloneqq }$ %TODO fertig schreiben
+  for the maps $\varrho^j$ and $\lambda^i$ from \ref{ex:SingularSimplicesAreSimplicialSets}.
+ \end{Definition}
  
+ One can show that the Milnor realisation functor always yields a CW-Complex (\cite{Milnor1957}).
+ Given this we are now able to construct a functor from commutative cochain algebras to topological spaces.
+ 
+ \begin{Definition}
+  Given a commutative cochain algebra $(A,d)$ we call $| \langle (A,d) \rangle |$ its \emph{spatial realisation} and for
+  a morphism $\varphi \colon (A,d) \to (B,d)$ we call $|\langle \varphi \rangle|$ its spatial realisation.
  \end{Definition}
