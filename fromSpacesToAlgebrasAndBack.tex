@@ -5,9 +5,9 @@
  
  \begin{Definition}
   A \emph{simplicial object} $K$ in a category $\mathscr{C}$
-  is a collection of objects $(K_n)_{n \geq 0}$ in $\mathscr{C}$ with $\mathscr{C}$-morphism
-  $\partial_i \colon K_{n+1} \to K_n$ for $i = 0, \cdots, n+1$ called the \emph{face morphisms} and \newline
-  $s_i \colon K_n \to K_{n+1}$ for $i = 0, \cdots, n$ called the \emph{degeneracy morphisms}
+  is a collection of objects ${(K_n)}_{n \geq 0}$ in $\mathscr{C}$ with $\mathscr{C}$-morphism
+  $\partial_i \colon K_{n+1} \to K_n$ for $i = 0, \ldots, n+1$ called the \emph{face morphisms} and \newline
+  $s_i \colon K_n \to K_{n+1}$ for $i = 0, \ldots, n$ called the \emph{degeneracy morphisms}
   
   They must fulfill the following equations : %TODO irgendwie noch schauen ob man das auch horizontal nebeneinander machen kann
   \begin{itemize}
@@ -44,7 +44,8 @@
     
     commute for all $i,j,n$. \\
    A simplicial object in the category of sets will also be called a \emph{simplicial set} and a map 
-   of simplicial objects between such \emph{simplicial map}.
+   of simplicial objects between such \emph{simplicial map}, a simplicial object in the category of 
+   cochain algebras will be called \emph{simplicial cochain algebra} and so forth.
   
  \end{Definition}
 
@@ -67,15 +68,95 @@
  \end{Example}
 
  \begin{Definition}
-  Let $K$ be a simplicial set and $A$ a simplicial cochain algebra, we define the cochain algebra
+  Let $K$ be a simplicial set and $A = { \lbrace A_n \rbrace}_{n \geq 0}$ a simplicial cochain algebra, we define the cochain algebra
   $$ A(K) = { \lbrace A^p(K) \rbrace}_{ p \geq 0} $$
   as follows :
   \begin{itemize}
-   \item $A^p(K)$ is the set of simplicial maps between $K$ and $A^p$, i.e. 
+   \item $A^p(K)$ is the set of simplicial maps between $K$ and $A^p$ 
+   ( where $A^p$ denotes the simplicial set given by $A^p \coloneqq {\lbrace (A_n)^p \rbrace}_{n \geq 0})$, i.e. 
+   $\phi \in A^p(K)$ sends $\sigma \in K_n$ to $\phi_{\sigma} \in {(A_n)}^p$ and satisfies 
+   $\phi_{ \partial_i \sigma} = \partial_i \phi_{\sigma}$ and $\phi_{ s_j \sigma} = s_j \phi_{\sigma}$.
+   \item Addition, scalar multiplication, differential and multiplication are given by :
+   \begin{align*}
+    (\phi + \psi)_{\sigma} \coloneqq \phi_{\sigma} + \psi_{\sigma} & &  
+    (\lambda \cdot \phi)_{\sigma} \coloneqq \lambda \cdot \phi_{\sigma} \\
+    (d \phi)_{\sigma} \coloneqq d( \phi_{\sigma}) & & 
+    {(\phi \cdot \psi)}_{\sigma} \coloneqq \phi_{\sigma}  \cdot \psi_{\sigma}
+   \end{align*}
+  
   \end{itemize}
   %TODO fertig schreiben
  \end{Definition}
 
+ %TODO einleitenden Text für polynomielle Differentialformen schreiben
+ 
+ \begin{Definition}
+  The algebra of \emph{polynomial differential forms} $A_{PL} = {\lbrace (A_{PL})_n\rbrace}_{n \geq 0}$ is a
+  simplicial object in the category of commutative cochain algebras defined as follows: \newline
+  \begin{itemize}
+   \item For $n \geq 0$ define the cochain algebra 
+      $$(A_{PL})_n \coloneqq \frac{\Lambda \langle t_{0,n}, \dotsc, t_{n,n}, y_{0,n}, \dotsc, y_{n,n} \rangle}
+      {((\sum_{i = 0}^n t_{i,n}) - 1, \sum_{i = 0}^n y_{i,n})}
+      = \frac{\Lambda \langle t_0, \dotsc, t_n, y_0, \dotsc, y_n \rangle}
+      {((\sum_{i = 0}^n t_i) - 1, \sum_{i = 0}^n y_i)} $$
+      and specify the differential $d$ by $dt_i = y_i$ and $dy_i = 0$. Later we will drop the first definition with
+      double indices and only use the right hand side.
+   \item Nevertheless the double indices are useful for defining the face and degeneracy maps 
+   $ \partial_i \colon (A_{PL})_{n+1} \to (A_{PL})_n$ and $ s_j \colon (A_{PL})_{n-1} \to (A_{PL})_n$
+   as the cochain algebra morphisms induced by:
+   
+    \begin{center}
+      \hfill
+      $\!\begin{aligned}[t]
+       \partial_i (t_{k,n+1}) \coloneqq \begin{cases}
+                                      t_{k,n}  	&\text{for $k < i$} \\
+                                      0		&\text{for $k = i$}\\
+                                      t_{k-1,n} &\text{for $k > i$}
+				      \end{cases}
+      \end{aligned}$\hfill\hfill
+      $\!\begin{aligned}[t]
+       s_j (t_{k,n-1}) \coloneqq \begin{cases}
+                                      t_{k,n}  			&\text{for $k < j$} \\
+                                      t_{k,n} + t_{k+1,n}	&\text{for $k = i$}\\
+                                      t_{k+1,n} 		&\text{for $k > i$}
+				      \end{cases}
+      \end{aligned}$\hfill
+    \end{center}    
+  \end{itemize}
+  For a topological space $X$ we will write $A_{PL}(X) \coloneqq A_{PL}(S_*^{sing}(X))$
+ \end{Definition}
+
+ The cochain algebra ${(A_{PL})}_n$ can be seen as a (rational) subalgebra of 
+ $\Omega(\Delta^n)$ (the algebra of differential forms on  $\Delta^n$) with coefficients being polynomials in
+ the $t_i$ which can be regarded as the coordinate functions of $R^{n+1}$. This explains the name 
+ ``algebra of polynomial forms''.
+ The next theorem illustrates why the algebra of polynomial differential forms is interesting for us.
+ 
+ \begin{Theorem}
+ \label{thm:WeakEqAPL}
+  Let $X$ be a topological space, there is a weak equivalence 
+  $${C^*_{sing}(X) \overset{\simeq}{\longrightarrow} \ldots \overset{\simeq}{\longleftarrow} A_{PL}(X)}$$
+ \end{Theorem}
+ 
+ \begin{Corollary}
+  For a topological space $X$ the following holds
+  $$ H^*(X) \cong H(A_{PL}(X)) $$
+ \end{Corollary}
+
+ Unfortunately, the proof of \ref{thm:WeakEqAPL} is too long to be included here, it can be found
+ in \cite{Felix2001} (basically the whole of chapter 10).
+
+ Given this we now see that $A_{PL}(X)$ carries a lot of information about the space $X$.Furthermore, it is
+ commutative and for path-connected $X$ has a minimal Sullivan model (\ref{rem:MinimalSullivanModelsExist}). This
+ motivates:
+ 
+ \begin{Definition}
+  If $X$ is a topological space and $\varphi \colon \Sullivan \to A_{PL}(X)$ is a Sullivan model of $A_{PL}(X)$ 
+  then we also refer to this model as a \emph{Sullivan model} for X.
+ \end{Definition}
+
+ 
+ 
  \subsection{From algebras to spaces}
  
  Now we want to see how we can can realise a Sullivan algebra $\Sullivan$ as a topological space 
@@ -88,7 +169,7 @@
   $\langle A , d \rangle = {\lbrace (\langle A , d \rangle)_n \rbrace}_{n \geq 0}$ as follows : \\
   \begin{itemize}
    \item $(\langle A,d \rangle)_n$ consists of the morphisms of differential graded algebras 
-   $\varphi (A,d) \to (A_{PL})_n$.
+   $\varphi \colon (A,d) \to (A_{PL})_n$.
   \item The face and degeneracy morphisms are defined by $\partial_i \varphi \coloneqq \partial_i \circ \varphi$ and
   accordingly ${s_j \varphi \coloneqq s_j \circ \varphi}$ 
   \end{itemize}
@@ -103,18 +184,27 @@
  Going one step further we now want to make topological spaces out of simplicial sets.
  
  \begin{Definition}
-  Given a simplicial set $K = {\lbrace K_n \rbrace}_{n \geq 0}$ we equip each $K_n$ with the discrete topology and define its \emph{Milnor realisation} by :
+  Given a simplicial set $K = {\lbrace K_n \rbrace}_{n \geq 0}$ we equip each $K_n$ 
+  with the discrete topology and define a topological space $|K|$ by :
   
   $$|K| \coloneqq (\coprod_{n \geq 0} K_n \times \Delta^n) / \sim$$
   
-  where $\sim ~$ is the equivalence relation induced by the relations
-  %TODO aligning verbessern damit die auf gleicher Ebene sind
-  $$ s_j \sigma \times x \sim \sigma \times \varrho^j x \; \; \; \; \text{for $\sigma \in K_n$ , $x \in \Delta^{n+1}$}$$
-  $$ \partial_i \sigma \times x \sim \sigma \times \lambda^j x \; \; \; \; \text{for $\sigma \in K_{n+1}$ , $x \in \Delta^n$}$$
+  where $\sim$ is the equivalence relation induced by the relations
+  \begin{align*}
+   s_j \sigma_n \times x \sim \sigma_n \times \varrho^j x & & \text{for $\sigma_n \in K_n$ , $x \in \Delta^{n+1}$} \\
+   \partial_i \sigma_{n+1} \times x \sim \sigma_{n+1} \times \lambda^j x & & \text{for $\sigma_{n+1} \in K_{n+1}$ , $x \in \Delta^n$}
+  \end{align*}
+
+   
+  for the maps $\varrho^j$ and $\lambda^i$ from~\ref{ex:SingularSimplicesAreSimplicialSets}.
   
-  for the maps $\varrho^j$ and $\lambda^i$ from \ref{ex:SingularSimplicesAreSimplicialSets}.
+  For a simplicial map $f \colon K \to L$ the map $|f| \colon |K| \to |L|$ is defined by
+  $$ [(\sigma_n , x)] \mapsto [(f(\sigma_n) , x)] \quad $$
+  
+  It is welldefined and continous.
+  Combined this yields a functor from the category of simplicial sets to the one of topological spaces and
+  is called the \emph{Milnor realisation functor}.
  \end{Definition}
- 
  One can show that the Milnor realisation functor always yields a CW-Complex (\cite{Milnor1957}).
  Given this we are now able to construct a functor from commutative cochain algebras to topological spaces.
  
@@ -122,3 +212,13 @@
   Given a commutative cochain algebra $(A,d)$ we call $| \langle (A,d) \rangle |$ its \emph{spatial realisation} and for
   a morphism $\varphi \colon (A,d) \to (B,d)$ we call $|\langle \varphi \rangle|$ its spatial realisation.
  \end{Definition}
+
+ As one might expect, we can find $\Sullivan$ in the structure of  $| \langle \Sullivan \rangle |$ for ``nice'' 
+ instances of $\Sullivan$ and this is the next Theorem:
+ 
+ \begin{Theorem}
+  Let $\Sullivan$ be a simply connected Sullivan Algebra with $H^n(\Sullivan)$ finite dimensional for all $n \in \N$.
+  There is a quasi isomorphism $$m_V \colon \Sullivan \to A_{PL}(| \langle \Sullivan \rangle |)$$.
+ \end{Theorem}
+
+ 
