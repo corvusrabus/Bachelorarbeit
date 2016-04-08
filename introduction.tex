@@ -5,7 +5,7 @@ At first we want to introduce some basic notions in complexity theory which will
 Readers who are familiar with computational complexity theory may want to skip this section.
 
 Computational complexity theory is mainly about classifying under which restrictions problems can be algorithmically solved.
-Let us begin with defining what a problem is :
+Let us begin with defining what a problem is:
 
 \begin{Definition}
  Let $f \colon {\lbrace 0,1 \rbrace}^* \to {\lbrace 0,1 \rbrace}$ be a function and $L_f \coloneqq {\lbrace 
@@ -18,7 +18,7 @@ Let us begin with defining what a problem is :
 This definition is somehow impractical and one should think of elements $x \in {\lbrace 0,1 \rbrace}^*$ as binary encoding
 of some information. It is useful to introduce decision problems like this because it provides a common basis how problems
 are represented. However we will implicitly think of problems being encoded as bit strings in the following. Now
-we want to look at a first problem, namely $k$-COLOUR. It can be stated like this : \\
+we want to look at a first problem, namely $k$-COLOUR. It can be stated like this: \\
  Given an undirected graph $ G = (V,E)$ is it possible to assign a colour (chosen from $k$ different colours) to every vertex 
  $v \in V$ such that adjacent vertices have different colours? In more mathematical language it looks like this:
 
@@ -26,41 +26,42 @@ we want to look at a first problem, namely $k$-COLOUR. It can be stated like thi
  For $k \in \N$ we define $$L_{k-COLOUR} \coloneqq \lbrace G  = (V,E) \; | \; \text{there is} \; f \colon V \to \lbrace 1, \dotsc k \rbrace
  \; \text{with} \; f(i) \neq f(j) \; \text{for} \; (i,j) \in E \rbrace $$
  
- Then the decision problem for $L_{k-COLOUR}$ is called \emph{$k$-COLOUR}
+ Then the decision problem for $L_{k-COLOUR}$ is called \emph{$k$-COLOUR}.
 \end{Problem}
 
 Next we want to classify the ``hardness'' of decision problems and therefore introduce complexity classes. A \emph{complexity class}
  is a set of languages (or functions) that can be computed under certain restrictions. We only want to introduce two 
- of the most important complexity classes namely $\Pcomplexity$ and $\NPcomplexity$. We will use the term algorithm
+ of the most important complexity classes, namely $\Pcomplexity$ and $\NPcomplexity$. We will use the term algorithm
  to mean a deterministic Turing maschine (refer to \cite{Arora2009} chapter 1 for a more formal treatment). 
  
 \begin{Definition}
  The class $\Pcomplexity$ consists of those problems $f \colon {\lbrace 0,1 \rbrace}^* \to {\lbrace 0,1 \rbrace}$ for
  which there exists an algorithm $A$ which given an input $x \in {\lbrace 0,1 \rbrace}^*$
- computes $f(x)$ and whose running time can be bounded by a fixed polynomial $p$ (i.e.
+ computes $f(x)$ and whose running time can be bounded by a fixed polynomial $p$ (i.e.\
  for every input $x \in {\lbrace 0,1 \rbrace}^*$ A runs for at most $p(|x|)$ steps where $|x|$ denotes the length of $x$).
 \end{Definition}
 
 We could now think of a complexity class in which every algorithm gets a witness (or proof) that a given input is in the language.
-This leads to :
+This leads to:
 
 \begin{Definition}
  The class $\NPcomplexity$ consists of those $f \colon {\lbrace 0,1 \rbrace}^* \to {\lbrace 0,1 \rbrace}$ for which there is
- an algorithm $A$ whose running time is polynomially bounded and that can verify for two given inputs $x \in {\lbrace 0,1 \rbrace}^*$ and 
+ an algorithm $A$ that can verify for two given inputs $x \in {\lbrace 0,1 \rbrace}^*$ and 
  $w \in {\lbrace 0,1 \rbrace}^*$ (where $|w|$ is bounded by a fixed polynomial in the length of $x$) if $w$ is a proof
- that $f(x) = 1$.
+ that $f(x) = 1$ and whose running time is polynomially bounded in $|x|$.
 \end{Definition}
 
-To illustrate how one should think of such a ``proof''  we will show the following :
+To illustrate how one should think of such a ``proof''  we will show the following:
 
 \begin{Proposition}
  $k$-COLOUR $\in \NPcomplexity$.
 \end{Proposition}
 
 \begin{proof}
- To prove this we describe an algorithm : \
+ To prove this we describe an algorithm: \
  If we are given an input $x$ which encodes an undirected graph $G = (V,E)$ and a witness $w$ which encodes a 
- function $\varphi \colon V \to \lbrace 1, \dotsc, k \rbrace$ we accept iff for every $(i,j) \in E$  $\varphi(i) \neq \varphi(j)$ holds.
+ function $\varphi \colon V \to \lbrace 1, \dotsc, k \rbrace$ we accept iff $\varphi(i) \neq \varphi(j)$ holds
+ for every $(i,j) \in E$ .
  This algorithm clearly runs in linear time in the number of edges and accepts iff $w$ encoded a  colouring for $G$ or in other words if
  $w$ was a proof that $x$ lies in $k$-COLOUR.
 \end{proof}
@@ -76,18 +77,24 @@ Next we want to classify how hard some problems are in comparison with other pro
  and $B \in \NPcomplexity$ we also say that $B$ is \emph{$\NPcomplexity$-complete}.
 \end{Definition}
 
-To illustrate how polynomial reductions look like we prove the following :
+\begin{Remark}
+ Note that there are $\NPcomplexity$-hard problems which do not lie in $\NPcomplexity$ (e.g. the halting problem)
+ and therefore introducing the term $\NPcomplexity$-complete is a useful convention.
+\end{Remark}
+
+
+To illustrate how polynomial reductions look like we prove the following:
 
 \begin{Theorem}
   $k$-COLOUR is $\NPcomplexity$-complete for $k \geq 3$.
 \end{Theorem}
 
 \begin{proof}
- We will show this by induction over $k$ .
- The base case $k = 3$ is essentially the hardest part in the proof and we refer the reader to \cite{Rothe2005}.
- Hence we only have to reduce $k$-COLOUR to $(k+1)$-COLOUR. The reduction works as follows :
+ We will show this by induction over $k$.
+ The base case $k = 3$ is essentially the hardest part in the proof and we refer to \cite{JorgRothe2008} (Theorem 3.56).
+ Hence we only have to reduce $k$-COLOUR to $(k+1)$-COLOUR. The reduction works as follows: \newline
  Given a graph $G = (V,E)$ we construct a new graph $G' = (V', E')$ where $V' \coloneqq V \cup \lbrace v_{new} \rbrace$ with
- $v_{new} \notin V$ and $E' \coloneqq E \cup \lbrace (v_{new}, v) \; | \; v \in V \rbrace$, i.e. we just add one new vertex to the graph
+ $v_{new} \notin V$ and $E' \coloneqq E \cup \lbrace (v_{new}, v) \; | \; v \in V \rbrace$, i.e.\ we just add one new vertex to the graph
  and connect it with every existing vertex. One can now verify that $V$ is $k$-colourable iff $V'$ is $(k+1)$-colourable and the
  construction of $V'$ is linear in the number of vertices.
  
@@ -119,8 +126,10 @@ We will say that a graded module $M \coloneqq \bigcup_i M^i$ has a property $P$ 
 \label{ex:SingularChainComplex}
  Let $\Delta^n \coloneqq {\lbrace (x_0, \dotsc , x_n) \in \R^{n+1} \; | \; \sum_{i = 0}^n x_i = 1\rbrace}$ be the standard
  $n$-simplex. Let $X$ be a topological space and denote by
- $S_n(X) \coloneqq {\lbrace \sigma \colon \Delta^n \to X \; | \; \sigma \, continous \rbrace}$ the set of
- \emph{singular $n$-simplices}. Now take the free $R$-module with basis $S_n(X)$ and denote it by $C_n^{sing}(X;R)$.
+ $S_n^{sing}(X) \coloneqq {\lbrace \sigma \colon \Delta^n \to X \; | \; \sigma \, continous \rbrace}$ the set of
+ \emph{singular $n$-simplices}. 
+ Now take the free $R$-module with basis $S_n^{sing}(X)$ 
+ and denote it by $C_n^{sing}(X;R)$.
  Then $ C_*^{sing}(X;R) \coloneqq (C_n^{sing}(X;R))_{n \geq 0}$ is a free graded module and is called 
  \emph{singular $R$-chain complex} of X. \newline
  For $0 \leq k \leq n+1$ we define the $k$-th face map $\lambda^k \colon \Delta^{n} \to \Delta^{n+1}$ by
@@ -135,7 +144,7 @@ We will say that a graded module $M \coloneqq \bigcup_i M^i$ has a property $P$ 
 For a graded module $M$ we call a linear map $d \colon M \to M$ of degree $+1$ which satisfies $ d^2 = 0$ a \emph{differential}.
 Then we also call the pair $(M , d)$ a \emph{differential graded module} or a \emph{complex}.
 A morphism $f \colon M \to N$ of differential graded modules $(M,d)$ and $(N,d')$ is a linear map of graded modules that commutes with the 
-differentials, i.e. the diagram \\
+differentials, i.e.\ the diagram \\
 
 \centerline{
 \xymatrix{
@@ -145,11 +154,11 @@ differentials, i.e. the diagram \\
 commutes.
 \end{Definition}
 
-Often we will be interested in complexes $M$ with $M^i = 0$ for all $i < 0$, we call such complexes \emph{cochain complexes}.
+Often we shall be interested in complexes $M$ with $M^i = 0$ for all $i < 0$, we call such complexes \emph{cochain complexes}.
 
 \begin{Example}[Singular cochain complex]
  If we dualise the singular chain complex of a topological space $X$ we obtain its \emph{singular $R$-cochain complex} which 
- is defined as follows : \newline
+ is defined as follows: \newline
  $c \coloneqq hom_R(C_n^{sing}(X),R)$ and $C^*_{sing}(X) \coloneqq (C^n_{sing}(X))_{n \geq 0}$. \newline
  Let us denote for a moment the map $d \colon C_{n+1}^{sing}(X) \to C_n^{sing}(X)$ by $\bar{d}$. Then we define the map
  $d \colon C_{sing}^n(X) \to C_{sing}^{n+1}(X)$ by $\phi \mapsto \phi \circ \bar{d}$. Then $\bar{d}^2 = 0$ implies $d^2 = 0$
@@ -161,7 +170,7 @@ The \emph{homology} of a differential graded module $(M,d)$ is defined as \newli
 H(M,d) \coloneqq ker \, d / im \, d}$.
 We call elements of $ker \, d$ \emph{cocycles} and elements of $im \, d$ \emph{coboundaries}.
 Moreover, we call a cochain complex $(M,d)$ \emph{connected} if $H^0(M) \cong R$ and $n$-connected if 
-it is connected and $H^i(M) = 0$ for $i = 1, \dotsc, n$. For $1$-connected we will use the term \emph{simply connected}.
+it is connected and $H^i(M) = 0$ for $i = 1, \dotsc, n$. For $1$-connected we shall use the term \emph{simply connected}.
 \end{Definition}
 
 A morphism $f \colon M \to N$ of differential graded modules commutes with the differentials and hence maps cocycles to cocycles
@@ -199,7 +208,7 @@ Now that we have modules, we want to enrich their structure with a multiplicatio
  $$ (f \otimes g) ( x \otimes y) = (-1)^{deg \, x \; deg \,y} f(x) \otimes g(y) $$
 
  A multiplication on a differential graded module M is an associative linear map \newline
- ${m \colon M \otimes M \to M }$ that has a neutral element $1_M \in M^0$, i.e. $m(x \otimes 1_M) = m(1_M \otimes x) = x$.
+ ${m \colon M \otimes M \to M }$ that has a neutral element $1_M \in M^0$, i.e.\ $m(x \otimes 1_M) = m(1_M \otimes x) = x$.
  In the following we will just write $xy \coloneqq m(x \otimes y)$.
  \end{Definition}
 
@@ -207,13 +216,13 @@ Now that we have modules, we want to enrich their structure with a multiplicatio
 \begin{Definition}
  A graded module $A$ with a multiplication is called a \emph{graded algebra}. We say that $A$ is \emph{commutative} if
  $xy = (-1)^{deg \, x \; deg \, y} yx$ for all $x,y \in A$ holds. Furthermore, a \emph{morphism of graded algebras} 
- $f \colon A \to B$ is a morphism of graded modules that respects multiplication, i.e. 
+ $f \colon A \to B$ is a morphism of graded modules that respects multiplication, i.e.\ 
  $$f(xy) = f(x)f(y) \quad \text{for all} \; x,y \in A \quad \text{and} \; f(1_A) = 1_B $$
 \end{Definition}
 
 One should not get confused by the term commutative since it only means commutative in the regular sense in even degrees but
 anti commutative if both elements are in odd degrees.
-We can also introduce differentials to the world of algebras :
+We can also introduce differentials to the world of algebras:
 \begin{Definition}
  If $A$ is a (commutative) graded algebra and $d$ is a differential on $A$ that is a \emph{derivation} which means
  that it satisfies 
@@ -228,7 +237,7 @@ We can also introduce differentials to the world of algebras :
 Note that the homology of a (commutative) graded differential algebra is a (commutative) graded algebra. \newline
 Next we want to introduce the tensor algebra $TV$ of a graded module $V$. It has the nice property
 that for every graded module morphism $\varphi \colon V \to A$ to a graded algebra $A$ there is a unique 
-graded algebra(!) morphism $\psi \colon TV \to A$ that extends $\varphi$, namely the following diagram commutes :
+graded algebra(!) morphism $\psi \colon TV \to A$ that extends $\varphi$, namely the following diagram commutes:
 
 \centerline{ \xymatrix{
 V \ar[dr]^{\varphi} \ar[r] & TV \ar@{-->}[d]^{\exists! \psi} \\
@@ -275,3 +284,36 @@ by $\Lambda^{\geq k} V$ the vector space of elements in $\Lambda V$ with wordlen
 Additionally $V^{\geq k}$ denotes the subspace of elements of degree at least k and ${\Lambda V}^{\geq k}$ 
 is the free commutative algebra over this subspace $V^{\geq k}$. Unfortunately these two notations look 
 very similar and are very different in their nature, one should not confuse them.
+
+\par
+
+Later it will be important to have a good understanding of free commutative algebras and therefore
+we will now provide some examples.
+
+\begin{Example}
+ To start of simple, we look at $\Lambda \langle v \rangle$ with $|v| = 2$. 
+ It is isomorphic to the polynomial algebra $R[v]$.
+\end{Example}
+
+\begin{Example}
+ A similiar example is $\Lambda \langle v \rangle$ with $|v| = 3$. Since 
+ $$ v^2 - (-1)^{deg \, v \; deg \, v} v^2 = 2 v^2$$
+ and $2 \neq 0$ we get that $v^2 = 0$. This tells us that all elements in $\Lambda \langle v \rangle$
+ have the form $\lambda_1 v + \lambda_2$ for $\lambda_i \in R$ and multiplication is determined by $v^2 = 0$.
+\end{Example}
+
+Combining these two behaviours in odd and even degrees we can look at one last example which
+illustrates the general behaviour of the free commutative algebra.
+
+\begin{Example}
+ Consider the algebra $\Lambda \langle a,b,c \rangle$ with $|a| = 2$ and $|b| = |c| = 3$.
+ Analagous to the last example we see that $b^2 = c^2 = 0$. Furthermore,
+ $$ bc - (-1)^{deg \, b \; deg \, c} cb = bc + cb = 0$$
+ which tells us that $bc = - cb$. This determines the complete multiplicative structure 
+ and all elements are of the form 
+ $$ \sum_{i,j,k \geq 0} \lambda_{i,j,k} \, a^{p_i} b^{q_j} c^{r_k}$$
+ with  $q_j, r_k \in \lbrace 0,1 \rbrace$, $p_i \geq 0$ and $\lambda_{i,j,k} \in R$.
+\end{Example}
+
+
+%TODO mehr Information über freie kommutative Algebra einfügen

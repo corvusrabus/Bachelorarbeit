@@ -22,25 +22,16 @@
     $	
     \end{itemize}
     As one might expect a map $f \colon K \to L$ of simplicial objects $K$ and $L$ (in the same category $\mathscr{C}$), is a collection
-    of $\mathscr{C}$-morphism $( f_n \colon K_n \to L_n)_{ n \geq 0}$ that commute with the face and degeneracy maps, i.e.
-    \begin{multicols}{3}
-    %TODO das hier irgendwie nebeneinander bringen
-    \xymatrix{
-    K_{n+1} \ar[d]^{\partial_i} \ar[r]^{f_{n+1}} & L_{n+1} \ar[d]^{\partial_i} \\
-    K_n \ar[r]^{f_n} & L_n
-    }
-     \columnbreak
-    \begin{center}
-     and
-    \end{center}
-    \columnbreak
-    \xymatrix{
+    of $\mathscr{C}$-morphism $( f_n \colon K_n \to L_n)_{ n \geq 0}$ that commute with the face and degeneracy maps, i.e.\
+    
+  \centerline{
+  \xymatrix{
+    K_{n+1} \ar[d]^{\partial_i} \ar[r]^{f_{n+1}} & L_{n+1} \ar[d]^{\partial_i} & \text{and} &
     K_n \ar[r]^{f_n} & L_n \\
+    K_n \ar[r]^{f_n} & L_n & & 
     K_{n-1} \ar[u]^{s_i} \ar[r]^{f_{n-1}} & L_{n-1} \ar[u]^{s_i}     
     }
-    \end{multicols}
-    
-    
+  }  
     
     commute for all $i,j,n$. \\
    A simplicial object in the category of sets will also be called a \emph{simplicial set} and a map 
@@ -73,9 +64,10 @@
   as follows :
   \begin{itemize}
    \item $A^p(K)$ is the set of simplicial maps between $K$ and $A^p$ 
-   ( where $A^p$ denotes the simplicial set given by $A^p \coloneqq {\lbrace (A_n)^p \rbrace}_{n \geq 0})$, i.e. 
+   (where $A^p$ denotes the simplicial set given by $A^p \coloneqq {\lbrace (A_n)^p \rbrace}_{n \geq 0})$, i.e.\ 
    $\phi \in A^p(K)$ sends $\sigma \in K_n$ to $\phi_{\sigma} \in {(A_n)}^p$ and satisfies 
    $\phi_{ \partial_i \sigma} = \partial_i \phi_{\sigma}$ and $\phi_{ s_j \sigma} = s_j \phi_{\sigma}$.
+   
    \item Addition, scalar multiplication, differential and multiplication are given by :
    \begin{align*}
     (\phi + \psi)_{\sigma} \coloneqq \phi_{\sigma} + \psi_{\sigma} & &  
@@ -84,7 +76,13 @@
     {(\phi \cdot \psi)}_{\sigma} \coloneqq \phi_{\sigma}  \cdot \psi_{\sigma}
    \end{align*}
   
+    \item For a morphism $f \colon A \to B$ \; of simplicial cochain algebras we define the morphism
+      ${f(K) \colon A(K) \to B(K)}$ by $(f(K) \phi)_{\sigma} \coloneqq f(\phi_{\sigma})$.
+    
+    \item For a simplicial map $\varphi \colon K \to L$ we define ${A(\varphi) \colon A(K) \gets A(L)}$
+      by $(A(\varphi) \phi)_{\sigma} \coloneqq \phi_{\varphi \sigma}$.
   \end{itemize}
+  For a topological space $X$ we shall write $A(X) \coloneqq A(S_*^{sing}(X))$
   %TODO fertig schreiben
  \end{Definition}
 
@@ -123,7 +121,7 @@
       \end{aligned}$\hfill
     \end{center}    
   \end{itemize}
-  For a topological space $X$ we will write $A_{PL}(X) \coloneqq A_{PL}(S_*^{sing}(X))$
+%   For a topological space $X$ we shall write $A_{PL}(X) \coloneqq A_{PL}(S_*^{sing}(X))$
  \end{Definition}
 
  The cochain algebra ${(A_{PL})}_n$ can be seen as a (rational) subalgebra of 
@@ -146,7 +144,7 @@
  Unfortunately, the proof of \ref{thm:WeakEqAPL} is too long to be included here, it can be found
  in \cite{Felix2001} (basically the whole of chapter 10).
 
- Given this we now see that $A_{PL}(X)$ carries a lot of information about the space $X$.Furthermore, it is
+ Given this we now see that $A_{PL}(X)$ carries a lot of information about the space $X$. Furthermore, it is
  commutative and for path-connected $X$ has a minimal Sullivan model (\ref{rem:MinimalSullivanModelsExist}). This
  motivates:
  
@@ -160,7 +158,7 @@
  \subsection{From algebras to spaces}
  
  Now we want to see how we can can realise a Sullivan algebra $\Sullivan$ as a topological space 
- $| \langle \Sullivan \rangle |$. Moreover, we will see that $\Sullivan \simeq A_{PL}(| \langle \Sullivan \rangle |)$ for a
+ $| \langle \Sullivan \rangle |$. Moreover, we shall see that $\Sullivan \simeq A_{PL}(| \langle \Sullivan \rangle |)$ for a
  ``sufficient nice'' class of Sullivan algebras $\Sullivan$. \\
  We begin with constructing a contravariant functor that turns commutative cochain algebras into simplicial sets.
  
@@ -218,7 +216,10 @@
  
  \begin{Theorem}
   Let $\Sullivan$ be a simply connected Sullivan Algebra with $H^n(\Sullivan)$ finite dimensional for all $n \in \N$.
-  There is a quasi isomorphism $$m_V \colon \Sullivan \to A_{PL}(| \langle \Sullivan \rangle |)$$.
+  There is a quasi isomorphism
+  $$m_V \colon \Sullivan \to A_{PL}(| \langle \Sullivan \rangle |)$$
  \end{Theorem}
 
+ For a proof of this Theorem see \cite{Felix2001} p. 250 Theorem 17.10 .
+ 
  

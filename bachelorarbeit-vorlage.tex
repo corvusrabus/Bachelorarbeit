@@ -55,9 +55,18 @@
 \newcommand{\Q}{\mathbb{Q}} % rationale
 \newcommand{\Z}{\mathbb{Z}} % ganze
 \newcommand{\N}{\mathbb{N}} % natuerliche
+
 \newcommand{\Pcomplexity}{\mathbf{P}}
 \newcommand{\NPcomplexity}{\mathbf{NP}}
 \newcommand{\Sullivan}{(\Lambda V,d)}
+\newcommand{\RelSullivan}{(B \otimes \Lambda V,d)}
+\newcommand\restr[2]{{% we make the whole thing an ordinary symbol
+  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+  #1 % the function
+  \vphantom{\big|} % pretend it's a little taller at normal size
+  \right|_{#2} % this is the delimiter
+  }}
+
 \DeclareSymbolFont{symbolsC}{U}{pxsyc}{m}{n}
 \DeclareMathSymbol{\coloneqq}{\mathrel}{symbolsC}{"42}
 
