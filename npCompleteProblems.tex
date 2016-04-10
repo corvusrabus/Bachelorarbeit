@@ -14,18 +14,41 @@
  The first result we want to establish is the following:
  
  \begin{Theorem}[Lechuga, Murrilo]
- \label{cohomologyFinTheorem}
+ \label{thm:DecidingEllipticityIsNpHard}
   It is a $\NPcomplexity$-hard problem to decide if a given a Sullivan algebra $(\Lambda V,d)$ with $\pi^*(\Lambda V,d)$ finite dimensional 
   is elliptic . 
  \end{Theorem}
  
- In order to prove this Theorem, we first have to establish a somehow technical Lemma:
+ \begin{Remark}
+ \label{rem:CodingOfSullivanAlgebras}
+  To be able to speak about complexity of computations involving Sullivan algebras we first have to fix a bit string 
+  representation of a Sullivan algebra. However Sullivan algebras could have infinitely many generators and could therefore
+  not be representable in a computer, thus we stick to minimal Sullivan algebras $\Sullivan$ where $V$ is finite dimensional. 
+  We encode such an algebra $(\Lambda V, d)$ with $V \coloneqq \langle v_1, \ldots , v_n \rangle$
+  by the following string: \newline
+  Fix the smallest $c \in \N$ with $d(V) \subseteq \Lambda^{ \leq c} V$.
+  At first we write a $n$-tuple of integers encoding the degrees of the $n$ generators and this is linear in the number
+  of generators. Then we add for each $ 1 \leq i \leq n$
+  and $d v_i = \sum_{q \leq c, (j_1, \ldots, j_q)} \lambda_{j_1, \ldots, j_q} v_{j_1} \cdots v_{j_q}$ all tuples 
+  $(({j_1, \ldots, j_q}), \lambda_{j_1, \ldots, j_q})$ storing the indices and the (rational!) coefficient 
+  $\lambda_{j_1, \ldots, j_q}$ (which is represented by $2$ integers)
+  . Let $k$ be the number of integers stored in all these tuples. We have $n$ generators,
+  ${ n \choose q}$ choices of $q$ generators out of $n$ and at most $c + 2$ integers per tuple. Therefore, we can bound $k$ by
+  $k \leq (c + 2)m \sum_{q = 2}^c { n \choose q} $ and this is polynomial in $n$ for fixed $c$.
+  Hence, if we consider $c$ as fixed then the representation has polynomial length in the number
+  of generators.
+  
+ \end{Remark}
+ %TODO Nochmal lesen ob das stimmt
  
+
+ The next pages will be dedicated to proving \ref{thm:DecidingEllipticityIsNpHard}, we begin with 
+ establishing a somehow technical Lemma:
  \begin{Lemma}
  \label{lma:IfAndOnlyIfNonTrivialMorphism}
   Let $\K$ be an algebraically closed field and $(\Lambda V,d)$ a minimal Sullivan
-  algebra over $\K$ with finite dimensional $V = {\lbrace V^n \rbrace}_{n \geq 2}$. \newline
-  Then $H^*(\Sullivan)$ has finite dimension if and only if   
+  algebra over $\K$ with finite dimensional $V = {\lbrace V^n \rbrace}_{n \geq 2}$. Then the following holds:\newline
+  $H^*\Sullivan$ has finite dimension if and only if   
   the only morphism of differential graded algebras 
   $$ \varphi : \Sullivan \to (\K[\alpha],0) \; |\alpha| = 2 $$ 
   is the trivial one.
@@ -39,42 +62,69 @@
   Next, if we are given a morphism  $ \varphi : \Sullivan \to (\K[\alpha],0) \; |\alpha| = 2 $, we want to show by induction over $k$ that
   $\varphi$ is zero on $v_1 , \ldots, v_k$. Let us assume that $\varphi$ is zero on $v_1, \ldots, v_{k-1}$ then take the
   subalgebra of $\Sullivan$ by factoring out $v_1, \ldots, v_{k-1}$ and consider the induced morphism 
-  $\bar{\varphi} \colon (\Lambda \langle \bar{x_k}, \ldots, \bar{x_n} \rangle , \bar{d}) \to (\K[\alpha],0) $
-  (note that $\bar{d}(\bar{x_k}) = 0$ by the  choice of basis) . Since $\K[\alpha]$ is zero in odd degrees,
+  $\bar{\varphi} \colon (\Lambda \langle \bar{x}_k, \ldots, \bar{x}_n \rangle , \bar{d}) \to (\K[\alpha],0) $
+  (note that $\bar{d}(\bar{x}_k) = 0$ by the  choice of basis) . Since $\K[\alpha]$ is zero in odd degrees,
   it follows that $\varphi(x_k) = 0$ for $|x_k|$ odd. Let us now look at $|x_k|$ even,
-  it follows from \cite{Felix2001} ( Proposition 32.4 and Theorem 29.5) that 
-  $(\Lambda \langle \bar{x_k}, \ldots, \bar{x_n} \rangle , \bar{d})$ has finite category which gives us  $m \in \N$ and the
+  it follows from \cite{Felix2001} ( Proposition 32.4 and Theorem 29.5) that %TODO Hier die Zitierung auf den Satz in der Arbeit ändern,falls ich das noch beweise
+  $(\Lambda \langle \bar{x}_k, \ldots, \bar{x}_n \rangle , \bar{d})$ has finite category which gives us  $m \in \N$ and the
   following commuting diagram
   
   \centerline {
   \xymatrix{
-    (\Lambda \langle \bar{x_k}, \ldots, \bar{x_n} \rangle , \bar{d}) \ar@/^/[r]^{\lambda_m} \ar[rd]_{\pi_m}	& 	
-    (\Lambda \langle \bar{x_k}, \ldots, \bar{x_n} \rangle \otimes \Lambda Z(m) , d) 
+    (\Lambda \langle \bar{x}_k, \ldots, \bar{x}_n \rangle , \bar{d}) \ar@/^/[r]^(.45){\lambda_m} \ar[rd]_{\pi_m}	& 	
+    (\Lambda \langle \bar{x}_k, \ldots, \bar{x}_n \rangle \otimes \Lambda Z(m) , d) 
     \ar[d]^{\zeta_m}_{\simeq} \ar@/^/[l]^{i_m} \\
-    & (\Lambda \langle \bar{x_k}, \ldots, \bar{x_n} \rangle / 
-    \Lambda^{> m} \langle \bar{x_k}, \ldots, \bar{x_n} \rangle, \tilde{d})
+    & (\Lambda \langle \bar{x}_k, \ldots, \bar{x}_n \rangle / 
+    \Lambda^{> m} \langle \bar{x}_k, \ldots, \bar{x}_n \rangle, \tilde{d})
   }
   }
-  This allows us to show that $\bar{x_k}^m$ is a coboundary as follows:
+  This allows us to show that $\bar{x}_k^m$ is a coboundary as follows:
   Since the diagram commutes 
-  $$0 = \pi_m(\bar{x_k}^m) =   \zeta_m (\lambda_m (\bar{x_k}^m))$$ 
-  holds. Since $\zeta_m$ is a quasi isomorphism (and $\bar{x_k}^m$ a cocycle), we get that $\lambda_m (\bar{x_k})$ is a coboundary and
-  therefore also $ i_m (\lambda_m (\bar{x_k}^m)) = \bar{x_k}^m$. Coboundaries get mapped to coboundaries and the only coboundary
+  $$0 = \pi_m(\bar{x}_k^m) =   \zeta_m (\lambda_m (\bar{x}_k^m))$$ 
+  holds. Since $\zeta_m$ is a quasi isomorphism (and $\bar{x}_k^m$ a cocycle), we get that $\lambda_m (\bar{x}_k)$ is a coboundary and
+  therefore also $ i_m (\lambda_m (\bar{x}_k^m)) = \bar{x}_k^m$. Coboundaries get mapped to coboundaries and the only coboundary
   in $(\K[\alpha], 0)$ is zero, therefore 
-  $(\bar{\varphi}(\bar{x_k}))^m = \bar{\varphi}(\bar{x_k}^m) = 0$. Thus also ( since $\K[\alpha]$ is a domain)
-  $$ 0 = \bar{\varphi}(\bar{x_k}) = \varphi( x_k)$$
-  Note that the construction above also works for $k = 1$ and that closes the induction.
-%  $\Sullivan$ being a minimal Sullivan algebra implies that every $ v \in V^i$ is a $\bar{d}$-cocycle. If we look at powers
-%  $[v^k]$ of $[v]$ the finiteness condition on homology implies that this will land in a $0$-module for big enough $k$, hence 
-%  $[z^k] = 0$. This is equivalent to $v^k$ being a coboundary. Now consider the induced morphism
-%  $$ \bar{\varphi} \colon (\Lambda V^{\geq i} , \bar{d}) \to (\K[\alpha],0)$$
-%  Since boundaries get mapped to boundaries $\bar{\varphi}(v^k)$ is a coboundary. Besides, $(\K[\alpha],0)$ is zero in odd degrees thus
-%  $0$ is the only coboundary and therefore $\varphi(v^k) = 0$. Now that $(\K[\alpha],0)$ is integer we have 
-%  $\varphi(v)= \bar{\varphi}(v) = 0$ and this closes the induction.
-%    
+  $(\bar{\varphi}(\bar{x}_k))^m = \bar{\varphi}(\bar{x}_k^m) = 0$. Thus also ( since $\K[\alpha]$ is a domain)
+  $$ 0 = \bar{\varphi}(\bar{x}_k) = \varphi( x_k)$$
+  Note that the construction above also works for $k = 1$. \\
+  
+  In contrary, consider that $H^*\Sullivan$ has infinite dimension, then by \ref{prop:EquivalenceFiniteDimensionCategoryCohomology}
+  ~$H(V, d_{\sigma})$ has infinite dimension and by \ref{prop:FiniteDimensionDependentOnDegreeOne} ~$H_0(V, d_{\sigma})$ has
+  infinite dimension. Let ${V^{even} = \langle y_1, \ldots , y_q \rangle}$ and 
+  ${V^{odd} = \langle x_1 , \ldots , x_p \rangle}$ and write
+  $f_i = d_{\sigma} x_i$. Since $(\Lambda V, d_{\sigma})$ is pure we know that all $f_i$ are 
+  polynomials in $y_1, \ldots , y_q$ and they generate $d(V^{odd})$. This implies 
+  $H_0(\Lambda V,d_{\sigma}) = V^{even} / I$ for $I \coloneqq (f_1, \ldots, f_p)$ which is a proper ideal since otherways
+  $H_0(\Lambda V,d_{\sigma})$ would be zero. Again using the infinite dimension of 
+  $H_0(\Lambda V,d_{\sigma})$ we observe that there is $y_{i_0}$ such that
+  $y_{i_0}^k \notin I$ for all $k \in \N$. Next we consider the extended algebra 
+  $\Lambda \langle y_1, \ldots, y_q, u \rangle$ with $|u| = - |y_{i_o}|$ and its ideal 
+  $J \coloneqq (f_1, \ldots, f_p, u y_{i_0} - 1)$ which is proper since I is proper.
+  The Hilbert Nullstellensatz (in the version of \cite{Lang2002} Theorem IX.1.4; note that we need algebraically closed here!)
+   gives us a tupel 
+  $(\lambda_1, \ldots, \lambda_q, \lambda) \in \K^{q+1}$ which is a root of all polynomials in $J$,
+  i.e.\ $f_i(\lambda_1, \ldots, \lambda_q) = 0$ and $\lambda \lambda_{i_0} = 1$, in particular 
+  $\lambda_{i_0} \neq 0$. We use this tuple to define the following morphism:
+  $$ \bar{\varphi} \colon  \Lambda \langle y_1, \ldots, y_q \rangle \to \K[\alpha]
+  \qquad y_i \mapsto \lambda_i \alpha^{\frac{|y_1]}{2}}$$
+  which is non trivial since $\lambda_{i_0} \neq 0$. Consider the ideal $\tilde{I}$ generated by 
+  $V^{odd}$ and $im \, d$ and let $\pi \colon \Sullivan \to (\Lambda V / \tilde{I} , 0) 
+  \cong \Lambda \langle y_1, \ldots, y_q \rangle $ be the projection. Then 
+  ${ \bar{\varphi} \circ \pi \colon \Sullivan \to (\K[\alpha], 0)}$ is a non trivial morphism.
  \end{proof}
+ 
+ \begin{Remark}
+  In \ref{lma:IfAndOnlyIfNonTrivialMorphism} it is necessary that $\K$ is algebraically closed 
+  as we can see in the following example: \newline
+  Consider the rational Sullivan algebra $(\Lambda \langle a, b, c \rangle,d)$ with $|a| = |b| = 2$, $|c| = 3$,
+  $da = db = 0$ and $dc = a^2 + b^2$. It has infinite dimensional homology since $ [a^i]$ is a non-zero homology
+  class for all $i \in \N$. Further, the only morphism $\varphi \Sullivan \to (\Q[\alpha], 0)$ with $|\alpha| = 2$ is the
+  trivial one since $\varphi (a) = \lambda_a \alpha$, $\varphi (b) = \lambda_b \alpha$ implies 
+  $ 0 = d\varphi (c) = \varphi(dc) = \varphi( a^2 + b^2) = (\lambda_a^2 + \lambda_b^2) \alpha$.
+  
+ \end{Remark}
 
- The main idea to prove Theorem \ref{cohomologyFinTheorem} is to reduce $k$-COLOUR to deciding if $(\Lambda V,d)$ is elliptic for some special 
+ The main idea to prove Theorem \ref{thm:DecidingEllipticityIsNpHard} is to reduce $k$-COLOUR to deciding if $(\Lambda V,d)$ is elliptic for some special 
  Sullivan algebra $(\Lambda V,d)$ which we will construct as follows: \\
  
  \begin{Construction}
@@ -91,9 +141,22 @@
  
  \end{Construction}
 
-  If $k \geq 3$ the differential of the $y_{(r,s)}$ contains no linear term, hence
-  $(\Lambda V_{(G,k)} ,d)$ is minimal for $k \geq 3$.
- 
+\begin{Remark}
+ If $k \geq 3$ the differential of the $y_{(r,s)}$ contains no linear term, hence
+  $(\Lambda V_{(G,k)} ,d)$ is minimal for $k \geq 3$. Furthermore, the construction above
+  is for fixed $k$ polynomial in the number of vertices since the constructed vector space
+  $V_{(G,k)}$ has as many generators as $G$ has vertices and Remark \ref{rem:CodingOfSullivanAlgebras}
+  shows that the representation of $(\Lambda V_{(G,k)} ,d)$ is polynomial in $dim \, V_{(G,k)}$.
+
+  
+\end{Remark}
+
+
+%  
+%  \begin{Remark}
+%   Note that the construction above is polynomial.
+%  \end{Remark}
+
 \begin{Lemma}
 \label{lma:cohomoly+equations}
  $H^*(\Lambda V_{(G,k)}, d)$ has infinite dimension $\iff$ The system of equations \\
@@ -108,22 +171,23 @@
 
 \begin{proof}
  %TODO Hier sollte noch etwas dazu stehen, dass wir O.B.d.A. (\Lambda V_{(G,k)}, d) \otimes \C als \C Algebra anschauen können
- From Lemma \ref{lma:IfAndOnlyIfNonTrivialMorphism} we already know that $(\Lambda V_{(G,k)},d)$  has infinite dimension if and only if %TODO Referenz einfügen!
+ From Lemma \ref{lma:IfAndOnlyIfNonTrivialMorphism} we already know that $(\Lambda V_{(G,k)},d)$  has infinite dimension if and only if 
  there is a non trivial morphism of differential graded algebras \\
  ${\varphi \colon (\Lambda V_{(G,k)},d) \to ( \C [\alpha] ,\acute{d} = 0)}$ with $|\alpha| = 2$. How can such a morphism look like?
  Clearly $\varphi(x_i) = \lambda_i \alpha$ for some $\lambda_i \in \C$ and $\varphi(y_{(r,s)}) = 0$ for all $(r,s) \in J$ , since 
  $(\C [\alpha] , 0)$ is zero in odd degrees. Furthermore, $\varphi$ must commute with the differentials, hence 
  for all $(r,s) \in J$
- $$ 0 = \acute{d} (\varphi(y_{(r,s)})) = \varphi(dy_{(r,s)}) = \varphi(\sum_{l = 1}^k x_r^{k -l} x_s^{l - 1})
+ $$ 0 = \acute{d} \varphi(y_{(r,s)}) = \varphi(dy_{(r,s)}) = \varphi(\sum_{l = 1}^k x_r^{k -l} x_s^{l - 1})
  = \sum_{l = 1}^k \varphi(x_r)^{k -l} \varphi(x_s)^{l - 1}$$
  
- This shows that $(\varphi(x_i))_{i = 1, \dotsc , n}$ must be a solution of \ref{systemofequations}, which is not trivial
- if $\varphi$ is not trivial.
+ This shows that $(\varphi(x_i))_{i = 1, \dotsc , n}$ must be a solution of \ref{systemofequations}, which is non trivial
+ if $\varphi$ is non trivial.
  This also works the other way round and every non trivial solution  $(\lambda_1 , \dotsc, \lambda_n)$ of \ref{systemofequations}
  can be used to define a non trivial morphism $\varphi(x_i) = \lambda_i \alpha$.
  \end{proof}
 
  \begin{Theorem}
+ \label{thm:KColourEquivalentToNonEllipticity}
   Let $k \geq 3$ then 
    $G = (V,E)$ is k-colourable $\iff$ $(\Lambda V_{(G,k)},d)$ is not elliptic
  \end{Theorem}
@@ -163,4 +227,35 @@
   
  \end{proof}
 
- Since the construction \ref{constructionOfSullivanAlgebra} is polynomial this also proves Theorem \ref{cohomologyFinTheorem}.
+ Having this at hand, the proof of \ref{thm:DecidingEllipticityIsNpHard} is just combining the above lemmata but we 
+ want to prove a even stronger result as follows:
+ 
+ Denote by $\Gamma_k$ the class of minimal Sullivan algebras $\Sullivan$ with $V$ finite dimensional and
+ $d(V) \subset \Lambda^{< k} V$. Then we prove
+ 
+ \begin{Theorem}
+  For a fixed integer $k \geq 3$, deciding if a Sullivan algebra $\Sullivan \in \Gamma_k$ is elliptic is $\NPcomplexity$-hard. 
+ \end{Theorem}
+
+ Clearly this directly implies \ref{thm:DecidingEllipticityIsNpHard}.
+ \begin{proof}
+  Fix $k \geq 3$ and note that $k$-COLOUR is still $\NPcomplexity$-hard if we restrict it to connected graphs (since different
+  components of a graph can be coloured independently). So, given an undirected connected graph $G$ we use
+  construction \ref{constructionOfSullivanAlgebra} and obtain the Sullivan algebra $(\Lambda V_{(G,k)},d)$ which lies
+  in $\Gamma_k$ by construction. Further, by Remark \ref{rem:CodingOfSullivanAlgebras} this construction is polynomial
+  in the number of vertices of $G$ and by Theorem \ref{thm:KColourEquivalentToNonEllipticity} deciding wether
+  $(\Lambda V_{(G,k)},d)$ is elliptic is equivalent to deciding if $G$ is $k$-colourable and therefore this construction 
+  is a polynomial time reduction.
+ \end{proof}
+
+ Next let us present another example of a $\NPcomplexity$-hard problem in topology, namely the computation
+ of so called Betti numbers.
+ 
+ \begin{Definition}
+  Define the $p$-th \emph{Betti number} of a Sullivan algebra $\Sullivan$ as \newline 
+  ${b_p \Sullivan \coloneqq dim \, H^p \Sullivan}$.
+ \end{Definition}
+
+
+ 
+ %TODO Reduktion auf Subset sum!

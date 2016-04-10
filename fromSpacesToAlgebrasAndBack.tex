@@ -5,24 +5,41 @@
  
  \begin{Definition}
   A \emph{simplicial object} $K$ in a category $\mathscr{C}$
-  is a collection of objects ${(K_n)}_{n \geq 0}$ in $\mathscr{C}$ with $\mathscr{C}$-morphism
+  is a collection of objects ${\lbrace K_n \rbrace}_{n \geq 0}$ in $\mathscr{C}$ with $\mathscr{C}$-morphism
   $\partial_i \colon K_{n+1} \to K_n$ for $i = 0, \ldots, n+1$ called the \emph{face morphisms} and \newline
-  $s_i \colon K_n \to K_{n+1}$ for $i = 0, \ldots, n$ called the \emph{degeneracy morphisms}
+  $s_j \colon K_n \to K_{n+1}$ for $j = 0, \ldots, n$ called the \emph{degeneracy morphisms}.
   
   They must fulfill the following equations : %TODO irgendwie noch schauen ob man das auch horizontal nebeneinander machen kann
-  \begin{itemize}
-   \item $\partial_i \partial_j = \partial_{j-1} \partial_i$ for $i < j$
-   \item  $s_i s_j = s_{j+1} s_j$ for $ i \leq j$
-   \item $ \partial_i s_j = \begin{cases}
-              s_{j-1} \partial_i 	&\text{if $i < j$} \\
-              id 	&\text{if $i = j, j+1$} \\
-              s_j \partial_{i-1}	 &\text{if $ i > j + 1$}
+%   \begin{itemize}
+%    \item $\partial_i \partial_j = \partial_{j-1} \partial_i$ \quad for $i < j$
+%    \item  $s_i s_j = s_{j+1} s_j$ \quad for $ i \leq j$
+%    \item $ \partial_i s_j = \begin{cases}
+%               s_{j-1} \partial_i 	&\text{if $i < j$} \\
+%               id 	&\text{if $i = j, j+1$} \\
+%               s_j \partial_{i-1}	 &\text{if $ i > j + 1$}
+%              
+%              \end{cases}
+%     $	
+%     \end{itemize}
+%     
+    \begin{multicols}{2}
+     \begin{align*}
+      \partial_i \partial_j &= \partial_{j-1} \partial_i & & \text{for} \; i < j \\
+      s_i s_j &= s_{j+1} s_j & & \text{for} \; i \leq j
+     \end{align*}
+\columnbreak
+\\ \\
+      $\partial_i s_j = \begin{cases}
+              s_{j-1} \partial_i 	&\text{for $i < j$} \\
+              id 	&\text{for $i = j, j+1$} \\
+              s_j \partial_{i-1}	 &\text{for $ i > j + 1$}
              
              \end{cases}
-    $	
-    \end{itemize}
+	      $
+  \end{multicols}
+
     As one might expect a map $f \colon K \to L$ of simplicial objects $K$ and $L$ (in the same category $\mathscr{C}$), is a collection
-    of $\mathscr{C}$-morphism $( f_n \colon K_n \to L_n)_{ n \geq 0}$ that commute with the face and degeneracy maps, i.e.\
+    of $\mathscr{C}$-morphism ${\lbrace f_n \colon K_n \to L_n\rbrace }_{ n \geq 0}$ that commute with the face and degeneracy maps, i.e.\
     
   \centerline{
   \xymatrix{
@@ -43,7 +60,7 @@
  \begin{Example}
  \label{ex:SingularSimplicesAreSimplicialSets}
     We already have seen an example of a simplicial set, namely the singular simplices 
-    $S^{sing}_*(X) \coloneqq (S_n^{sing}(X))_{n \geq 0}$ of a topological space $X$.
+    $S^{sing}_*(X) \coloneqq {\lbrace S_n^{sing}(X) \rbrace}_{n \geq 0}$ of a topological space $X$.
     Let
     $\varrho^j \colon \Delta^k \to \Delta^{k - 1}$ ,
     ${\varrho^j(x_0, \dotsc , x_k) \coloneqq (x_0 , \dotsc, x_j + x_{j + 1} , \dotsc, x_k)}$ and 
@@ -65,15 +82,15 @@
   \begin{itemize}
    \item $A^p(K)$ is the set of simplicial maps between $K$ and $A^p$ 
    (where $A^p$ denotes the simplicial set given by $A^p \coloneqq {\lbrace (A_n)^p \rbrace}_{n \geq 0})$, i.e.\ 
-   $\phi \in A^p(K)$ sends $\sigma \in K_n$ to $\phi_{\sigma} \in {(A_n)}^p$ and satisfies 
+   $\phi \in A^p(K)$ sends $\sigma \in K_n$ to $\phi_{\sigma} \in {(A_n)}^p$ and further satisfies 
    $\phi_{ \partial_i \sigma} = \partial_i \phi_{\sigma}$ and $\phi_{ s_j \sigma} = s_j \phi_{\sigma}$.
    
    \item Addition, scalar multiplication, differential and multiplication are given by :
    \begin{align*}
-    (\phi + \psi)_{\sigma} \coloneqq \phi_{\sigma} + \psi_{\sigma} & &  
-    (\lambda \cdot \phi)_{\sigma} \coloneqq \lambda \cdot \phi_{\sigma} \\
-    (d \phi)_{\sigma} \coloneqq d( \phi_{\sigma}) & & 
-    {(\phi \cdot \psi)}_{\sigma} \coloneqq \phi_{\sigma}  \cdot \psi_{\sigma}
+    (\phi + \psi)_{\sigma} &\coloneqq \phi_{\sigma} + \psi_{\sigma} & 
+    (\lambda \cdot \phi)_{\sigma} &\coloneqq \lambda \cdot \phi_{\sigma} \\
+    (d \phi)_{\sigma} &\coloneqq d( \phi_{\sigma}) &  
+    {(\phi \cdot \psi)}_{\sigma} &\coloneqq \phi_{\sigma}  \cdot \psi_{\sigma}
    \end{align*}
   
     \item For a morphism $f \colon A \to B$ \; of simplicial cochain algebras we define the morphism
@@ -82,9 +99,13 @@
     \item For a simplicial map $\varphi \colon K \to L$ we define ${A(\varphi) \colon A(K) \gets A(L)}$
       by $(A(\varphi) \phi)_{\sigma} \coloneqq \phi_{\varphi \sigma}$.
   \end{itemize}
-  For a topological space $X$ we shall write $A(X) \coloneqq A(S_*^{sing}(X))$
-  %TODO fertig schreiben
+  For a topological space $X$ we shall write $A(X) \coloneqq A(S_*^{sing}(X))$.
  \end{Definition}
+
+ \begin{Remark}
+  For a fixed simplicial set $K$ and a fixed simplicial cochain algebra $A$ we have that $\_(K)$ is a covariant functor and
+  $A(\_)$ is a contravariant functor.
+ \end{Remark}
 
  %TODO einleitenden Text für polynomielle Differentialformen schreiben
  

@@ -100,6 +100,24 @@ To illustrate how polynomial reductions look like we prove the following:
  
 \end{proof}
 
+Let us introduce another $\NPcomplexity$-complete problem:
+
+\begin{Problem}[Subset sum]
+ We define the language
+ $$ L_{SSS} \coloneqq {\big{\lbrace} (x_1, \ldots, x_n, S) \in \N^{n+1} \, | \;
+ \exists (b_1, \ldots, b_n) \in {\lbrace 0,1 \rbrace}^n  \; \text{with} \; \sum_{i = 1}^n b_i x_i = S \big{\rbrace}} $$
+ and call the decision problem for $L_{SSS}$ SUBSETSUM.
+\end{Problem}
+
+\begin{Theorem}
+ SUBSETSUM is $\NPcomplexity$-complete.
+\end{Theorem}
+
+\begin{proof}
+ See \cite{JorgRothe2008} Theorem 3.67.
+\end{proof}
+
+ 
  
 \subsection{Graded Algebras}
 
@@ -175,6 +193,12 @@ it is connected and $H^i(M) = 0$ for $i = 1, \dotsc, n$. For $1$-connected we sh
 
 A morphism $f \colon M \to N$ of differential graded modules commutes with the differentials and hence maps cocycles to cocycles
 and coboundaries to coboundaries. Therefore it induces a well defined map $H(f) \colon H(M) \to H(N) \; \; [x] \mapsto [f(x)]$. 
+
+\begin{Remark}
+ In most other subfields of topology and algebra the above definition would be called \emph{cohomology} since the
+ differential raises the degree. In rational homotopy however the term homology seems to be standard and we decided 
+ to stick with this.
+\end{Remark}
 
 \begin{Example}[Singular cohomology]
  Given a topological space $X$ we call the homology $H(C^*_{sing}(X;R))$ the \emph{singular cohomology} of the space $X$
@@ -284,7 +308,8 @@ by $\Lambda^{\geq k} V$ the vector space of elements in $\Lambda V$ with wordlen
 Additionally $V^{\geq k}$ denotes the subspace of elements of degree at least k and ${\Lambda V}^{\geq k}$ 
 is the free commutative algebra over this subspace $V^{\geq k}$. Unfortunately these two notations look 
 very similar and are very different in their nature, one should not confuse them.
-
+At last we denote by $\Lambda V^{even}$ the free commutative algebra over the elements in $V$ of even degree
+and likewise for $\Lambda V^{odd}$.
 \par
 
 Later it will be important to have a good understanding of free commutative algebras and therefore

@@ -20,7 +20,26 @@ Note that the structure of a Sullivan algebra $\Sullivan$ is completely encoded 
 differential $d$. That is, if we are given a differential (which is a derivation) $d \colon V \to \Lambda V$ then the
 universal property of free commutative algebras tells us that $d$ extends uniquely to $d \colon \Lambda V \to \Lambda V$.
 Therefore it is enough to specify the differential of a Sullivan algebra $\Sullivan$ on the basis of $V$.
-To get a better understanding of this structure we will now present some examples.
+
+
+\begin{Proposition}
+\label{prop:WellBehavedFiltrations}
+ Let $\Sullivan$ be a differential graded algebra with $V = {\lbrace V^n \rbrace}_{n \geq 2}$ and 
+ ${im \;d \subseteq \Lambda^{\geq 2} V}$ then $\Sullivan$ is a minimal Sullivan algebra and
+ the filtration can be choosen such that $V(i) = V^{i+2} \oplus V(i-1)$ (with $V(-1) = 0$).
+\end{Proposition}
+\begin{proof}
+ The proof of this is mainly a degree argument. We choose the filtration ${V(i) = V^{i+2} \oplus V(i-1)}$ as in the claim
+ and show that it satisfies
+ the nilpotence condition. Begin with $V(0) = V^2$ and take $v \in V(0)$ then $dv$ lies in
+ degree $3$ and $dv \in \Lambda^{\geq 2} V$. But, since $V^0 = V^1 = 0$, it follows that $(\Lambda V)^3$ only contains 
+ nonzero elements of wordlength 1, therefore $dv = 0$. 
+ It remains to show that for $k \geq 1$, $d(V^{k+2}) \subseteq \Lambda V^{ \leq k+1}$ holds. Take $v \in V^{ k+2}$ then 
+ $| dv | = k + 3$ and basically the same argument as before works, if $dv$ contained a term $xy \notin \Lambda V^{\leq k+1}$
+ then $|x| = 1$ and $|y| = k + 2$ or $|x| = 0$ and $|y| = k + 3$ but in both cases it holds $x = 0$ thus $xy = 0$.
+\end{proof}
+
+To get a better understanding of Sullivan algebras we will now present some examples.
 
 \begin{Example}
  First we want to present an algebra which is not a Sullivan algebra. 
@@ -31,25 +50,18 @@ To get a better understanding of this structure we will now present some example
  ${\lbrace V(i) \rbrace}_{i \geq 0}$ for
  the nilpotence condition which respects the degree of elements, hence $ x $ would be in some $V(i)$ and $yz$ in some $V(j)$
  with $i \leq j$ but this contradicts $dx \in \Lambda V(i-1)$ ($x$ can not be in $V(0)$ since it is not a cocycle).
-\end{Example}
+%TODO das mit der Indizierung checken + Überarbeiten!
+ \end{Example}
 
-
-\begin{Proposition}
-\label{prop:WellBehavedFiltrations}
- Let $\Sullivan$ be a differential graded algebra with $V = {\lbrace V^n \rbrace}_{n \geq 2}$ and 
- ${im \;d \subseteq \Lambda^{\geq 2} V}$ then $\Sullivan$ is a minimal Sullivan algebra and
- the filtration can be choosen such that $V(i) = V^{i+2} + V(i-1)$ (with $V(-1) = 0$).
-\end{Proposition}
-\begin{proof}
- The proof of this is mainly a degree argument. We choose the filtration ${V(i) = V^{i+2} + V(i-1)}$ as in the claim
- and show that it satisfies
- the nilpotence condition. Begin with $V(0) = V^2$ and take $v \in V(0)$ then $dv$ lies in
- degree $3$ and $dv \in \Lambda^{\geq 2} V$. But, since $V^0 = V^1 = 0$, it follows that $(\Lambda V)^3$ only contains 
- nonzero elements of wordlength 1, therefore $dv = 0$. 
- It remains to show that for $k \geq 1$, $d(V^{k+2}) \subseteq \Lambda V^{k+1}$ holds. Take $v \in V^{k+2}$ then 
- $| dv | = k + 3$ and basically the same argument as before works, if $dv$ contained a term $xy \notin \Lambda V^{k+1}$
- then $|x| = 1$ and $|y| = k + 2$ or $|x| = 0$ and $|y| = k + 3$ but in both cases it holds $x = 0$ thus $xy = 0$.
-\end{proof}
+\begin{Remark}
+ Many example Sullivan algebras follow the same structure and we want to have a brief representation of them.
+ Therefore, we introduce the following notation: \newline
+ We write $\Lambda (a_i , b_j, \ldots, x_k ; d x = a)$ to mean the Sullivan algebra
+ $(\Lambda \langle a, b, \ldots, x \rangle , d) $ with $|a| = i$, $|b| = j$, $|x| = k$, $d x = a$ and
+ $dy = 0 $ for all other generators $y$, i.e. the subscripts denote the degree of the indexed generator and
+ we only specify the differential on elements which get not mapped to zero.
+\end{Remark}
+%TODO Kann auch weg gelassen werden, je nachdem ob ich das nochmal benutze
 
 
 
@@ -66,8 +78,8 @@ the following definition:
 \begin{Remark}
 \label{rem:MinimalSullivanModelsExist}
 This definition becomes interesting since it can be shown that every connected commutative cochain algebra has a minimal Sullivan model
-(\cite{Felix2001} Theorem 14.12). However, we want to prove a simpler version that will suffice for later use and can
-be algorithmically obtained.
+(\cite{Felix2001} Theorem 14.12). However the proof of this is not constructive and we want to prove a simpler 
+version that can be algorithmically obtained and will suffice for later use .
 \end{Remark}
 
 \begin{Theorem}
@@ -96,7 +108,7 @@ In the case of the last theorem the model can be obtained by an algorithm which 
    
    $$H^{k+1}(A,d) = im \; H^{k+1}(\varphi_k) \; \oplus \; \bigoplus_{i \in I} \; \langle [v_i] \rangle $$
    
-   \item Further choose cocycles $(c_j)_{j \in J} \subset (\Lambda V^{\leq k})^{k+2}$ with
+   \item \label{itm:third} Further choose cocycles $(c_j)_{j \in J} \subset (\Lambda V^{\leq k})^{k+2}$ with
    $$ ker \; H^{k+2}(\varphi_k) = \bigoplus_{j \in J} \; \langle [c_j] \rangle$$
    
    \item By construction the $(\varphi_k(c_j))_{j \in J}$ are coboundaries and we can choose 
@@ -124,15 +136,32 @@ Let us gather some properties of this algorithm:
 \end{Proposition}
 Note that this Proposition also proves \ref{thm:MinimalSullivanModelsExistForSimplyConnected}.
 \begin{proof}
+\begin{enumerate}
+ \item 
+
  First observe that $\Sullivan$ actually is a Sullivan Algebra, by construction the filtration $V(i) \coloneqq V^{i+2}$ satisfies
  the nilpotence condition and further the choice of the differential in step \ref{itm:second} implies that $\Sullivan$ is minimal.
  Next we want to see that $m$ is a quasi-isomorphism, for this we show by induction over $k \geq 2$ that
  $H^i(m_k)$ is an isomorphism for $i \leq k$ and injective for $ i = k +1$. The case $k = 2$ is clear since $m_2$ is chosen
  as an isomorphism in \ref{itm:FirstAlgorithmStep}. Now if $k > 2$ it holds by induction hypothesis (since $m_k$ extends
  $m_{k-1}$) that $H^i(m_k)$ is surjective for $i < k$ and by the choice of elements in \ref{itm:first} also for $i = k$.
+ Further, $H^i(m_k)$ is injective by induction hypothesis for $i < k$. Additionally, $H^{k+1}(m_k)$ is injective since
+ all elements $[z] \in ker \; H^{k+1}(m_k)$ lie in $\Lambda V^{<k}$ (since $V^1 = 0$) and therefore are
+ coboundaries by step \ref{itm:third}. At last, consider $[z] \in ker \; H^k (m_k)$, we can write (using the notation used in
+ the algorithm)
+ $$z = \sum_{i \in I} \alpha_i \lambda_{\alpha_i} + \sum_{j \in J} \beta_j \lambda_{\beta_j} 
+ + r \quad \text{with $r \in \Lambda V^{<k}$ }$$
  
+ applying the differential to this yields 
  
+ $$ -dr = d(\sum_{j \in J} \beta_j \lambda_{\beta_j} )$$
 %TODO Beweis fertig schreiben
+
+ \item Follows immediately from the construction.
+ \item Let wlog $r > 2$ then $V^2 \cong H^2(A,d)$ is finite dimensional. Now we can proceed inductively, $V^k$ is by construction 
+ direct sum of a subspace of $H^k(A,d)$ and a subspace of $(\Lambda V^{ <k })^k$ and therefore is finite dimensional since
+ the latter two are by induction hypothesis and by requirement for $k<r$.
+ \end{enumerate}
 \end{proof}
 
 The next definition is about homotopy groups of a Sullivan algebra, of course they bear that name since we will later
@@ -197,7 +226,7 @@ Sullivan algebras, called relative Sullivan algebras.
 \subsection{Properties of Sullivan Algebras}
 Here we want to introduce some notations for properties of Sullivan algebras. It will often occur that it is not 
 immediately clear why some properties of Sullivan algebras could be interesting and why we give them a name. But, we assure
-the reader that we will later see that all these definitions correspond 1:1 to topological properties which
+the reader that we shall later see that all these definitions correspond 1:1 to topological properties which
 get modeled by Sullivan algebras.
 %TODO rausfinden wie man gescheite Umbrüche macht
 \par
@@ -228,7 +257,7 @@ of $\varrho_m$ (where $Z(m)$ is just a notation for the Sullivan algebra which m
 
 \begin{Definition}
  The \emph{product length} of a cochain algebra $A$ is the smallest integer $n$ (or $\infty$) such that 
- $\Pi_{i = 1}^{n+1} a_i = 0$ holds for all $a_i \in A$. It will be denoted by $nil \,A$.
+ $\Pi_{i = 1}^{n+1} a_i = 0$  for all $a_i \in A$. It will be denoted by $nil \,A$.
 \end{Definition}
 
 \begin{Example}
@@ -239,7 +268,7 @@ of $\varrho_m$ (where $Z(m)$ is just a notation for the Sullivan algebra which m
 \begin{Proposition}
 %  \begin{enumerate}
 %   \item 
-  A Sullivan algebra $\Sullivan$ has category $ \leq m$ if and only if there is a diagram of commutative cochain
+  A Sullivan algebra $\Sullivan$ has category $ \leq m$ if and only if there exists a diagram of commutative cochain
   algebras 
   
   \centerline{
@@ -284,5 +313,71 @@ For the other direction see \cite{Felix2001} p.385.
 % \end{enumerate}
  
 \end{proof}
-
 %TODO nochmal über Corrollary 1 p.385 nachdenken und hoffentlich hier rein bringen
+
+\begin{Definition}
+ If $\Sullivan$ is a Sullivan algebra with $V$ finite dimensional, $d(V^{even}) = 0$
+ and $d(V^{odd}) \subseteq \Lambda V^{even}$ we say that $\Sullivan$ is a \emph{pure Sullivan algebra}.
+\end{Definition}
+
+For a Sullivan algebra $\Sullivan$ let us denote $ Q \coloneqq V^{even}$ and $P \coloneqq V^{odd}$.
+If $\Sullivan$ is pure then the requirements on the differential induce a sequence
+
+\centerline{
+\xymatrix{
+\cdots \ar[r]^(.35)d &\Lambda Q \otimes \Lambda^2 P \ar[r]^(.55)d &Q \otimes P \ar[r]^d & \Lambda Q \ar[r]^(.55)d &0 
+}
+}
+
+which we can regard as a differential graded module $(M,d)$ with $0$ in degrees $\geq 1$, $\Lambda Q$ in degree $0$,
+$Q \otimes P$ in degree $-1$ and so on.
+We denote the homology of this sequence by $H_k(\Lambda V,d) \coloneqq H^{-k}(M,d)$. In particular, this yields
+$ H(\Lambda V,d) = \bigoplus_k H_k(\Lambda V,d)$. \par
+For an element $x \otimes y \in \Lambda Q \otimes P$ we have 
+$ d( x \otimes y) = dx \otimes y + x \otimes dy = x \otimes dy$. This shows that
+$d( \Lambda Q \otimes P) = d(P) \cdot \Lambda Q$ and further
+$$H_0(\Lambda V, d) \cong \Lambda Q / \Lambda Q \cdot d(P)$$
+
+\begin{Proposition}
+\label{prop:FiniteDimensionDependentOnDegreeOne}
+ For a pure Sullivan algebra $\Sullivan$ the following holds :
+ 
+  $H(\Lambda V,d)$ is finite dimensional if and only if $H_0(\Lambda V,d)$ is finite dimensional.
+ 
+\end{Proposition}
+
+\begin{proof}
+ From left to right is obvious, so let us consider that $H_0(\Lambda V,d)$ is finite dimensional.
+ %TODO Beweis fertig schreiben
+\end{proof}
+
+\begin{Definition}
+ Let $\Sullivan$ be a Sullivan algebra with $V$ finite dimensional, we define its 
+ \emph{associated pure Sullivan algebra} $(\Lambda V, d_{\sigma})$ by :
+ 
+ \begin{align*}
+  d_{\sigma} (Q) = 0 & & \text{and} & & d_{\sigma}(p) = \pi_{\Lambda Q} \circ d(p) \quad \text{for $p \in P$}
+ \end{align*}
+ where $\pi_{\Lambda Q} \colon \Sullivan \to \Lambda Q$ denotes the projection.
+%TODO UNBEDINGT! schauen ob die Definition so stimmt!!
+ \end{Definition}
+
+ One can show that the associated pure Sullivan algebra always is a pure Sullivan algebra ( \cite{Felix2001} p.438).
+
+\begin{Proposition}
+\label{prop:EquivalenceFiniteDimensionCategoryCohomology}
+ If $\Sullivan$ is a minimal Sullivan algebra with $V = V^{\geq 2}$ finite dimensional then the following conditions
+ are equivalent:
+ 
+ \begin{enumerate}
+  \item $H(\Lambda V, d_{\sigma})$ is finite dimensional
+  \item $H(\Lambda V, d)$ is finite dimensional
+  \item The category of $\Sullivan$ is finite
+ \end{enumerate}
+
+\end{Proposition}
+
+\begin{proof}
+  %TODO Hier nach Möglichkeit noch 2 -> 3 einfügen, wenn 29.3 verstanden wurde
+ See \cite{Felix2001} Proposition 32.4.
+\end{proof}
