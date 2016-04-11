@@ -170,8 +170,11 @@
 \end{Lemma}
 
 \begin{proof}
- %TODO Hier sollte noch etwas dazu stehen, dass wir O.B.d.A. (\Lambda V_{(G,k)}, d) \otimes \C als \C Algebra anschauen können
- From Lemma \ref{lma:IfAndOnlyIfNonTrivialMorphism} we already know that $(\Lambda V_{(G,k)},d)$  has infinite dimension if and only if 
+ First observe that $(\Lambda V_{(G,k)}, d)$ has infinite dimensional homology as $\Q$-algebra iff 
+ $(\Lambda V_{(G,k)}, d) $ has infinite dimensional homology as $\C$-algebra. This follows directly from 
+ the universal coefficient theorem for cohomology and allows us to treat $(\Lambda V_{(G,k)}, d)$ as a $\C$-algebra
+ from now on.
+ From Lemma \ref{lma:IfAndOnlyIfNonTrivialMorphism} we know that $(\Lambda V_{(G,k)},d)$  has infinite dimension if and only if 
  there is a non trivial morphism of differential graded algebras \\
  ${\varphi \colon (\Lambda V_{(G,k)},d) \to ( \C [\alpha] ,\acute{d} = 0)}$ with $|\alpha| = 2$. How can such a morphism look like?
  Clearly $\varphi(x_i) = \lambda_i \alpha$ for some $\lambda_i \in \C$ and $\varphi(y_{(r,s)}) = 0$ for all $(r,s) \in J$ , since 
@@ -257,5 +260,36 @@
  \end{Definition}
 
 
- 
- %TODO Reduktion auf Subset sum!
+ \begin{Theorem}
+  The problem to decide for a given elliptic minimal Sullivan algebra $\Sullivan$ and $k \in \N$ if
+  $b_k \Sullivan \neq 0$ is $\NPcomplexity$-hard.
+ \end{Theorem}
+
+ \begin{proof}
+  We reduce the problem to SUBSETSUM in polynomial time to prove the claim.
+  So, if we are given an instance $(x_1, \ldots, x_n, S)$ of SUBSETSUM we construct an elliptic minimal Sullivan
+  algebra $\Sullivan$ as follows: \newline
+  Let $x_1, \ldots, x_i$ be odd and $x_{i+1}, \ldots, x_n$ even. Define 
+  $V \colon \langle v_1, \ldots, v_n, w_{i+1}, \ldots , w_n \rangle$ where $|v_i| = x_i$ and $|w_i| = 2x_i -1$.
+  Specifiy the differential by $dx_i = 0$ and $dw_i = x_i^2$ (note that we shall later see that this defines 
+  a minimal model of the space $S^{x_1} \times \ldots \times S^{x_n}$). The homology of this Sullivan algebra is given by:
+   
+  \begin{align*}
+  H \Sullivan &\cong H \big{(} \big{(}\bigotimes_{j = 1}^i \Lambda \langle v_j \rangle , 0 \big{)} \;\otimes \;  
+  \big{(} {\bigotimes}_{j=i + 1}^n \Lambda \langle v_{j} ,w_{j}\rangle , d \big{)} \big{)}  \\
+  &\cong \big{(} \bigotimes_{j = 1}^i \Lambda \langle [v_j] \rangle , 0 \big{)}
+  \; \otimes \;H \big{(}  {\bigotimes}_{j=i + 1}^n \Lambda \langle v_{j} ,w_{j}\rangle  , d\big{)}
+  \end{align*}
+  
+  since homology commutes with tensor products (Künneth theorem). From this representation of the homology,
+  we see that it is finite dimensional (hence $\Sullivan$ is elliptic) and 
+  ${b_p(X) = \# {\lbrace T \subseteq (x_1, \ldots, x_n) | \sum_{x \in T} x = p \rbrace}}$.
+  Thus, if we decide if $b_S \neq 0$ we also decide if the given instance$(x_1, \ldots, x_n, S)$ of SUBSETSUM
+  has a solution. Furthermore, this reduction is polynomial in $n$ 
+  (since we can fix $c$ from Remark \ref{rem:CodingOfSullivanAlgebras} as $c = 2$)
+  and therefore in the length of the instance $(x_1, \ldots, x_n, S)$. 
+ \end{proof}
+
+ \begin{Corollary}
+  Computing the betti numbers of a minimal elliptic Sullivan algebra is $\NPcomplexity$-hard.
+ \end{Corollary}

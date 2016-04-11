@@ -152,10 +152,17 @@ Note that this Proposition also proves \ref{thm:MinimalSullivanModelsExistForSim
  $$z = \sum_{i \in I} \alpha_i \lambda_{\alpha_i} + \sum_{j \in J} \beta_j \lambda_{\beta_j} 
  + r \quad \text{with $r \in \Lambda V^{<k}$ }$$
  
- applying the differential to this yields 
- 
- $$ -dr = d(\sum_{j \in J} \beta_j \lambda_{\beta_j} )$$
-%TODO Beweis fertig schreiben
+ applying the differential to this yields
+ $ -dr = d(\sum_{j \in J} \beta_j \lambda_{\beta_j}) = \sum_{j \in J} \lambda_{\beta_j} c_j$
+ and taking homology in this equation gives $ [0] = \sum_{j \in J} \lambda_{\beta_j} [c_j]$ and since
+ $[c_j] \neq 0$ for all $j \in J$ by the choice of the $c_j$, we get that $\lambda_{\beta_j} = 0$ for all $j \in J$ and 
+ therefore $dr = 0$. We also have:
+ $$0 = H^{k}(m_k)(z) = (H^k(m_k))( \sum_{i \in I} \alpha_i \lambda_{\alpha_i} ) + (H^k(m_{k-1}))(r)
+    = \sum_{i \in I} \lambda_{\alpha_i} [v_i] + (H^k(m_{k-1}))(r) $$
+    
+and by choice of the $[v_i]$ it follows that $\lambda_{\alpha_i} = 0$ and therefore 
+$ [z] = [r] \in H^k ( m_{k+1})$ and by induction hypothesis $[z] = 0$ follows.
+%TODO Beweis eventuell noch mal prüfen
 
  \item Follows immediately from the construction.
  \item Let wlog $r > 2$ then $V^2 \cong H^2(A,d)$ is finite dimensional. Now we can proceed inductively, $V^k$ is by construction 
@@ -235,7 +242,6 @@ Let $\Sullivan$ be a Sullivan algebra and consider the projection
 $\varrho_m \colon \Sullivan \to (\Lambda V / \Lambda^{> m} V , d)$ for $m \geq 1$, then $H^1(\varrho_m)$ is injective.
 Therefore, Proposition \ref{prop:ExistenceMorphismSullivanModels} tells us that there is a Sullivan model
 
-%TODO mal schauen ob man das lambda weiter nach links schieben kann.
 \centerline{
 \xymatrix{
 \Sullivan \ar[r]^(.35){\lambda_{m}} \ar[rd]_{\varrho_m} &
