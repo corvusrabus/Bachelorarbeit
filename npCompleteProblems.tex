@@ -1,7 +1,7 @@
- \section{NP-complete problems concerning Sullivan algebras}
+ \section{NP-hard problems concerning Sullivan algebras} \label{sec:NPSullivan}
  
  In this section we want to show the 
- $\NPcomplexity$ completeness of certain problems concerning Sullivan algebras. Later we shall see that these problems
+ $\NPcomplexity$ hardeness of certain problems concerning Sullivan algebras. Later we shall see that these problems
  translate directly to topological problems. The Theorems and proofs in this section mainly follow  \cite{Lechuga2000}.
  
  We want our ground ring $R$ to be  $\Q$, hence we only consider rational Sullivan algebras.
@@ -34,7 +34,7 @@
   $\lambda_{j_1, \ldots, j_q}$ (which is represented by $2$ integers)
   . Let $k$ be the number of integers stored in all these tuples. We have $n$ generators,
   ${ n \choose q}$ choices of $q$ generators out of $n$ and at most $c + 2$ integers per tuple. Therefore, we can bound $k$ by
-  $k \leq (c + 2)m \sum_{q = 2}^c { n \choose q} $ and this is polynomial in $n$ for fixed $c$.
+  $k \leq (c + 2)n \sum_{q = 2}^c { n \choose q} $ and this is polynomial in $n$ for fixed $c$.
   Hence, if we consider $c$ as fixed then the representation has polynomial length in the number
   of generators.
   
@@ -119,7 +119,7 @@
   Consider the rational Sullivan algebra $(\Lambda \langle a, b, c \rangle,d)$ with $|a| = |b| = 2$, $|c| = 3$,
   $da = db = 0$ and $dc = a^2 + b^2$. It has infinite dimensional homology since $ [a^i]$ is a non-zero homology
   class for all $i \in \N$. Further, the only morphism $\varphi \Sullivan \to (\Q[\alpha], 0)$ with $|\alpha| = 2$ is the
-  trivial one since $\varphi (a) = \lambda_a \alpha$, $\varphi (b) = \lambda_b \alpha$ implies 
+  trivial one, since $\varphi (a) = \lambda_a \alpha$, $\varphi (b) = \lambda_b \alpha$ implies 
   $ 0 = d\varphi (c) = \varphi(dc) = \varphi( a^2 + b^2) = (\lambda_a^2 + \lambda_b^2) \alpha$.
   
  \end{Remark}
@@ -260,7 +260,8 @@
  \end{Definition}
 
 
- \begin{Theorem}
+ \begin{Theorem}[Garvín, Lechuga]
+ \label{thm:AlgebrasBettiNumbersLemma}
   The problem to decide for a given elliptic minimal Sullivan algebra $\Sullivan$ and $k \in \N$ if
   $b_k \Sullivan \neq 0$ is $\NPcomplexity$-hard.
  \end{Theorem}
@@ -290,6 +291,12 @@
   and therefore in the length of the instance $(x_1, \ldots, x_n, S)$. 
  \end{proof}
 
+ Further, for an elliptic Sullivan algebra $\Sullivan$ we can think of a bit string $(x_0, \ldots, x_n)$ encoding all 
+ Betti numbers of $\Sullivan$, i.e. $x_i = b_i \Sullivan$ for $i = 0,\ldots, n$ and $b_p \Sullivan = 0$ for $p > n$.
+ Note that this only works for algebras with finite dimensional homology.
+  
+ 
  \begin{Corollary}
-  Computing the betti numbers of a minimal elliptic Sullivan algebra is $\NPcomplexity$-hard.
+ \label{thm:AlgebrasComputingBettiNumbers}
+  Computing the Betti numbers of a minimal elliptic Sullivan algebra is $\NPcomplexity$-hard.
  \end{Corollary}

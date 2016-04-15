@@ -2,7 +2,182 @@
 
 In this last section we finally want to bring everything together and apply the existence of algebraic
 models for spaces and the $\NPcomplexity$-hardness of certain of their properties to problems in topology.
+We shall use space to mean topological space and all maps are meant to be continous.
+
+\subsection{Some definitions of topological invariants}
+
+
+\begin{Definition}
+ Let $I^n \coloneqq [0,1]^n$ be the $n$-dimensional unit cube and $\partial I^n$ its boundary.
+ The \emph{homotopy groups} of a space $X$ with basepoint $x_0 \in X$ are defined as follows: \newline
+ $\pi_n(X) \coloneqq [(I^n, \partial I^n), (X,x_0) ]$ (for $n \geq 0$) is the set of homotopy classes of maps
+ $f \colon I^n \to X$ with $f(\partial I^n) = x_0$, where homotopies $h_t$ have to satisfy $h_t(\partial I^n) = x_0$.
+ Furthermore, we define the group multiplication by 
+ $$ (f \cdot g) (x_1, \ldots, x_n) \coloneqq 
+ \begin{cases}
+  f(2x_1, x_2, \ldots, x_n) &\text{for $x_1 \in [0, \frac{1}{2}]$} \\
+ 
+  g(2x_1 - 1, x_2, \ldots, x_n) &\text{for $x_1 \in [ \frac{1}{2}, 1]$}
+ \end{cases}
+$$
+\end{Definition}
+
+Note that collapsing the boundary of $I^n$ yields $S^n$ and we could have defined 
+$\pi_n(X) \coloneqq [ (S^n, y_0), (X,x_0)]$ where $y_0$ represents $[\partial I^n]$.
 
 \begin{Remark}
- It is not clear how to 
+ A space $X$ with $\pi_1(X) = 0$ is called \emph{simply connected}. We shall only consider
+ simply connected spaces since it can be shown that $\pi_n (X)$ is abelian for $n \geq 2$ 
+ (\cite{SWB-334616069} p.\ 340 and this is of course not true for $\pi_1(X)$)
+ which allows us to consider the \emph{rational homotopy groups}
+ $ \pi_n(X) \otimes_{\Z} \Q$ (for $n \geq 2$) of $X$. Rational homotopy groups become interesting since the ``normal''
+ homotopy groups of many spaces are virtually not computable by any known method and they still contain much information
+ about the homotopy groups if we forget about torsion.
 \end{Remark}
+
+Now we have reached the point where we can finally show the power of Sullivan models explicitly with the following Theorem:
+
+\begin{Theorem}
+ Let $X$ be a simply connected space with $H^i(X)$ finite dimensional for all $i \geq 0$ and 
+ $\Sullivan$ a minimal Sullivan model of $X$ then the following holds:
+ 
+ $$ \pi_*(X) \otimes \Q \cong V$$
+ %TODO könnte man anders schreiben, wenn noch mehr Theorie über Sullivan Algebren eingebracht wird.
+\end{Theorem}
+
+\begin{proof}
+ From  \cite{Felix2001} Theorem 15.11 we cite the essential part of the proof, namely $V \cong Hom_{\Z}(\pi_*(X), \Q)$. 
+ From this we then get :
+ $$ V \cong Hom_{\Z}(\pi_*(X), \Q) \cong Hom_{\Z}(\pi_*(X), Hom_{\Z}(\Q, \Q)) \cong 
+  Hom_{\Z}(\pi_*(X) \otimes \Q, \Q) \cong \pi_*(X) \otimes \Q$$
+  
+  where we have used that $Hom$ and tensor product are adjoint.
+\end{proof}
+
+For example we can now calculate rational homotopy groups of spaces if their cohomology algebra is nice enough. Let us
+demonstrate this at the example of spheres:
+
+\begin{Example}
+ We know from \ref{ex:MinimalModelOfSpheres} that $\Lambda(v_{2k+1};)$ and $\Lambda(v_{2k}, x_{4k -1}; dx = v^2)$
+ define minimal models of the odd and even dimensional spheres. Therefore, we now also know their rational homotopy groups:
+ 
+ \begin{multicols}{2}
+  $\pi_i(S^{2k+1}) \otimes \Q \cong
+  \begin{cases}
+  \Q  	&\text{for $i = 0, 2k+1$} \\
+  0 	&\text{else}
+  \end{cases}
+  $
+  
+  \columnbreak
+  
+  $\pi_i(S^{2k}) \otimes \Q \cong
+  \begin{cases}
+  \Q  	&\text{for $i = 0, 2k, 4k -1 $} \\
+  0 	&\text{else}
+  \end{cases}
+  $
+ \end{multicols}
+This implies in particular that all homotopy groups of a $n$-sphere are torsion besides in degrees $0, n$
+and for $n$ even $2n -1$.
+\end{Example}
+
+\begin{Definition}
+ A \emph{rational space} is a simply connected space $X$ with $\pi_*(X)$ being a $\Q$-vector space.
+ Additionally, a  \emph{rationalisation} of a space $X$ is a rational space $X_{\Q}$ together with a map
+ $f \colon X \to X_{\Q}$ such that $\pi_*(f) \otimes_{\Z} id_{\Q}$ is an isomorphism. 
+ Furthermore a map $\varphi \colon X \to Y$ for which $\pi_*(\varphi) \otimes \Q$ is an isomorphism is 
+ called a \emph{rational homotopy equivalence} and rational homotopy equivalent spaces will be denoted by
+ $X \simeq_{\Q} Y$.
+\end{Definition}
+
+%TODO schauen ob man da noch mehr dazu schreiben kann.
+
+\begin{Definition}
+ The \emph{Lusternik-Schnirrelman category} $cat(X)$ of a space $X$ is the smallest integer $k$ such that 
+ $X$ can be covered by open sets $U_1, \ldots, U_{k+1}$ that are all contractible in $X$ which
+ means that the inclusions $U_i \xhookrightarrow{} X$ are homotopic to a constant map.
+ The \emph{rational Lusternik-Schnirrelman category} $cat_0(X)$ of $X$ is the smallest integer $k$ such that there is a space $Y$
+ with $ X \simeq_{\Q} Y$ and $cat \, Y = k$.
+\end{Definition}
+
+\begin{Remark}
+ It is important that the sets $U_i$ are \textbf{contractible in X}. 
+ An example of the difference to the term contractible is $S^n$ which is not contractible but contractible in $\R^{n+1}$. 
+\end{Remark}
+
+\begin{Example}
+ The Lusternik-Schnirrelman category of a contractible space is $0$ and the converse also holds.
+ A sphere $S^n$ is not contractible but can be covered by extended upper and lower hemispheres which
+ overlap a little bit at the equator, therefore $S^n$ has Lusternik-Schnirrelman category 1.
+\end{Example}
+
+The reader probably noticed that we already defined the Lusternik-Schnirrelman category for Sullivan algebras and
+of course these two notions coincide in nice cases:
+
+\begin{Proposition}
+ Let $X$ be a simply connected space with $H^i(X)$ finite dimensional for $i \geq 0$ and let $\Sullivan$ be 
+ a Sullivan model of $X$ then
+ $$ cat \, \Sullivan = cat_0 (X)$$
+\end{Proposition}
+
+\begin{proof}
+ See \cite{Felix2001} Proposition 29.4. %TODO eventuell hier noch eine Richtung Beweis mit ein bringen
+\end{proof}
+
+\begin{Definition}
+ We call $b_p (X) \coloneqq dim \, H^p(X)$ the \emph{Betti numbers} of a space $X$.
+\end{Definition}
+
+\begin{Example}
+ The Betti numbers of $S^n$ are $b_0(S^n) = b_n(S^n) = 1$ and $ b_i(S^n) = 0$ else.
+\end{Example}
+
+\begin{Definition}
+ A simply connected space $X$ is called \emph{rationally elliptic} if both $H^*(X)$ and $\pi_*(X) \otimes \Q$ are finite dimensional.
+\end{Definition}
+
+
+\subsection{$\NPcomplexity$-hard problems in rational homotopy theory}
+
+In this last section we want to translate section \ref{sec:NPSullivan} to topology.
+
+\begin{Remark}
+ In order to speak about the complexity of computations involving topological spaces we first have to
+ present how we can encode a topological space in a computer. We therefore restrict ourselves to simply connected
+ spaces $X$ with $\pi_*(X) \otimes \Q$ finite dimensional which implies that $V$ is finite dimensional for a minimal Sullivan model 
+ $\Sullivan$ of X. Thus, we can encode $X$ by encoding its Sullivan model using the encoding from 
+ \ref{rem:CodingOfSullivanAlgebras}. 
+\end{Remark}
+
+\begin{Theorem}[Lechuga, Murillo]
+ \label{thm:SpacesDecidingEllipticity}
+ It is a $\NPcomplexity$-hard problem to decide if a given simply connected space $X$ with  $\pi_*(X) \otimes \Q$
+ finite dimensional is elliptic.
+\end{Theorem}
+
+\begin{proof}
+ This follows directly from \ref{thm:DecidingEllipticityIsNpHard} as follows:
+ Given a Sullivan algebra $\Sullivan$ with $\pi^*(\Lambda V,d)$ finite dimensional we construct the 
+ space $| \langle \Sullivan \rangle |$ which is simply connected and 
+ $\pi_*(| \langle \Sullivan \rangle |) \otimes \Q$ is finite dimensional. Further, we know that 
+ $H^*(| \langle \Sullivan \rangle |) \cong H^*( \Sullivan)$ and therefore the decision problem for 
+ spaces is at least as hard as for Sullivan algebras.
+\end{proof}
+
+\begin{Remark}
+ In fact we can restrict this result to a smaller class of spaces. If we consider $k = 3$ the space resulting from
+ the Sullivan algebra $\Sullivan$ constructed in \ref{constructionOfSullivanAlgebra} only has non vanishing rational
+ homotopy groups in degree 2 and 3. Consequently, deciding if a simply connected space $X$ with
+ $\pi_i(X) = 0$ for $i \neq 0,2,3$ is elliptic is still $\NPcomplexity$-hard and this is a stronger result than
+ \ref{thm:SpacesDecidingEllipticity}.
+\end{Remark}
+
+\begin{Theorem}
+ Computing the Betti numbers of an elliptic space is $\NPcomplexity$-hard.
+\end{Theorem}
+
+\begin{proof}
+ Computing the Betti numbers of a given elliptic Sullivan algebra $\Sullivan$ is the same as computing
+ them for $ | \langle \Sullivan \rangle |$, so the problem is $\NPcomplexity$-hard by \ref{thm:AlgebrasComputingBettiNumbers}.
+\end{proof}

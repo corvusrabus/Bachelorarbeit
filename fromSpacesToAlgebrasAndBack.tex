@@ -1,7 +1,7 @@
 
- \section{From spaces to algebras and back}
- 
- \subsection{From spaces to algebras}
+ \section{From spaces to algebras and back} 
+ %TODO Einleitung schreiben!
+ \subsection{From spaces to algebras} \label{sec:FromSpacesToAlgebras}
  
  \begin{Definition}
   A \emph{simplicial object} $K$ in a category $\mathscr{C}$
@@ -9,18 +9,7 @@
   $\partial_i \colon K_{n+1} \to K_n$ for $i = 0, \ldots, n+1$ called the \emph{face morphisms} and \newline
   $s_j \colon K_n \to K_{n+1}$ for $j = 0, \ldots, n$ called the \emph{degeneracy morphisms}.
   
-  They must fulfill the following equations : %TODO irgendwie noch schauen ob man das auch horizontal nebeneinander machen kann
-%   \begin{itemize}
-%    \item $\partial_i \partial_j = \partial_{j-1} \partial_i$ \quad for $i < j$
-%    \item  $s_i s_j = s_{j+1} s_j$ \quad for $ i \leq j$
-%    \item $ \partial_i s_j = \begin{cases}
-%               s_{j-1} \partial_i 	&\text{if $i < j$} \\
-%               id 	&\text{if $i = j, j+1$} \\
-%               s_j \partial_{i-1}	 &\text{if $ i > j + 1$}
-%              
-%              \end{cases}
-%     $	
-%     \end{itemize}
+  They must fulfill the following equations : 
 %     
     \begin{multicols}{2}
      \begin{align*}
@@ -107,8 +96,6 @@
   $A(\_)$ is a contravariant functor.
  \end{Remark}
 
- %TODO einleitenden Text für polynomielle Differentialformen schreiben
- 
  \begin{Definition}
   The algebra of \emph{polynomial differential forms} $A_{PL} = {\lbrace (A_{PL})_n\rbrace}_{n \geq 0}$ is a
   simplicial object in the category of commutative cochain algebras defined as follows: \newline
