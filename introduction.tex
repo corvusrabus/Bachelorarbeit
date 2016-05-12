@@ -1,8 +1,12 @@
-\section{Introduction}
+\section*{Introduction}
 
-\subsection{Basics in computational complexity theory}
-At first we want to introduce some basic notions in complexity theory which will be needed to state the main results of this thesis.
-Readers who are familiar with computational complexity theory may want to skip this section.
+\newpage
+
+\section{Preliminaries}
+\subsection{Computational complexity theory}
+We begin with recalling some elementary notions in complexity theory which will be needed to state the main results of this thesis.
+Readers familiar with computational complexity theory may want to skip this section.
+\\
 
 Computational complexity theory is mainly about classifying under which restrictions problems can be algorithmically solved.
 Let us begin with defining what a problem is:
@@ -12,26 +16,37 @@ Let us begin with defining what a problem is:
  x \in {\lbrace 0,1 \rbrace}^*  \; | \; f(x) = 1 \rbrace} $ its corresponding language. We call the 
  problem to decide if a given $x \in {\lbrace 0,1 \rbrace}^*$ lies in $L_f$ the \emph{decision problem} for $f$.
  Or more generally given a language $L \subseteq {\lbrace 0,1 \rbrace}^*$ the decision problem for $L$ is to decide
- if for a given $x \in {\lbrace 0,1 \rbrace}^* $ , $x \in L$ holds.
+ if a given $x \in {\lbrace 0,1 \rbrace}^* $ lies in $L$.
 \end{Definition}
 
+\begin{Remark}
 This definition is somehow impractical and one should think of elements $x \in {\lbrace 0,1 \rbrace}^*$ as binary encoding
-of some information. It is useful to introduce decision problems like this because it provides a common basis how problems
-are represented. However we will implicitly think of problems being encoded as bit strings in the following. Now
-we want to look at a first problem, namely $k$-COLOUR. It can be stated like this: \\
- Given an undirected graph $ G = (V,E)$ is it possible to assign a colour (chosen from $k$ different colours) to every vertex 
- $v \in V$ such that adjacent vertices have different colours? In more mathematical language it looks like this:
+of some information. However, it is useful to introduce decision problems like this since it provides a common basis how problems
+are represented. We shall implicitly think of problems being encoded as bit strings in the following.
+\end{Remark}
 
-\begin{Problem}{$k$-COLOUR}
- For $k \in \N$ we define $$L_{k-COLOUR} \coloneqq \lbrace G  = (V,E) \; | \; \text{there is} \; f \colon V \to \lbrace 1, \dotsc k \rbrace
- \; \text{with} \; f(i) \neq f(j) \; \text{for} \; (i,j) \in E \rbrace $$
+\begin{Remark}
+ We do not have to restrict problems to boolean functions and could also speak of the complexity of
+ computing a general function $f \colon {\lbrace 0,1 \rbrace}^* \to {\lbrace 0,1 \rbrace}^*$. 
+\end{Remark}
+
+
+Now we want to have a look at a first concrete problem, namely $k$-COLOUR. It can be stated like this: \\
+ Given an undirected graph $ G = (V,E)$ is it possible to assign a colour (chosen from $k$ different colours) to every vertex 
+ $v \in V$ such that adjacent vertices have different colours? Or in more formal language:
+
+\begin{Problem}[$k$-COLOUR]
+ For $k \in \N$ we define $$L_{k-COLOUR} \coloneqq \lbrace G  = (V,E) \; | 
+ \; \text{there is} \; f \colon V \to \lbrace 1, \dotsc k \rbrace
+ \ \text{with} \; f(i) \neq f(j) \; \text{for} \; (i,j) \in E \rbrace $$
  
  Then the decision problem for $L_{k-COLOUR}$ is called \emph{$k$-COLOUR}.
 \end{Problem}
 
-Next we want to classify the ``hardness'' of decision problems and therefore introduce complexity classes. A \emph{complexity class}
- is a set of languages (or functions) that can be computed under certain restrictions. We only want to introduce two 
- of the most important complexity classes, namely $\Pcomplexity$ and $\NPcomplexity$. We will use the term algorithm
+Next we want to classify the ``hardness'' of decision problems and therefore introduce complexity classes. 
+ In general a \emph{complexity class}
+ is a set of languages (or functions) that can be computed under certain restrictions but  we shall only introduce two 
+ of the most important complexity classes, namely $\Pcomplexity$ and $\NPcomplexity$. For this we will use the term algorithm
  to mean a deterministic Turing maschine (refer to \cite{Arora2009} chapter 1 for a more formal treatment). 
  
 \begin{Definition}
@@ -48,7 +63,7 @@ This leads to:
  The class $\NPcomplexity$ consists of those $f \colon {\lbrace 0,1 \rbrace}^* \to {\lbrace 0,1 \rbrace}$ for which there is
  an algorithm $A$ that can verify for two given inputs $x \in {\lbrace 0,1 \rbrace}^*$ and 
  $w \in {\lbrace 0,1 \rbrace}^*$ (where $|w|$ is bounded by a fixed polynomial in the length of $x$) if $w$ is a proof
- that $f(x) = 1$ and whose running time is polynomially bounded in $|x|$.
+ that $f(x) = 1$ and whose running time is bounded by a fixed polynomial in  $|x|$.
 \end{Definition}
 
 To illustrate how one should think of such a ``proof''  we will show the following:
@@ -78,8 +93,13 @@ Next we want to classify how hard some problems are in comparison with other pro
 \end{Definition}
 
 \begin{Remark}
+ More generally we shall call the problem to compute a function $f \colon {\lbrace 0,1 \rbrace}^* \to {\lbrace 0,1 \rbrace}^*$
+ $\NPcomplexity$-hard if the computation of $f$ allows us to compute any problem in $\NPcomplexity$ with polynomial overhead.
+\end{Remark}
+
+\begin{Remark}
  Note that there are $\NPcomplexity$-hard problems which do not lie in $\NPcomplexity$ (e.g. the halting problem)
- and therefore introducing the term $\NPcomplexity$-complete is a useful convention.
+ and therefore introducing the term $\NPcomplexity$-complete is a reasonable convention.
 \end{Remark}
 
 
@@ -90,17 +110,38 @@ To illustrate how polynomial reductions look like we prove the following:
 \end{Theorem}
 
 \begin{proof}
- We will show this by induction over $k$.
+ We already know that $k$-COLOUR $\in \NPcomplexity$ so it remains to show that it is $\NPcomplexity$-hard.
+ This will be shown by induction over $k$.
  The base case $k = 3$ is essentially the hardest part in the proof and we refer to \cite{JorgRothe2008} (Theorem 3.56).
- Hence we only have to reduce $k$-COLOUR to $(k+1)$-COLOUR. The reduction works as follows: \newline
- Given a graph $G = (V,E)$ we construct a new graph $G' = (V', E')$ where $V' \coloneqq V \cup \lbrace v_{new} \rbrace$ with
- $v_{new} \notin V$ and $E' \coloneqq E \cup \lbrace (v_{new}, v) \; | \; v \in V \rbrace$, i.e.\ we just add one new vertex to the graph
- and connect it with every existing vertex. One can now verify that $V$ is $k$-colourable iff $V'$ is $(k+1)$-colourable and the
- construction of $V'$ is linear in the number of vertices.
+ Hence, we only have to reduce $k$-COLOUR to $(k+1)$-COLOUR. The reduction works as follows: \newline
+ Given an instance of $k$-COLOUR, i.e.\ 
+ a graph $G = (V,E)$, we construct a new graph $G' = (V', E')$ where $V' \coloneqq V \cup \lbrace v_{new} \rbrace$ with
+ $v_{new} \notin V$ and $E' \coloneqq E \cup \lbrace \lbrace v_{new}, v \rbrace \; | \; v \in V \rbrace$, i.e.\ we just add one new vertex to the graph
+ and connect it with every existing vertex. Next, we can see that $G$ is $k$-colourable iff $G'$ is $(k+1)$-colourable as follows: \\
+ Given a colouring $\varphi \colon V \to {\lbrace 1,\ldots,k \rbrace}$ of $G$, we define 
+ $\varphi' \colon V' \to { \lbrace 1, \ldots, k+1 \rbrace }$
+ by 
+ $$ \varphi'(v) = \begin{cases}
+                   k + 1 &\text{if $v = v_{new}$} \\
+                   \varphi(v) &\text{else}
+                  \end{cases}
+$$
+ This clearly defines a $(k+1)$-colouring of $G'$. Otherwise, if we have a $(k+1)$-colouring $\varphi$ of 
+ $G'$ we can wlog (by permuting colours) assume that $\varphi (v_{new}) = k+1$ and then
+ restrict $\varphi$ to $\restr{\varphi}{V}$ which defines a $k$-colouring of $G$ since every $v \in V'$ being connected
+ to $v_{new}$ implies $\varphi(v) \neq \varphi(v_{new}) = k+1$. \\
+ Now that we have a reduction it remains to see that it runs in polynomial time and this is clear since
+ the construction of $G'$ is linear in the number of vertices of $G$.
  
 \end{proof}
 
-Let us introduce another $\NPcomplexity$-complete problem:
+Let us introduce two more $\NPcomplexity$-complete problems:
+\begin{Problem}[Independent set]
+ Let $G = (V,E)$ be a graph, we say that $I \subseteq V$ is an \emph{independent set} iff 
+  $v,w \in I$ implies $(v,w) \notin E$. Using this we define the language
+  $$L_{INDSET} \coloneqq \lbrace (G,k) \; | \; \text{G is a graph with an independent set of size k} \rbrace $$
+  and call its decision problem \emph{INDSET}.
+\end{Problem}
 
 \begin{Problem}[Subset sum]
  We define the language
@@ -109,12 +150,14 @@ Let us introduce another $\NPcomplexity$-complete problem:
  and call the decision problem for $L_{SSS}$ SUBSETSUM.
 \end{Problem}
 
+
+
 \begin{Theorem}
- SUBSETSUM is $\NPcomplexity$-complete.
+ INDSET and SUBSETSUM are $\NPcomplexity$-complete.
 \end{Theorem}
 
 \begin{proof}
- See \cite{JorgRothe2008} Theorem 3.67.
+ See \cite{JorgRothe2008} Theorem 3.54 and Theorem 3.67.
 \end{proof}
 
  
@@ -124,23 +167,27 @@ Let us introduce another $\NPcomplexity$-complete problem:
 Here we want to introduce some algebraic notions of graded modules and algebras and their properties. In the end of 
 this section we want to be able to understand the structure of a free commutative algebra which is the main ingredient 
 for defining Sullivan algebras, the most important algebraic structure of this thesis.
+\\
 
 In this section $R$ will always be a ring, ``module'' will
 always mean $R$-module, ``algebra'' will mean $R$-algebra and ``linear'' will mean $R$-linear.
 
 
-\begin{Definition}{Graded modules and maps of graded modules}
+\begin{Definition}[Graded modules and maps of graded modules]
 
-A \emph{graded module} $M$ consists of a collection of modules $(M^i)_{i \in \Z}$, we will also write
-$M = \bigcup_{i \in \Z} M^i$. We call an element 
+A \emph{graded module} $M$ consists of a collection of modules $ {\lbrace M^i \rbrace}_{i \in \Z}$ (we shall also write
+$M = \bigcup_{i \in \Z} M^i$). We call an element 
 $m_i \in M^i$ a \emph{homogeneous} element of \emph{degree} $i$ and write $|m_i| = deg (m_i) = i$. Accordingly a \emph{submodule} $N$ of
 a graded module $M$ is a collection of modules $(N^i)_{i \in \Z}$ such that $N^i$ is a submodule of $M^i$. \
 Likewise direct sums, quotients, kernels and images are defined degreewise for graded modules. \newline
-A \emph{linear map of degree k} $f \colon M \to N$ of graded modules $M$ and $N$ is a collection $(f_i)_{i \in \Z}$ of
+A \emph{linear map}  $f \colon M \to N$ \emph{of degree k} of graded modules $M$ and $N$ is a collection 
+${\lbrace f_i \rbrace}_{i \in \Z}$ of
 linear maps $f_i \colon M^i \to N^{i + k}$. If we leave out the degree, we mean a map of degree $0$.
 \end{Definition}
 
-We will say that a graded module $M \coloneqq \bigcup_i M^i$ has a property $P$ (e.g. free) if every module $M^i$ has the property $P$.
+For a graded module $M$ we shall denote by $M^{odd}$ the elements of $M$ which lie in odd degrees and likewise by 
+$M^{even}$ the elements in even degrees.
+Further, we shall say that a graded module $M \coloneqq \bigcup_i M^i$ has a property $P$ (e.g. free) if every module $M^i$ has the property $P$.
  
 \begin{Example}[Singular chain complex]
 \label{ex:SingularChainComplex}
@@ -150,19 +197,23 @@ We will say that a graded module $M \coloneqq \bigcup_i M^i$ has a property $P$ 
  \emph{singular $n$-simplices}. 
  Now take the free $R$-module with basis $S_n^{sing}(X)$ 
  and denote it by $C_n^{sing}(X;R)$.
- Then $ C_*^{sing}(X;R) \coloneqq (C_n^{sing}(X;R))_{n \geq 0}$ is a free graded module and is called 
+ Then $ C_*^{sing}(X;R) \coloneqq {\lbrace C_n^{sing}(X;R)\rbrace}_{n \geq 0}$ is a free graded module and is called 
  \emph{singular $R$-chain complex} of X. \newline
- For $0 \leq k \leq n+1$ we define the $k$-th face map $\lambda^k \colon \Delta^{n} \to \Delta^{n+1}$ by
- $(x_0, \dotsc, x_n) \mapsto (x_0, \dotsc, x_{k-1},0, x_k, \dotsc, x_n)$.
+ For $0 \leq k \leq n+1$ we define the $k$-th face map
+ 
+ \begin{align*}
+ \lambda^k \colon \Delta^{n} \to \Delta^{n+1}&  &
+ (x_0, \dotsc, x_n) \mapsto (x_0, \dotsc, x_{k-1},0, x_k, \dotsc, x_n).
+ \end{align*}
  Using this we define the map $d \colon C_n^{sing}(X;R) \to C_{n-1}^{sing}(X;R)$ by
  $$ d(\sigma) \coloneqq \sum_{k = 0}^{n+1} (-1)^k \; \sigma \circ \lambda^k$$
  It is a linear map of degree $-1$ and a calculation shows that $d^2 = 0$.
  \end{Example}
 
-\begin{Definition}{Differential graded modules}
+\begin{Definition}[Differential graded modules]
 
 For a graded module $M$ we call a linear map $d \colon M \to M$ of degree $+1$ which satisfies $ d^2 = 0$ a \emph{differential}.
-Then we also call the pair $(M , d)$ a \emph{differential graded module} or a \emph{complex}.
+In this case, we also call the pair $(M , d)$ a \emph{differential graded module} or a \emph{complex}.
 A morphism $f \colon M \to N$ of differential graded modules $(M,d)$ and $(N,d')$ is a linear map of graded modules that commutes with the 
 differentials, i.e.\ the diagram \\
 
@@ -179,9 +230,10 @@ Often we shall be interested in complexes $M$ with $M^i = 0$ for all $i < 0$, we
 \begin{Example}[Singular cochain complex]
  If we dualise the singular chain complex of a topological space $X$ we obtain its \emph{singular $R$-cochain complex} which 
  is defined as follows: \newline
- $c \coloneqq hom_R(C_n^{sing}(X),R)$ and $C^*_{sing}(X) \coloneqq (C^n_{sing}(X))_{n \geq 0}$. \newline
- Let us denote for a moment the map $d \colon C_{n+1}^{sing}(X) \to C_n^{sing}(X)$ by $\bar{d}$. Then we define the map
- $d \colon C_{sing}^n(X) \to C_{sing}^{n+1}(X)$ by $\phi \mapsto \phi \circ \bar{d}$. Then $\bar{d}^2 = 0$ implies $d^2 = 0$
+ $C^n_{sing}(X;R) \coloneqq hom_R(C_n^{sing}(X;R),R)$ and
+ $C^*_{sing}(X;R) \coloneqq { \lbrace C^n_{sing}(X;R) \rbrace }_{n \geq 0}$. \newline
+ Let us for a moment denote  the map $d \colon C_{n+1}^{sing}(X) \to C_n^{sing}(X)$ by $\bar{d}$. Then we define the map
+ $d \colon C_{sing}^n(X) \to C_{sing}^{n+1}(X)$ by $\phi \mapsto \phi \circ \bar{d}$. Then ${\bar{d}}^2 = 0$ implies $d^2 = 0$
  hence $d$ is a differential and $(C^*_{sing}(X),d)$ is a cochain complex.
 \end{Example}
 
@@ -194,25 +246,25 @@ it is connected and $H^i(M) = 0$ for $i = 1, \dotsc, n$. For $1$-connected we sh
 \end{Definition}
 
 A morphism $f \colon M \to N$ of differential graded modules commutes with the differentials and hence maps cocycles to cocycles
-and coboundaries to coboundaries. Therefore it induces a well defined map $H(f) \colon H(M) \to H(N) \; \; [x] \mapsto [f(x)]$. 
+and coboundaries to coboundaries. Therefore, it induces a well defined map $H(f) \colon H(M) \to H(N) \; \; [x] \mapsto [f(x)]$. 
 
 \begin{Remark}
  In most other subfields of topology and algebra the above definition would be called \emph{cohomology} since the
- differential raises the degree. In rational homotopy however the term homology seems to be standard and we decided 
- to stick with this.
+ differential raises the degree. However, in rational homotopy theory the term homology seems to be standard for the
+ above definition and we decided to stick with this.
 \end{Remark}
 
 \begin{Example}[Singular cohomology]
  Given a topological space $X$ we call the homology $H(C^*_{sing}(X;R))$ the \emph{singular cohomology} of the space $X$
- and denote it by $H^*(X;R)$. We also use the convention $H^*(X) \coloneqq H^*(X; \Q)$	
+ and denote it by $H^*(X;R)$. We shall also use the convention $H^*(X) \coloneqq H^*(X; \Q)$.	
 \end{Example}
 
 
-Most of the times we will mainly be interested in the homology of a chain complex. Therefore we will sometimes want to replace
-a cochain complex with a somehow simpler cochain complex that has the same homology. This motivates the following definition:
+Most of the times we will mainly be interested in the homology of a chain complex. Therefore, we will sometimes want to replace
+a cochain complex with a somehow simpler cochain complex with the same homology. This motivates the following definition:
 
 \begin{Definition}
- A morphism $f$ of differential graded modules that induces isomorphisms $H^i(f)$ for all $i \in \Z \;$ is called a
+ A morphism $f$ of differential graded modules which induces isomorphisms $H^i(f)$ for all $i \in \Z \;$ is called a
  \emph{quasi-isomorphism} and will be denoted by ``$\overset{\simeq}{\longrightarrow}$''. \newline
  We call two differential graded modules $(M,d)$ and $(N,d)$ \emph{weakly equivalent} if there is a finite chain of quasi-isomorphisms of differential
  graded modules
@@ -221,37 +273,46 @@ a cochain complex with a somehow simpler cochain complex that has the same homol
 \end{Definition}
 
 
-Now that we have modules, we want to enrich their structure with a multiplication and get to graded algebras.
+Now that we have introduced graded modules, we want to enrich their structure with a multiplication and get to 
+the notion of graded algebras.
 
 \begin{Definition}
  Given two graded modules $V$ and $W$ we define their \emph{tensor product} \newline
  ${(V \otimes W) = \bigcup_{n \in \Z} (V \otimes W)^n }$ by 
  $$ (V \otimes W)^n \coloneqq \bigoplus_{p + q = n} V^p \otimes W^q$$
- By the convention $|v \otimes w| \coloneqq |v| + |w|$ (for homogeneous elements $v \in V$ and $w \in W$
+ By the convention $|v \otimes w| \coloneqq |v| + |w|$ (for homogeneous elements $v \in V$ and $w \in W$)
  it also becomes a graded module. \newline
  For linear maps $f \colon V \to V'$ of degree p and $g \colon W \to W'$ of degree q we define the induced linear map
  of degree p+q \;  ${f \otimes g \colon V \otimes W \to V' \otimes W'}$ by
  $$ (f \otimes g) ( x \otimes y) = (-1)^{deg \, x \; deg \,y} f(x) \otimes g(y) $$
 
- A multiplication on a differential graded module M is an associative linear map \newline
- ${m \colon M \otimes M \to M }$ that has a neutral element $1_M \in M^0$, i.e.\ $m(x \otimes 1_M) = m(1_M \otimes x) = x$.
- In the following we will just write $xy \coloneqq m(x \otimes y)$.
+ \end{Definition}
+ 
+ \begin{Definition}
+
+
+ A \emph{multiplication} on a differential graded module M is an associative linear map
+ $${m \colon M \otimes M \to M }$$ that has a neutral element $1_M \in M^0$, i.e.\ $m(x \otimes 1_M) = m(1_M \otimes x) = x$.
+ In the following we shall just write $xy \coloneqq m(x \otimes y)$.
  \end{Definition}
 
  Given this information the reader probably can guess how a graded algebra could look like and here is the definition:
 \begin{Definition}
- A graded module $A$ with a multiplication is called a \emph{graded algebra}. We say that $A$ is \emph{commutative} if
+ A graded module $A$ with a multiplication is called a \emph{graded algebra}. We say that $A$ is \emph{(graded) commutative} if
  $xy = (-1)^{deg \, x \; deg \, y} yx$ for all $x,y \in A$ holds. Furthermore, a \emph{morphism of graded algebras} 
  $f \colon A \to B$ is a morphism of graded modules that respects multiplication, i.e.\ 
- $$f(xy) = f(x)f(y) \quad \text{for all} \; x,y \in A \quad \text{and} \; f(1_A) = 1_B $$
+ \begin{align*}
+ f(xy) = f(x)f(y) \quad \text{for all} \; x,y \in A & & \text{and} & & f(1_A) = 1_B 
+ \end{align*}
+
 \end{Definition}
 
 One should not get confused by the term commutative since it only means commutative in the regular sense in even degrees but
 anti commutative if both elements are in odd degrees.
-We can also introduce differentials to the world of algebras:
+We can also introduce differentials to the world of graded algebras:
 \begin{Definition}
- If $A$ is a (commutative) graded algebra and $d$ is a differential on $A$ that is a \emph{derivation} which means
- that it satisfies 
+ If $A$ is a (commutative) graded algebra and $d$ is a differential on $A$ (as graded module) that is a \emph{derivation} which means
+ that it satisfies the Leibniz rule
  $$ d(xy) = (dx)y + (-1)^{deg x} x(dy)$$
  then we call $(A,d)$ a \emph{(commutative) differential graded algebra}. If $A^i = 0$ for all $i < 0$ we also
  speak of a \emph{cochain algebra}. \newline
@@ -261,20 +322,21 @@ We can also introduce differentials to the world of algebras:
 \end{Definition}
 
 Note that the homology of a (commutative) graded differential algebra is a (commutative) graded algebra. \newline
-Next we want to introduce the tensor algebra $TV$ of a graded module $V$. It has the nice property
+Next we want to introduce the tensor algebra $V \overset{i}{\to} TV$ of a graded module $V$. It has the nice property
 that for every graded module morphism $\varphi \colon V \to A$ to a graded algebra $A$ there is a unique 
-graded algebra(!) morphism $\psi \colon TV \to A$ that extends $\varphi$, namely the following diagram commutes:
+graded algebra(!) morphism $\psi \colon TV \to A$ that extends $\varphi$, i.e.\ the following diagram commutes:
 
 \centerline{ \xymatrix{
-V \ar[dr]^{\varphi} \ar[r] & TV \ar@{-->}[d]^{\exists! \psi} \\
+V \ar[dr]_{\varphi} \ar[r]^i & TV \ar@{-->}[d]^{\exists! \psi} \\
 & A
 }
 }
 
 \begin{Definition}
  The \emph{tensor algebra} of a graded $R$-module $V$ is given by
- $$ TV \coloneqq \bigoplus_{i = 0}^\infty T^i V$$
- where $T^0 V \coloneqq R$ and $T^i V \coloneqq \bigotimes_{k=1}^i V$. \newline
+ $$ TV \coloneqq \bigoplus_{j = 0}^\infty T^j V$$
+ where $T^0 V \coloneqq R$ and $T^j V \coloneqq \bigotimes_{k=1}^j V$ with the embedding 
+ $i \colon V \overset{\cong}{\to} T^1 V$. \newline
  As a direct sum of graded modules it is again a graded module and the induced grading on an element
  $ v = \otimes_{i = 1}^k v_i $ (with $v_i \in V$ homogeneous) is given by $ |v| = \sum_{ i = 1}^k |v_i|$.
  For such $v$ we will say that $v$ has \emph{wordlength} $k$.
@@ -287,18 +349,18 @@ defining the free commutative algebra for rings $R$ where $0 \neq 2$.
 \begin{Definition}
  Let $V$ be a free graded $R$-module with $0 \neq 2$ in R. Let $I \subset TV$ be the ideal generated by the elements
  $$ v \otimes w - (-1)^{deg \, v \; deg \, w} w \otimes v$$
- for all $v,w \in V$. Then the quotient algebra $TV/I$ is called the \emph{free commutative graded algebra} over $V$.
+ for all $v,w \in V$. Then the quotient algebra $ \Lambda V \coloneqq TV/I$ is called the \emph{free commutative graded algebra} over $V$.
 \end{Definition}
 
 The free commutative graded algebra is always commutative since we divide out all elements which would prevent it 
-from being commutative. Furthermore, it has a similar universal property like the tensor algebra: For every graded
+from being commutative. Furthermore, it has a similar universal property as the tensor algebra: For every graded
 module $V$, commutative graded algebra $A$ and linear map $\varphi \colon V \to A$ there is a unique morphism of
 graded algebras $\psi \colon \Lambda V \to A$ which makes the following diagram commutative
 
  
 
 \centerline{\xymatrix{
-V \ar[dr]^{\varphi} \ar[r] & \Lambda V \ar@{-->}[d]^{\exists! \psi} \\
+V \ar[dr]_{\varphi} \ar[r] & \Lambda V \ar@{-->}[d]^{\exists! \psi} \\
 & A
 }
 }
@@ -307,27 +369,27 @@ V \ar[dr]^{\varphi} \ar[r] & \Lambda V \ar@{-->}[d]^{\exists! \psi} \\
 
 Moreover, we have to introduce some more notation: Given a free graded module $V$, we denote 
 by $\Lambda^{\geq k} V$ the vector space of elements in $\Lambda V$ with wordlength at least $k$.
-Additionally $V^{\geq k}$ denotes the subspace of elements of degree at least k and ${\Lambda V}^{\geq k}$ 
-is the free commutative algebra over this subspace $V^{\geq k}$. Unfortunately these two notations look 
+Additionally $V^{\geq k}$ denotes the subspace (of $V$) of elements of degree at least k and ${\Lambda V}^{\geq k}$ 
+is the free commutative algebra over this subspace. Unfortunately these two notations look 
 very similar and are very different in their nature, one should not confuse them.
 At last we denote by $\Lambda V^{even}$ the free commutative algebra over the elements in $V$ of even degree
 and likewise for $\Lambda V^{odd}$.
 \par
 
 Later it will be important to have a good understanding of free commutative algebras and therefore
-we will now provide some examples.
+we shall now provide some examples.
 
 \begin{Example}
 \label{ex:FreeCommutativeEvenDegrees}
- To start off simple, we look at $\Lambda \langle v \rangle$ with $|v| = 2$. 
- It is isomorphic to the polynomial algebra $R[v]$.
+ To start off simple, consider $\Lambda \langle v \rangle$ with $|v| = 2$. 
+ It is isomorphic to the polynomial algebra $R[v]$ (with $|v| = 2$).
 \end{Example}
 
 \begin{Example}
 \label{ex:FreeCommutativeOddDegrees}
  A similiar example is $\Lambda \langle v \rangle$ with $|v| = 3$. Since 
  $$0 = v^2 - (-1)^{deg \, v \; deg \, v} v^2 = 2 v^2$$
- and $2 \neq 0$ we get that $v^2 = 0$. This tells us that all elements in $\Lambda \langle v \rangle$
+ and $2 \neq 0$ we get that $v^2 = 0$. This shows that all elements in $\Lambda \langle v \rangle$
  have the form $\lambda_1 v + \lambda_2$ for $\lambda_i \in R$ and multiplication is determined by $v^2 = 0$.
 \end{Example}
 
@@ -336,13 +398,19 @@ illustrates the general behaviour of the free commutative algebra.
 
 \begin{Example}
  Consider the algebra $\Lambda \langle a,b,c \rangle$ with $|a| = 2$ and $|b| = |c| = 3$.
- Analagous to the last example we see that $b^2 = c^2 = 0$. Furthermore,
+ Analogous to the last example we see that $b^2 = c^2 = 0$. Furthermore,
  $$ bc - (-1)^{deg \, b \; deg \, c} cb = bc + cb = 0$$
- which tells us that $bc = - cb$. This determines the complete multiplicative structure 
+ which is equivalent to $bc = - cb$. This determines the complete multiplicative structure 
  and all elements are of the form 
  $$ \sum_{i,j,k \geq 0} \lambda_{i,j,k} \, a^{p_i} b^{q_j} c^{r_k}$$
  with  $q_j, r_k \in \lbrace 0,1 \rbrace$, $p_i \geq 0$ and $\lambda_{i,j,k} \in R$.
 \end{Example}
 
+\begin{Remark}
+\label{rem:FreeCommutativeSplits}
+From the definition we also get an isomorphism 
 
+$$ \Lambda ( V \oplus W) \cong \Lambda V \otimes \Lambda W $$
+
+\end{Remark}
 %TODO mehr Information über freie kommutative Algebra einfügen

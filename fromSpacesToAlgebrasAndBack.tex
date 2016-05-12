@@ -134,9 +134,8 @@
 
  The cochain algebra ${(A_{PL})}_n$ can be seen as a (rational) subalgebra of 
  $\Omega(\Delta^n)$ (the algebra of differential forms on  $\Delta^n$) with coefficients being polynomials in
- the $t_i$ which can be regarded as the coordinate functions of $R^{n+1}$. This explains the name 
+ the $t_i$ which can be regarded as the coordinate functions of $\R^{n+1}$. This explains the name 
  ``algebra of polynomial forms''.
- The next theorem illustrates why the algebra of polynomial differential forms is interesting for us.
  
  \begin{Theorem}
  \label{thm:WeakEqAPL}
@@ -161,11 +160,38 @@
   then we also refer to this model as a \emph{Sullivan model} for X.
  \end{Definition}
 
+ This makes life a lot easier since computing a model can be quite easy even if
+ computing $A_{PL}(X)$ of a space $X$ may be quite hard or even impossible. This can be 
+ demonstrated at the example of spheres $S^n$ where the cohomology algebra automatically determines how a model must look like
+ even if we do not compute $A_{PL}(S^n)$ itself:
+ \begin{Example}
+ \label{ex:MinimalModelOfSpheresAPL}
+  We can compute a Sullivan model of $S^n$ for $n \geq 2$ (we need $\geq 2$ for simple connectivity)
+  as follows: \\ We know the cohomology algebra $H^*(S^n) \cong \Q[a_n]/(a^2)$, hence also
+  $H(A_{PL}(S^n)) \cong \Q[a_n]/(a^2)$ holds and thus $A_{PL}(S^n)$ is $(n-1)$-connected.
+  Now \ref{prop:PropertiesOfAlgorithm}~ tells us that a minimal model $\Sullivan$ of $A_{PL}(S^n)$ must be 
+  of the form $V = V^{\geq n}$. Further, we know that there is $v \in (A_{PL}(S^n))^n$ with 
+  $\Q \cong H(A_{PL}(S^n))^n = \langle [v] \rangle$. Now we have to distinguish if $n$ is even or odd:
+  for $n$ odd  we have $v^2 = 0$ since $A_{PL}(S^n)$ is commutative. Thus we can define
+  a minimal model by 
+  $$\varphi \colon \Lambda(a_n;) \to A_{PL}(S^n) \quad  a \mapsto v.$$
+  If on the other hand $n$ is even, we still have $[v^2] = 0$ (since the cohomology algebra is zero in degree $2n$)
+  but also $v^2 \neq 0$, therefore there must be $w \in (A_{PL}(S^n))^{2n-1}$ with $dw = v^2$. Given this we can define
+  a minimal model by
+  \begin{align*}
+  \varphi \colon \Lambda(a_n, b_{2n-1} ; db = a^2) \to A_{PL}(S^n)& &  &a \mapsto v 
+   & &b \mapsto w
+  \end{align*}
+  We now see that the minimal models of the spheres coincide with the minimal models of their cohomology algebras 
+  (which we have seen in \ref{ex:MinimalModelOfSpheres}). This a very nice property of a space 
+  and certainly not true in general. Later, we shall call such spaces \emph{formal}.
+ \end{Example}
+
  
  
  \subsection{From algebras to spaces}
  
- Now we want to see how we can can realise a Sullivan algebra $\Sullivan$ as a topological space 
+ Next, we want to see how we can can realise a Sullivan algebra $\Sullivan$ as a topological space 
  $| \langle \Sullivan \rangle |$. Moreover, we shall see that $\Sullivan \simeq A_{PL}(| \langle \Sullivan \rangle |)$ for a
  ``sufficient nice'' class of Sullivan algebras $\Sullivan$. \\
  We begin with constructing a contravariant functor that turns commutative cochain algebras into simplicial sets.
@@ -207,8 +233,8 @@
   For a simplicial map $f \colon K \to L$ the map $|f| \colon |K| \to |L|$ is defined by
   $$ [(\sigma_n , x)] \mapsto [(f(\sigma_n) , x)] \quad $$
   
-  It is welldefined and continous.
-  Combined this yields a functor from the category of simplicial sets to the one of topological spaces and
+  It is well-defined and continous.
+  Combined, this yields a functor from the category of simplicial sets to the one of topological spaces and
   is called the \emph{Milnor realisation functor}.
  \end{Definition}
  One can show that the Milnor realisation functor always yields a CW-Complex (\cite{Milnor1957}).
@@ -232,6 +258,7 @@
  See \cite{Felix2001} p. 250 Theorem 17.10 .
   
  \end{proof}
-
+  In other words we get that for every ``sufficient nice`` Sullivan algebra $\Sullivan$ we can construct 
+  a topological space which has $\Sullivan$ as  Sullivan model.
  
  
