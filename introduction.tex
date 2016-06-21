@@ -4,30 +4,31 @@
 
 \section{Preliminaries}
 \subsection{Computational complexity theory}
-We begin with recalling some elementary notions in complexity theory which will be needed to state the main results of this thesis.
+We begin with recalling some basic concepts from complexity theory which are needed to state the main results of this thesis.
 Readers familiar with computational complexity theory may want to skip this section.
 \\
 
-Computational complexity theory is mainly about classifying under which restrictions problems can be algorithmically solved.
-Let us begin with defining what a problem is:
+Computational complexity theory is mainly concerned with classifying how fast problems can be algorithmically solved
+under restrictions.
+We get going by defining what a problem is:
 
 \begin{Definition}
  Let $f \colon {\lbrace 0,1 \rbrace}^* \to {\lbrace 0,1 \rbrace}$ be a function and $L_f \coloneqq {\lbrace 
  x \in {\lbrace 0,1 \rbrace}^*  \; | \; f(x) = 1 \rbrace} $ its corresponding language. We call the 
  problem to decide if a given $x \in {\lbrace 0,1 \rbrace}^*$ lies in $L_f$ the \emph{decision problem} for $f$.
- Or more generally given a language $L \subseteq {\lbrace 0,1 \rbrace}^*$ the decision problem for $L$ is to decide
+ More generally, given a language $L \subseteq {\lbrace 0,1 \rbrace}^*$ the decision problem for $L$ is to decide
  if a given $x \in {\lbrace 0,1 \rbrace}^* $ lies in $L$.
 \end{Definition}
 
 \begin{Remark}
-This definition is somehow impractical and one should think of elements $x \in {\lbrace 0,1 \rbrace}^*$ as binary encoding
+The last definition is somehow impractical and one should think of elements $x \in {\lbrace 0,1 \rbrace}^*$ as binary encoding
 of some information. However, it is useful to introduce decision problems like this since it provides a common basis how problems
 are represented. We shall implicitly think of problems being encoded as bit strings in the following.
 \end{Remark}
 
 \begin{Remark}
  We do not have to restrict problems to boolean functions and could also speak of the complexity of
- computing a general function $f \colon {\lbrace 0,1 \rbrace}^* \to {\lbrace 0,1 \rbrace}^*$. 
+ computing a function $f \colon {\lbrace 0,1 \rbrace}^* \to {\lbrace 0,1 \rbrace}^*$. 
 \end{Remark}
 
 
@@ -40,12 +41,12 @@ Now we want to have a look at a first concrete problem, namely $k$-COLOUR. It ca
  \; \text{there is} \; f \colon V \to \lbrace 1, \dotsc k \rbrace
  \ \text{with} \; f(i) \neq f(j) \; \text{for} \; (i,j) \in E \rbrace $$
  
- Then the decision problem for $L_{k-COLOUR}$ is called \emph{$k$-COLOUR}.
+ The decision problem for $L_{k-COLOUR}$ is called \emph{$k$-COLOUR}.
 \end{Problem}
 
-Next we want to classify the ``hardness'' of decision problems and therefore introduce complexity classes. 
+Next, we want to classify the hardness of decision problems and therefore introduce complexity classes. 
  In general a \emph{complexity class}
- is a set of languages (or functions) that can be computed under certain restrictions but  we shall only introduce two 
+ is a set of languages (or functions) that can be computed under certain restrictions. We shall only introduce two 
  of the most important complexity classes, namely $\Pcomplexity$ and $\NPcomplexity$. For this we will use the term algorithm
  to mean a deterministic Turing maschine (refer to \cite{Arora2009} chapter 1 for a more formal treatment). 
  
@@ -56,9 +57,6 @@ Next we want to classify the ``hardness'' of decision problems and therefore int
  for every input $x \in {\lbrace 0,1 \rbrace}^*$ A runs for at most $p(|x|)$ steps where $|x|$ denotes the length of $x$).
 \end{Definition}
 
-We could now think of a complexity class in which every algorithm gets a witness (or proof) that a given input is in the language.
-This leads to:
-
 \begin{Definition}
  The class $\NPcomplexity$ consists of those $f \colon {\lbrace 0,1 \rbrace}^* \to {\lbrace 0,1 \rbrace}$ for which there is
  an algorithm $A$ that can verify for two given inputs $x \in {\lbrace 0,1 \rbrace}^*$ and 
@@ -66,7 +64,7 @@ This leads to:
  that $f(x) = 1$ and whose running time is bounded by a fixed polynomial in  $|x|$.
 \end{Definition}
 
-To illustrate how one should think of such a ``proof''  we will show the following:
+To illustrate how one should think of such a proof  we will show the following:
 
 \begin{Proposition}
  $k$-COLOUR $\in \NPcomplexity$.
@@ -337,10 +335,10 @@ V \ar[dr]_{\varphi} \ar[r]^i & TV \ar@{-->}[d]^{\exists! \psi} \\
  $$ TV \coloneqq \bigoplus_{j = 0}^\infty T^j V$$
  where $T^0 V \coloneqq R$ and $T^j V \coloneqq \bigotimes_{k=1}^j V$ with the embedding 
  $i \colon V \overset{\cong}{\to} T^1 V$. \newline
- As a direct sum of graded modules it is again a graded module and the induced grading on an element
- $ v = \otimes_{i = 1}^k v_i $ (with $v_i \in V$ homogeneous) is given by $ |v| = \sum_{ i = 1}^k |v_i|$.
+ The tensor algebra is a graded module with grading given by
+ $ |v| = \sum_{ i = 1}^k |v_i|$ for $ v = \otimes_{i = 1}^k v_i $ (with $v_i \in V$ homogeneous).
  For such $v$ we will say that $v$ has \emph{wordlength} $k$.
- Furthermore, it becomes a graded algebra by the multiplication $xy \coloneqq x \otimes y$.
+ Furthermore, the tensor algebra is a graded algebra with multiplication $xy \coloneqq x \otimes y$.
 \end{Definition}
 
 Although the tensor algebra is a very nice algebra it has the problem that it is not commutative in general. We can fix this by
@@ -352,9 +350,12 @@ defining the free commutative algebra for rings $R$ where $0 \neq 2$.
  for all $v,w \in V$. Then the quotient algebra $ \Lambda V \coloneqq TV/I$ is called the \emph{free commutative graded algebra} over $V$.
 \end{Definition}
 
+\begin{Remark}
+ 
+
 The free commutative graded algebra is always commutative since we divide out all elements which would prevent it 
-from being commutative. Furthermore, it has a similar universal property as the tensor algebra: For every graded
-module $V$, commutative graded algebra $A$ and linear map $\varphi \colon V \to A$ there is a unique morphism of
+from being commutative. It has a similar universal property as the tensor algebra: \\ For every graded
+module $V$, commutative graded algebra $A$ and linear morphism $\varphi \colon V \to A$ there is a unique morphism of
 graded algebras $\psi \colon \Lambda V \to A$ which makes the following diagram commutative
 
  
@@ -364,17 +365,22 @@ V \ar[dr]_{\varphi} \ar[r] & \Lambda V \ar@{-->}[d]^{\exists! \psi} \\
 & A
 }
 }
+\end{Remark}
 
+To be able to speak about the structure of free commutative algebras, we have to introduce some more notation.
 
-
-Moreover, we have to introduce some more notation: Given a free graded module $V$, we denote 
+\begin{Definition}
+For a free graded module $V$, we denote 
 by $\Lambda^{\geq k} V$ the vector space of elements in $\Lambda V$ with wordlength at least $k$.
-Additionally $V^{\geq k}$ denotes the subspace (of $V$) of elements of degree at least k and ${\Lambda V}^{\geq k}$ 
-is the free commutative algebra over this subspace. Unfortunately these two notations look 
-very similar and are very different in their nature, one should not confuse them.
-At last we denote by $\Lambda V^{even}$ the free commutative algebra over the elements in $V$ of even degree
+Additionally $V^{\geq k}$ denotes the subspace (of $V$) of elements with degree at least k and ${\Lambda V}^{\geq k}$ 
+is the free commutative algebra over this subspace. We denote by $\Lambda V^{even}$ the free commutative algebra over the elements in $V$ of even degree
 and likewise for $\Lambda V^{odd}$.
-\par
+ 
+\end{Definition}
+
+Unfortunately, the notations $\Lambda^{\geq k} V$ and ${\Lambda V}^{\geq k}$  look 
+quite similar and are different in their nature, one should not confuse them.
+
 
 Later it will be important to have a good understanding of free commutative algebras and therefore
 we shall now provide some examples.
@@ -413,4 +419,3 @@ From the definition we also get an isomorphism
 $$ \Lambda ( V \oplus W) \cong \Lambda V \otimes \Lambda W $$
 
 \end{Remark}
-%TODO mehr Information über freie kommutative Algebra einfügen
