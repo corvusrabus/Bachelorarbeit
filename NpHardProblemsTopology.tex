@@ -9,7 +9,7 @@ We shall use space to mean topological space and all maps are meant to be contin
 
 \begin{Definition}
  Let $I^n \coloneqq [0,1]^n$ be the $n$-dimensional unit cube and $\partial I^n$ its boundary.
- For $n \geq 0$ the \emph{homotopy groups} of a space $X$ with basepoint $x_0 \in X$ are defined as follows: \newline
+ For $n \geq 0$ the \emph{homotopy groups} of a space $X$ with basepoint $x_0 \in X$ are defined as follows: 
  $$\pi_n(X) \coloneqq [(I^n, \partial I^n), (X,x_0) ]$$
  is the set of homotopy classes of maps
  $f \colon I^n \to X$ with $f(\partial I^n) = x_0$ where homotopies $h_t$ have to satisfy $h_t(\partial I^n) = x_0$.
@@ -51,7 +51,7 @@ the Sullivan model of the space.
 \end{Theorem}
 
 \begin{proof}
- From  \cite{Felix2001} Theorem 15.11 we cite the essential part of the proof, namely $V_X \cong Hom_{\Z}(\pi_*(X), \Q)$. 
+ From~\cite{Felix2001} Theorem 15.11 we cite the essential part of the proof, namely $V_X \cong Hom_{\Z}(\pi_*(X), \Q)$. 
  From this we get 
  $$ V_X \cong Hom_{\Z}(\pi_*(X), \Q) \cong Hom_{\Z}(\pi_*(X), Hom_{\Z}(\Q, \Q)) \cong 
   Hom_{\Z}(\pi_*(X) \otimes \Q, \Q) \cong \pi_*(X) \otimes \Q$$
@@ -62,7 +62,7 @@ the Sullivan model of the space.
 This theorem yields a powerful tool for computing rational homotopy groups.
 \begin{Example}
 \label{ex:RationalHomotopyGroupsOfSpheres}
- We know from \ref{ex:MinimalModelOfSpheresAPL} that $\Lambda(v_{2k+1};)$ and $\Lambda(v_{2k}, x_{4k -1}; dx = v^2)$
+ We know from~\ref{ex:MinimalModelOfSpheresAPL} that $\Lambda(v_{2k+1};)$ and $\Lambda(v_{2k}, x_{4k -1}; dx = v^2)$
  define  minimal Sullivan models of the odd and even dimensional spheres. Therefore, we now also know their rational homotopy groups:
  
  \begin{multicols}{2}
@@ -95,7 +95,7 @@ be represented (in form of a Sullivan model or something similar) in a computer.
 \begin{Definition}
  A \emph{weak homotopy equivalence} between two spaces $X$ and $Y$ is a map $f \colon X \to Y$ for which
  $\pi_n(f)$ is an isomorphism for all $n$. Two spaces $X$ and $Y$ have the same \emph{weak homotopy type}
- if there is a finite chain of weak homotopy equivalences connecting them, i.e. there is
+ if there is a finite chain of weak homotopy equivalences connecting them, i.e.\ there is
  $$ X \leftarrow Z_1 \rightarrow \ldots \leftarrow Z_n \rightarrow Y $$
  where all the maps are weak homotopy equivalences.
 \end{Definition}
@@ -128,8 +128,8 @@ be represented (in form of a Sullivan model or something similar) in a computer.
  is an isomorphism (\cite{Felix2001} Theorem 8.6). Therefore, for two simply connected
  spaces $X$ and $Y$ which have the 
  same rational homotopy type the algebras $A_{PL}(X)$ and $A_{PL}(Y)$ are weakly equivalent and hence they 
- have (up to isomorphism) the same minimal Sullivan model. The converse is also true, i.e. if two
- spaces have the same minimal Sullivan model then they have the same rational homotopy type (\cite{Felix2001} chapter 17).
+ have (up to isomorphism) the same minimal Sullivan model. The converse is also true, i.e.\ if two
+ spaces have the same minimal Sullivan model then they have the same rational homotopy type (\cite{Felix2001} Chapter 17).
  Hence, we can encode the rational homotopy type of a simply connected space by encoding its Sullivan algebra.
 \end{Remark}
 
@@ -144,7 +144,7 @@ For our purposes, an important form of rationalisation is the spatial realisatio
 \end{Theorem}
 
 \begin{proof}
- See \cite{Felix2001} Theorem 17.10 and 17.12.
+ See~\cite{Felix2001} Theorem 17.10 and 17.12.
 \end{proof}
 
 
@@ -181,7 +181,7 @@ of course these two notions coincide in nice cases:
 \end{Proposition}
 
 \begin{proof}
- See \cite{Felix2001} Proposition 29.4.
+ See~\cite{Felix2001} Proposition 29.4.
 \end{proof}
 
 \begin{Definition}
@@ -202,10 +202,10 @@ homology of the minimal Sullivan model yields the cohomology of the space.
 \end{Definition}
 
 \begin{Example}[Again the spheres]
- The spheres (our preferred example) $S^n$ for $n \geq 2$ are elliptic by example \ref{ex:RationalHomotopyGroupsOfSpheres}.
+ The spheres (our preferred example) $S^n$ for $n \geq 2$ are elliptic by Example~\ref{ex:RationalHomotopyGroupsOfSpheres}.
 \end{Example}
 
-Further, the machinery developed in Section \ref{sec:FromSpacesToAlgebras} easily allows us to construct non elliptic spaces 
+Further, the machinery developed in Section~\ref{sec:FromSpacesToAlgebras} easily allows us to construct non-elliptic spaces 
 as follows:
  \begin{Example}
   In this example, we shall construct a space with infinite dimensional rational homotopy groups but no cohomology.
@@ -213,21 +213,21 @@ as follows:
   ${V \coloneqq \bigoplus_{i \in \N} \langle x_i \rangle \oplus \bigoplus_{j \in \N} \langle y_j \rangle}$ with
   $|x_i| = 2i$, $|y_i| = 2i + 1$ and define the differential by $dx_i = y_i$ and $dy_i = 0$. This Sullivan algebra
   has no homology hence its spatial realisation $ X \coloneqq | \langle \Sullivan \rangle |$ has no cohomology and
-  by Theorem \ref{thm:MainTheoremOfRationalHomotopyTheory} it has infinite dimensional rational homotopy groups.
+  by Theorem~\ref{thm:MainTheoremOfRationalHomotopyTheory} it has infinite dimensional rational homotopy groups.
  \end{Example}
  
  \begin{Example}
   In the spirit of the last example we can also construct a space with infinite dimensional cohomology and 
   finite dimensional rational homotopy groups. For this, consider the Sullivan algebra 
   $\Sullivan \coloneqq \Lambda(a_2 ;)$. Its spatial realisation $ X \coloneqq | \langle \Sullivan \rangle |$ has the cohomology
-  algebra $H^*(X) \cong \Q[a]$ (with $|a| = 2$) and by Theorem \ref{thm:MainTheoremOfRationalHomotopyTheory} only
+  algebra $H^*(X) \cong \Q[a]$ (with $|a| = 2$) and by Theorem~\ref{thm:MainTheoremOfRationalHomotopyTheory} only
   $\pi_2(X) \cong \Q$ is not isomorphic to zero.
  \end{Example}
 
 
 
 \begin{Remark}
- From Theorem \ref{thm:MainTheoremOfRationalHomotopyTheory} we can see that a minimal model $(\Lambda V_X,d)$ of a
+ From Theorem~\ref{thm:MainTheoremOfRationalHomotopyTheory} we can see that a minimal model $(\Lambda V_X,d)$ of a
  rationally elliptic space $X$ is always an elliptic Sullivan algebra.
 \end{Remark}
 
@@ -244,7 +244,7 @@ as follows:
 
 \subsection{$\NPcomplexity$-hard problems in rational homotopy theory}
 
-In this last section we want to translate section \ref{sec:NPSullivan} to topology.
+In this last section we want to translate Section~\ref{sec:NPSullivan} to topology.
 
 %TODO Besser formulieren!, wir kodieren nur rationalen homotopie typ
 \begin{Remark}
@@ -255,17 +255,17 @@ In this last section we want to translate section \ref{sec:NPSullivan} to topolo
  (note that this not necessarily requires that $X$ is elliptic). If $X$ is such a space then
  its minimal model $(\Lambda V_X, d)$ has finite dimensional $V_X$ and thus
  we can encode the rational homotopy type of $X$ by encoding its Sullivan model using the encoding from 
- \ref{rem:CodingOfSullivanAlgebras}. 
+~\ref{rem:CodingOfSullivanAlgebras}. 
 \end{Remark}
 
 \begin{Theorem}[Lechuga, Murillo]
- \label{thm:SpacesDecidingEllipticity}
+\label{thm:SpacesDecidingEllipticity}
  It is a $\NPcomplexity$-hard problem to decide if a given simply connected space $X$ with  $\pi_*(X) \otimes \Q$
  finite dimensional is elliptic.
 \end{Theorem}
 
 \begin{proof}
- This follows directly from \ref{thm:DecidingEllipticityIsNpHard} as follows:
+ This follows directly from~\ref{thm:DecidingEllipticityIsNpHard} as follows:
  Given a  Sullivan algebra $\Sullivan$ with $V = { \{ V^n \} }_{n \geq 2}$ finite dimensional we construct the 
  space $| \langle \Sullivan \rangle |$ which is simply connected and 
  $\pi_*(| \langle \Sullivan \rangle |) \otimes \Q$ is finite dimensional. Further, we know that 
@@ -275,10 +275,10 @@ In this last section we want to translate section \ref{sec:NPSullivan} to topolo
 
 \begin{Remark}
  In fact, we can restrict this result to a smaller class of spaces. If we consider $k = 3$ the spaces resulting from
- the Sullivan algebras $\Sullivan$ constructed in \ref{constructionOfSullivanAlgebra} only have non vanishing rational
+ the Sullivan algebras $\Sullivan$ constructed in~\ref{constructionOfSullivanAlgebra} only have nonvanishing rational
  homotopy groups in degree 2 and 3. Consequently, deciding if a simply connected space $X$ with
  $\pi_i(X) \otimes \Q = 0$ for $i \neq 0,2,3$ is elliptic is still $\NPcomplexity$-hard and this is a stronger result than
- \ref{thm:SpacesDecidingEllipticity}.
+~\ref{thm:SpacesDecidingEllipticity}.
 \end{Remark}
 
 \begin{Theorem}[Garvín, Lechuga]
@@ -287,7 +287,7 @@ In this last section we want to translate section \ref{sec:NPSullivan} to topolo
 
 \begin{proof}
  Computing the Betti numbers of a given elliptic Sullivan algebra $\Sullivan$ is the same as computing
- them for $ | \langle \Sullivan \rangle |$, so the problem is $\NPcomplexity$-hard by \ref{thm:AlgebrasComputingBettiNumbers}.
+ them for $ | \langle \Sullivan \rangle |$, so the problem is $\NPcomplexity$-hard by~\ref{thm:AlgebrasComputingBettiNumbers}.
 \end{proof}
 
 
@@ -301,7 +301,12 @@ algebra of the space.
 \end{Definition}
 
 \begin{Example}
- The spheres $S^n$ for $n \geq 2$ are formal as we have seen in \ref{ex:MinimalModelOfSpheresAPL}. 
+ The spheres $S^n$ for $n \geq 2$ are formal as we have seen in~\ref{ex:MinimalModelOfSpheresAPL}. 
+\end{Example}
+
+\begin{Example}
+With the same computation as for spheres, one shows that $\C P^n$, $\Quaternions P^n$,
+$\C P^{\infty}$ and $\Quaternions P^{\infty}$ are formal.
 \end{Example}
 
 
@@ -314,12 +319,12 @@ algebra of the space.
 \end{Remark}
 
 \begin{Remark}
- \label{rem:EncodingOfFormalSpaces}
+\label{rem:EncodingOfFormalSpaces}
  The last remark allows us to have an own computer representation of the rational homotopy type of 
  a formal space $X$ since we only have to store its cohomology algebra. Therefore, we represent a 
- formal space with finitely generated cohomology algebra as follows: \\
+ formal space with finitely generated cohomology algebra as follows. 
  Take the cohomology algebra of $X$ and write it as $H^*(X) \cong \Lambda V / I$ where $V$ is a vector
- space and $I$ is an ideal. Then encode $X$ as the generators $v_1, \ldots, v_n$ of $V$ and generators 
+ space and $I$ is an ideal. Then, encode $X$ as the generators $v_1, \ldots, v_n$ of $V$ and the generators 
  of $I$ of the form $\sum_{i_1 \ldots i_n} \lambda_{i_1, \ldots , i_n} v_1^{i_1} \cdots v_n^{i_n}$.
 \end{Remark}
 
@@ -334,32 +339,38 @@ This allows us to formulate another $\NPcomplexity$-hard problem:
 
 
 \begin{proof}
- We  prove this by reducing  INDSET to the problem. \\
- Given an instance of INDSET, i.e.\ a graph $G = (V,E)$ with $V = \lbrace v_1 , \ldots , v_n \rbrace$ and 
- $E = \lbrace \, \lbrace v_i, v_j \rbrace \; | \; (i,j) \in S \rbrace$ construct an algebra 
+ We  prove the theorem by reducing  INDSET to the problem of computing rational cup lenghts of formal spaces. 
+ 
+ Given an instance of INDSET, that is, a graph $G = (V,E)$ with $V = \lbrace v_1 , \ldots , v_n \rbrace$ and 
+ $E = \lbrace \, \lbrace v_i, v_j \rbrace \; | \; (i,j) \in S \rbrace$, we construct an algebra 
  $A \coloneqq \Lambda V /I$ where $V \coloneqq \langle x_1, \ldots , x_n \rangle$ with $|x_i| = 3$ and I generated by
- the elements $x_i x_j$ for $(i,j) \in S$. Now let $(\Lambda W,d)$ be a minimal Sullivan model of $(A,0)$. Thus,
+ the elements $x_i x_j$ for $(i,j) \in S$. Now let $(\Lambda W,d)$ be a minimal Sullivan model of $(A,0)$. In particular,
  $A$ is  the cohomology algebra of the formal space $ | \langle (\Lambda W,d) \rangle | $. 
- We can encode $| \langle (\Lambda W,d) \rangle |$ by encoding $A$ as defined in \ref{rem:EncodingOfFormalSpaces}.
- Since the number of generators $V$ equals the number of vertices in $G$ and the number of generators of $I$ equals
- the number of edges of $G$ the encoding of $A$ is linear in the size of $G$. Hence, this reduction
- is polynomial. To finish the proof we show that the product length of $A$---and hence the rational cup length of 
- $| \langle (\Lambda W,d) \rangle | $)---equals the size of the largest
- independent set in $G$. This is fairly easy to see: \\
+ We can encode $| \langle (\Lambda W,d) \rangle |$ by encoding $A$ as defined in~\ref{rem:EncodingOfFormalSpaces}.
+ 
+ Constructing $A$ from $G$ takes linear time in the size of $G$.
+ This is because the number of generators of $V$ equals the number of vertices in $G$, 
+ and the number of generators of $I$ equals the number of edges of $G$. 
+ 
+ To finish the proof, we show that the product length of $A$--and hence the rational cup length of 
+ $| \langle (\Lambda W,d) \rangle | $)--equals the size of the largest
+ independent set in $G$. This can be seen as follows.
  Let $(v_k)_{k \in K}$ be the largest independent set in $G$. We have by definition for $i,j \in K$ with  $i\neq j$
  that $x_i x_j \notin I$ and therefore $\Pi_{k \in K} x_k \neq 0$. Hence, $nil \, A \geq |K|$. On the other hand,
  if $nil \, A = m$ and we have a product  $\Pi_{i = 1}^m x_{i_m} \neq 0$, we obtain by the definition of $I$ that 
- $(v_{i_m})_{i = 1, \ldots, m}$ is an independent set of size $m$. \\In summary, we have shown that if we can compute
- the rational cup length of a formal space $X$ we can compute with polynomial overhea the size of the largest
+ $(v_{i_m})_{i = 1, \ldots, m}$ is an independent set of size $m$. 
+ 
+ In summary, we have shown that if we can compute
+ the rational cup length of a formal space $X$, we can compute, with polynomial overhead, the size of the largest
  independent set of a given graph.
  
 \end{proof}
 
 \begin{Remark}
- The new encoding for formal spaces from Remark \ref{rem:EncodingOfFormalSpaces} is necessary for the proof given 
- for Theorem \ref{thm:RationalCupLengthOfFormalSpacesIsNPHard} since the algebra $\Lambda V /I$ constructed
+ The new encoding for formal spaces from Remark~\ref{rem:EncodingOfFormalSpaces} is necessary for the proof given 
+ for Theorem~\ref{thm:RationalCupLengthOfFormalSpacesIsNPHard}. This is because the algebra $\Lambda V /I$ constructed
  in the proof does not have a Sullivan model $(\Lambda W, d)$ with finite dimensional $W$. One can see
- this by applying algorithm \ref{alg:ConstructionOfMinimalSullivanAlgebra} to $\Lambda V /I$.
- Hence $ | \langle (\Lambda W,d) \rangle | $ could not be represented by the old encoding which uses Sullivan models
- and the proof would fail.
+ this by applying Algorithm~\ref{alg:ConstructionOfMinimalSullivanAlgebra} to $\Lambda V /I$.
+ Hence, $ | \langle (\Lambda W,d) \rangle | $ could not be represented by the old encoding, which uses Sullivan models,
+ so the proof would fail.
 \end{Remark}

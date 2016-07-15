@@ -5,16 +5,15 @@
  groups of the space. Further, we shall see that we can construct for a given (nice enough) Sullivan algebra a space which
  has this Sullivan algebra as Sullivan model. In the next section this shall allow us to translate $\NPcomplexity$-hard
  problems for Sullivan algebras to problems for topological spaces.
- \subsection{From spaces to algebras} \label{sec:FromSpacesToAlgebras}
+ \subsection{From spaces to algebras}\label{sec:FromSpacesToAlgebras}
  
  \begin{Definition}
   A \emph{simplicial object} $K$ in a category $\mathscr{C}$
-  is a collection of objects ${\lbrace K_n \rbrace}_{n \geq 0}$ in $\mathscr{C}$ with $\mathscr{C}$-morphisms
-  $\partial_i \colon K_{n+1} \to K_n$ for $i = 0, \ldots, n+1$ called the \emph{face morphisms} and \newline
+  is a collection of objects ${\lbrace K_n \rbrace}_{n \geq 0}$ in $\mathscr{C}$ together with $\mathscr{C}$-morphisms
+  $\partial_i \colon K_{n+1} \to K_n$ for $i = 0, \ldots, n+1$ called the \emph{face morphisms} and 
   $s_j \colon K_n \to K_{n+1}$ for $j = 0, \ldots, n$ called the \emph{degeneracy morphisms}.
   
-  They must fulfill the following equations : 
-%     
+  They must fulfill the following equations: 
     \begin{multicols}{2}
      \begin{align*}
       \partial_i \partial_j &= \partial_{j-1} \partial_i & & \text{for} \; i < j \\
@@ -51,13 +50,13 @@
  \end{Definition}
 
  \begin{Example}
- \label{ex:SingularSimplicesAreSimplicialSets}
+\label{ex:SingularSimplicesAreSimplicialSets}
     We already have seen an example of a simplicial set, namely the singular simplices 
     $S^{sing}_*(X) \coloneqq {\lbrace S_n^{sing}(X) \rbrace}_{n \geq 0}$ of a topological space $X$.
     Let
-    $\varrho^j \colon \Delta^k \to \Delta^{k - 1}$ ,
-    ${\varrho^j(x_0, \dotsc , x_k) \coloneqq (x_0 , \dotsc, x_j + x_{j + 1} , \dotsc, x_k)}$ and 
-    $\lambda^i$ as defined in \ref{ex:SingularChainComplex}. We use them to define the face
+    $\varrho^j \colon \Delta^k \to \Delta^{k - 1}$,
+    $\varrho^j(x_0, \dotsc , x_k) \coloneqq (x_0 , \dotsc, x_j + x_{j + 1} , \dotsc, x_k)$ and 
+    $\lambda^i$ as defined in~\ref{ex:SingularChainComplex}. We use them to define the face
     and degeneracy maps as follows:
     \begin{align*}
      \partial_i \colon S_{n+1}^{sing}(X) \to S_n^{sing}(X) \quad	 &	 \partial_i(\sigma) =
@@ -71,14 +70,14 @@
  \begin{Definition}
   Let $K$ be a simplicial set and $A = { \lbrace A_n \rbrace}_{n \geq 0}$ a simplicial cochain algebra. We define the cochain algebra
   $$ A(K) = { \lbrace A^p(K) \rbrace}_{ p \geq 0} $$
-  as follows :
+  as follows:
   \begin{itemize}
    \item $A^p(K)$ is the set of simplicial maps between $K$ and $A^p$ 
    (where $A^p$ denotes the simplicial set given by $A^p \coloneqq {\lbrace (A_n)^p \rbrace}_{n \geq 0})$. That is,
    $\phi \in A^p(K)$ sends $\sigma \in K_n$ to $\phi_{\sigma} \in {(A_n)}^p$ and satisfies 
    $\phi_{ \partial_i \sigma} = \partial_i \phi_{\sigma}$ and $\phi_{ s_j \sigma} = s_j \phi_{\sigma}$.
    
-   \item Addition, scalar multiplication, the differential and multiplication are given by :
+   \item Addition, scalar multiplication, the differential and multiplication are given by:
    \begin{align*}
     (\phi + \psi)_{\sigma} &\coloneqq \phi_{\sigma} + \psi_{\sigma} & 
     (\lambda \cdot \phi)_{\sigma} &\coloneqq \lambda \cdot \phi_{\sigma} \\
@@ -102,7 +101,8 @@
 
  \begin{Definition}
   The algebra of \emph{polynomial differential forms} $A_{PL} = {\lbrace (A_{PL})_n\rbrace}_{n \geq 0}$ is a
-  simplicial object in the category of commutative cochain algebras defined as follows: \newline
+  simplicial object in the category of commutative cochain algebras defined as follows: 
+  
   \begin{itemize}
    \item For $n \geq 0$ define the cochain algebra 
       $$(A_{PL})_n \coloneqq \frac{\Lambda \langle t_{0,n}, \dotsc, t_{n,n}, y_{0,n}, \dotsc, y_{n,n} \rangle}
@@ -142,7 +142,7 @@
  ``algebra of polynomial forms''.
  
  \begin{Theorem}
- \label{thm:WeakEqAPL}
+\label{thm:WeakEqAPL}
   Let $X$ be a topological space, there is a weak equivalence 
   $${C^*_{sing}(X) \overset{\simeq}{\longrightarrow} \ldots \overset{\simeq}{\longleftarrow} A_{PL}(X)}$$
  \end{Theorem}
@@ -152,8 +152,8 @@
   $$ H^*(X) \cong H(A_{PL}(X)) $$
  \end{Corollary}
 
- Unfortunately, the proof of \ref{thm:WeakEqAPL} is too long to be included here, it can be found
- in \cite{Felix2001} (basically the whole of chapter 10).
+ Unfortunately, the proof of~\ref{thm:WeakEqAPL} is too long to be included here, it can be found
+ in~\cite{Felix2001} (basically the whole of Chapter 10).
 
  Given this we now see that $A_{PL}(X)$ carries a lot of information about the space $X$. Furthermore, it is
  commutative and for path-connected $X$ has a minimal Sullivan model (\ref{rem:MinimalSullivanModelsExist}). This
@@ -169,11 +169,11 @@
  demonstrated at the example of spheres $S^n$. There the cohomology algebra automatically determines how a model must look like
  even if we do not compute $A_{PL}(S^n)$ itself.
  \begin{Example}
- \label{ex:MinimalModelOfSpheresAPL}
-  We can compute a Sullivan model of $S^n$ for $n \geq 2$ (we need $\geq 2$ for simple connectivity)
-  as follows: \\ Recall that $H^*(S^n) \cong \Q[a]/(a^2)$ with $|a| = n$. Hence, also
+\label{ex:MinimalModelOfSpheresAPL}
+  We can compute a Sullivan model of $S^n$ for $n \geq 2$
+  as follows. Recall that $H^*(S^n) \cong \Q[a]/(a^2)$ with $|a| = n$. Hence, also
   $H(A_{PL}(S^n)) \cong \Q[a]/(a^2)$ holds and thus $A_{PL}(S^n)$ is $(n-1)$-connected.
-  Now \ref{prop:PropertiesOfAlgorithm}~ tells us that a minimal model $\Sullivan$ of $A_{PL}(S^n)$ must be 
+  Now~\ref{prop:PropertiesOfAlgorithm} tells us that a minimal model $\Sullivan$ of $A_{PL}(S^n)$ must be 
   of the form $V = V^{\geq n}$. Further, we know that there is $v \in (A_{PL}(S^n))^n$ with 
   $\Q \cong H(A_{PL}(S^n))^n = \langle [v] \rangle$. Now we have to distinguish if $n$ is even or odd:
   for $n$ odd  we have $v^2 = 0$ since $A_{PL}(S^n)$ is commutative. Thus we can define
@@ -187,7 +187,7 @@
    & &b \mapsto w
   \end{align*}
   Note that the minimal models of spheres coincide with the minimal models of their cohomology algebras 
-  (which we have seen in \ref{ex:MinimalModelOfSpheres}). This a  nice property of a space 
+  (which we have seen in~\ref{ex:MinimalModelOfSpheres}). This a  nice property of a space 
   and not true in general. Later, we shall call such spaces \emph{formal}.
  \end{Example}
 
@@ -197,12 +197,12 @@
  
  Next, we want to see how we can can realise a Sullivan algebra $\Sullivan$ as a topological space 
  $| \langle \Sullivan \rangle |$. Moreover, we shall see that $\Sullivan \simeq A_{PL}(| \langle \Sullivan \rangle |)$ for a
- sufficient nice class of Sullivan algebras $\Sullivan$. \\
+ sufficient nice class of Sullivan algebras $\Sullivan$. 
  We begin with constructing a contravariant functor that turns commutative cochain algebras into simplicial sets.
  
  \begin{Definition}
   Given a commutative cochain algebra $(A,d)$ the simplicial set 
-  $\langle A , d \rangle = {\lbrace (\langle A , d \rangle)_n \rbrace}_{n \geq 0}$ is defined as follows : \\
+  $\langle A , d \rangle = {\lbrace (\langle A , d \rangle)_n \rbrace}_{n \geq 0}$ is defined as follows: 
   \begin{itemize}
    \item $(\langle A,d \rangle)_n$ consists of all morphisms of differential graded algebras 
    $\varphi \colon (A,d) \to (A_{PL})_n$.
@@ -213,7 +213,8 @@
 
   Additionally, for a morphism of cochain algebras ${f \colon (A,d) \to (B,d)}$ the simplicial map
   ${\langle f \rangle \colon \langle (B,d) \rangle \to \langle (A,d) \rangle}$ is defined by
-  ${\varphi \mapsto \varphi \circ f}$. \newline
+  ${\varphi \mapsto \varphi \circ f}$. 
+  
   Together this defines a contravariant functor from the category of commutative cochain algebras to the category of simplicial sets
   and is called the \emph{Sullivan realisation}.
  \end{Definition}
@@ -222,14 +223,14 @@
  
  \begin{Definition}
   Given a simplicial set $K = {\lbrace K_n \rbrace}_{n \geq 0}$ we equip each $K_n$ 
-  with the discrete topology and define a topological space $|K|$ by :
+  with the discrete topology and define a topological space $|K|$ by:
   
   $$|K| \coloneqq (\coprod_{n \geq 0} K_n \times \Delta^n) / \sim$$
   
   where $\sim$ is the equivalence relation induced by the relations
   \begin{align*}
-   s_j \sigma_n \times x \sim \sigma_n \times \varrho^j x & & \text{for $\sigma_n \in K_n$ , $x \in \Delta^{n+1}$} \\
-   \partial_i \sigma_{n+1} \times x \sim \sigma_{n+1} \times \lambda^j x & & \text{for $\sigma_{n+1} \in K_{n+1}$ , $x \in \Delta^n$}
+   s_j \sigma_n \times x \sim \sigma_n \times \varrho^j x & & \text{for $\sigma_n \in K_n$, $x \in \Delta^{n+1}$} \\
+   \partial_i \sigma_{n+1} \times x \sim \sigma_{n+1} \times \lambda^j x & & \text{for $\sigma_{n+1} \in K_{n+1}$, $x \in \Delta^n$}
   \end{align*}
 
    
@@ -247,7 +248,7 @@
  
  \begin{Definition}
   For a commutative cochain algebra $(A,d)$ its \emph{spatial realisation} is defined by $| \langle (A,d) \rangle |$. For
-  a morphism $\varphi \colon (A,d) \to (B,d)$ the spatial realisation is defined by $|\langle \varphi \rangle|$ .
+  a morphism $\varphi \colon (A,d) \to (B,d)$ the spatial realisation is defined by $|\langle \varphi \rangle|$.
  \end{Definition}
 
  As one might expect, we can find $\Sullivan$ in the structure of  $| \langle \Sullivan \rangle |$ for nice 
@@ -260,7 +261,7 @@
  \end{Theorem}
 
  \begin{proof}
- See \cite{Felix2001} p. 250 Theorem 17.10 .
+ See~\cite{Felix2001} p. 250 Theorem 17.10.
   
  \end{proof}
  

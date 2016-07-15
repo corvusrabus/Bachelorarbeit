@@ -4,7 +4,7 @@ In this section we introduce Sullivan algebras which form our most important alg
 developed in  Section~\ref{sec:FromSpacesToAlgebras} will allow us to assign a (up to isomorphism) unique Sullivan algebra
 to every topological space. In this case, we shall also speak of a model of the space. For a large class of spaces,
 the model will encode the rational 
-homotopy type (introduced later) of the accompanying space.
+homotopy type, which will be introduced later, of the accompanying space.
 % 
 % One of the nicest things about rational homotopy theory is that we can assign to every space a (up to a
 % suited isomorphism) unique algebraic model in form of a so called \emph{Sullivan algebra}. This theory
@@ -41,8 +41,9 @@ it will satisfy $d^2 = 0$).
 \begin{Proposition}
 \label{prop:WellBehavedFiltrations}
  Let $\Sullivan$ be a differential graded algebra with $V = {\lbrace V^n \rbrace}_{n \geq 2}$ and 
- ${im \;d \subseteq \Lambda^{\geq 2} V}$ then $\Sullivan$ is a minimal Sullivan algebra and
- the filtration can be chosen such that $V(i) = V^{i+2} \oplus V(i-1)$ (with $V(-1) \coloneqq 0$).
+ $im \;d \subseteq \Lambda^{\geq 2} V$. Then $\Sullivan$ is a minimal Sullivan algebra.
+ The filtration can be chosen such that $V(0) = V^2$ and
+ $V(i) = V^{i+2} \oplus V(i-1)$ for $i \geq 1$.
 \end{Proposition}
 \begin{proof}
  The proof is mainly a degree argument. We choose the filtration $V(i) = V^{i+2} \oplus V(i-1)$ from the claim
@@ -70,20 +71,22 @@ it will satisfy $d^2 = 0$).
  $$d^2(x) = d(a + b) = da + db = 0$$ and the other generators work similar.
  Further, we choose the filtration $V(0) = \langle a,b,c \rangle$, $V(i) = V$ for $i \geq 1$ and it is 
  immediate that it satisfies the nilpotence condition. Hence, $\Sullivan$ is a Sullivan algebra. Moreover,
- $\Sullivan$ is not minimal since $dx = a + b$ contains the elements $a$ and $b$ of wordlength $1$. \\
+ $\Sullivan$ is not minimal since $dx = a + b$ contains the elements $a$ and $b$ of wordlength $1$.
 \end{Example}
 
 
 \begin{Example}[An algebra which is not a Sullivan algebra]
  Consider  $V \coloneqq \langle x,y,z \rangle$ with $|x| = |y| = |z| = 1$ and 
- equip it with the differential $d \colon V \to \Lambda V$  defined by $dx = yz$, $dy = xz$, $dz = xy$. \newline
- First note that the differential is well-defined as can be seen by a calculation.
- We suppose that $\Sullivan$ defined a Sullivan algebra. This would yield a filtration ${\lbrace V(i) \rbrace}_{i \geq 0}$ satisfying
+ equip it with the differential $d \colon V \to \Lambda V$  defined by $dx = yz$, $dy = xz$, $dz = xy$.
+ Note that the differential is well-defined as can be seen by a calculation.
+ 
+ We show that $\Sullivan$ is not a Sullivan algebra.
+ For this, suppose that $\Sullivan$ defines a Sullivan algebra. This yields a filtration ${\lbrace V(i) \rbrace}_{i \geq 0}$ satisfying
  the nilpotence condition. Let $i$ and $j$ be the least integers such that $x \in V(i)$ and $y \in V(j)$. We get
  $i < j$, since $dx = yz \in \Lambda \langle y,z \rangle$ and $j < i$, since $dy = xz \in \Lambda \langle x,z \rangle$.
  This contradicts the existence of the filtration, hence $\Sullivan$ is not a Sullivan algebra. \\
  Note that we indeed need $3$ generators for such an example since all differential graded algebras of the form
-	$\Sullivan$ with $ V = {\lbrace V^i \rbrace}_{i \geq 1}$ and $\dim (V) \leq 2$ are Sullivan algebras. This can be 
+	$\Sullivan$ with $ V = {\lbrace V^i \rbrace}_{i \geq 1}$ and $dim (V) \leq 2$ are Sullivan algebras. This can be 
  seen by checking all cases of possible differentials on $\Sullivan$.
  \end{Example}
  
@@ -94,9 +97,9 @@ it will satisfy $d^2 = 0$).
   The following are equivalent:
   
   \begin{enumerate}
-   \item \label{itm:lemmaItemOne} $(\Lambda V,d)$ has finite dimensional homology, i.e. $H^i \Sullivan$ is finite dimensional for every
+   \item\label{itm:lemmaItemOne} $(\Lambda V,d)$ has finite dimensional homology, i.e. $H^i \Sullivan$ is finite dimensional for every
    $i$ and there is $n_0$ such that  $H^n \Sullivan = 0$ for $n \geq n_0$.
-   \item \label{itm:lemmaItemTwo} For a basis $ v_1, \ldots, v_n$ of $V^{even}$ there is 
+   \item\label{itm:lemmaItemTwo} For a basis $ v_1, \ldots, v_n$ of $V^{even}$ there is 
   $i \in \N$ with $[v^i_j] = 0$.
   \end{enumerate}
 
@@ -114,8 +117,8 @@ it will satisfy $d^2 = 0$).
  \end{proof}
 
  \begin{Example}
- \label{ex:AlgebraConstructedFromK3HasFiniteHomology}
- We can see that the Sullivan algebra $\Sullivan$ from \ref{ex:AlgebraConstructedFromK3} has finite dimensional homology
+\label{ex:AlgebraConstructedFromK3HasFiniteHomology}
+ We can see that the Sullivan algebra $\Sullivan$ from~\ref{ex:AlgebraConstructedFromK3} has finite dimensional homology
  as follows. 
  We have 
  $$d \big{(} \frac{x - y + z}{2} \big{)} = \frac{(a + b) - (b + c) + (c + a)}{2} = a \in im \, d$$
@@ -127,11 +130,11 @@ it will satisfy $d^2 = 0$).
  We can see this as follows:
  
  \begin{Example}
- \label{ex:AlgebraFromK3WithoutOneEdge}
+\label{ex:AlgebraFromK3WithoutOneEdge}
   Consider the Sullivan algebra $\Sullivan$ given by $V = \langle a,b,c , x,y \rangle$ with 
   $|a| = |b| = |c| = 2$, $|x| = |y| = 1$, $da = db = dc = 0$, $dx = a + b$ and $dy = b + c$.
   Note that this is the Sullivan algebra from last example without the generator $z$.
-  We have that $(ker \, d)^2 = \langle [a], [b], [c] \rangle$ and 
+	 We have that ${(\ker \, d)}^2 = \langle [a], [b], [c] \rangle$ and 
   $(im \, d)^2 = \langle (a + b), (b +c) \rangle$. Hence $dim \, ( (ker \, d)^2 ) = dim \, ((im \, d)^2 )+ 1 = 3$ and 
   we can easily see that $c \notin im \,d$, i.e. $[c] \neq 0$. Further, all elements in $im \, d$ are 
   linear combinations of products of $( a + b)$ and $(b +c)$. This shows that $[c^i] \neq 0$ for all $i \in \N$
@@ -169,7 +172,7 @@ Sometimes we shall leave out the quasi-isomorphism and call the algebra $\Sulliv
  \end{align*}
  This defines a quasi-isomorphism since $n$ being odd implies
  $ v^2 = 0$. \\
- For $n$ even there is the problem that $v^2 \neq 0$ . Therefore, also 
+ For $n$ even there is the problem that $v^2 \neq 0$. Therefore, also 
  $[v^2] \neq 0$ and for the same $\varphi$ as before we would get
  $(H^{2n}(\varphi)) ([v^2]) = 0$ and $\varphi$ would not be quasi-isomorphism since $H(\varphi)$ is not injective.
  Thus, we have to ``kill'' $v^2$
@@ -184,110 +187,121 @@ Sometimes we shall leave out the quasi-isomorphism and call the algebra $\Sulliv
 
 \begin{Remark}
 \label{rem:MinimalSullivanModelsExist}
-It can be shown that every connected commutative cochain algebra has a minimal Sullivan model
-(\cite{Felix2001} Theorem 14.12). However, the proof of this is not constructive and we shall prove a weaker 
-version that can be algorithmically obtained and will suffice for later use .
+Every connected commutative cochain algebra has a minimal Sullivan model
+(\cite{Felix2001} Theorem 14.12). However, the proof of this is not constructive. We shall prove a weaker 
+version of this fact, which can be obtained algorithmically and will suffice for later use.
 \end{Remark}
 
 \begin{Theorem}
- \label{thm:MinimalSullivanModelsExistForSimplyConnected}
- Every simply connected commutative cochain algebra has a minimal Sullivan model.
+\label{thm:MinimalSullivanModelsExistForSimplyConnected}
+ Every simply connected, commutative cochain algebra has a minimal Sullivan model.
 \end{Theorem}
 
-In the case of the last theorem the model can be obtained by an algorithm which we will use to prove the theorem.
+In the case of the last theorem, the model can be obtained by an algorithm, which we will use to prove the theorem.
 
 \begin{Algorithm}
 \label{alg:ConstructionOfMinimalSullivanAlgebra}
- Suppose $(A,d)$ is a simply connected cochain algebra; we inductively construct a Sullivan algebra $\Sullivan$ and a morphism
+ Let $(A,d)$ be a simply connected cochain algebra. We inductively construct a Sullivan algebra $\Sullivan$ and a morphism
  $\varphi \colon \Sullivan \to (A,d)$ as follows:
  
  \begin{enumerate}
-  \item \label{itm:FirstAlgorithmStep} Choose a basis of cocycles $([v_i])_{i \in I}$ of $H^2(A,d)$, 
-  define $V^2 \coloneqq \langle (\alpha_i)_{i \in I} \rangle$ and
-  $\varphi_2 \colon (\Lambda V^2,0) \to (A,d)$ by $\varphi_2(\alpha_i) = v_i$. This clearly induces an isomorphism 
+	 \item\label{itm:FirstAlgorithmStep} Choose a basis ${([v_i])}_{i \in I}$ of $H^2(A,d)$ and let 
+	 ${(v_i)}_{i \in I} \in A^2$ be representing cocycles.
+	  Define $V^2 \coloneqq \langle {(\alpha_i)}_{i \in I} \rangle$ and
+  $\varphi_2 \colon (\Lambda V^2,0) \to (A,d)$ by $\varphi_2(\alpha_i) = v_i$.
+  This induces an isomorphism 
   $H^2(\varphi_2) \colon H^2(\Lambda V^2, 0) \overset{\cong}{\to} H^2(A,d)$.
    
-   We now proceed inductively and assume that we have constructed $(V^{\leq k}, d)$ (for $k \geq 2$) and
-   ${\varphi_k \colon (\Lambda V^{\leq k}, d) \to (A,d)}$ which is a homology isomorphism in degrees $\leq k$.
-   Next we want to extend this to a morphism $\varphi_{k+1} \colon (\Lambda V^{k+1}, d) \to (A,d)$ with 
-   ${\varphi_{k+1}}_{|V^k} = \varphi_k$, $H^{k+1}(\varphi_{k+1})$ bijective and $H^{k + 2}(\varphi_{k+1})$ injective:
+   We now proceed inductively for $k \geq 2$. Assume that we have constructed $(V^{\leq k}, d)$ and
+   ${\varphi_k \colon (\Lambda V^{\leq k}, d) \to (A,d)}$ such that $\varphi_k$ is a isomorphism in homology in degrees $\leq k$,
+   and injective in homology in degree $k+1$.
+   In the following steps, we construct $V^{k+1}$ and 
+   extend $\varphi_k$ to a morphism $\varphi_{k+1} \colon (\Lambda V^{\leq k+1}, d) \to (A,d)$ with 
+   $ \restr{\varphi_{k+1}}{V^{\leq k}} = \varphi_k$,
+   $H^{k+1}(\varphi_{k+1})$ bijective, and $H^{k + 2}(\varphi_{k+1})$ injective:
    
-   \item \label{itm:first} Choose elements $(v_i)_{i \in I} \subset A^{k+1}$ such that
+   \item\label{itm:first} Choose elements ${\lbrace v_i \rbrace}_{i \in I} \subset A^{k+1}$ such that
    
-   $$H^{k+1}(A,d) = im \; H^{k+1}(\varphi_k) \; \oplus \; \bigoplus_{i \in I} \; \langle [v_i] \rangle $$
+   $$H^{k+1}(A,d) = im ( H^{k+1}(\varphi_k)) \; \oplus \; \bigoplus_{i \in I} \; \langle [v_i] \rangle $$
    
-   \item \label{itm:third} Further choose cocycles $(c_j)_{j \in J} \subset (\Lambda V^{\leq k})^{k+2}$ with
-   $$ ker \; H^{k+2}(\varphi_k) = \bigoplus_{j \in J} \; \langle [c_j] \rangle$$
+   \item\label{itm:third} Further, choose cocycles ${ \lbrace c_j \rbrace}_{j \in J} \subset {(\Lambda V^{\leq k})}^{k+2}$
+   such that ${ \lbrace [c_j] \rbrace}_{j \in J}$ forms a basis of $ker ( H^{k+2}(\varphi_k))$.
    
-   \item By construction the $(\varphi_k(c_j))_{j \in J}$ are coboundaries and we can choose 
-   $(w_j)_{j \in J} \subset A^{k+1}$ with $\varphi_k (c_j) = d(w_j)$.
-   \item \label{itm:second} Let 
-   $V^{k+1}$ be the vector space generated by the formal basis $(\alpha_i)_{i \in I} \cup (\beta_j)_{j \in J}$. We extend $d$
+   \item By construction, the ${\lbrace \varphi_k(c_j) \rbrace}_{j \in J}$ are coboundaries. Hence, we can choose 
+   ${\lbrace w_j \rbrace}_{j \in J} \subset A^{k+1}$ with $\varphi_k (c_j) = d{w_j}$.
+   
+   \item\label{itm:second} Define 
+   $V^{k+1}$ as the vector space generated by the formal basis $(\alpha_i)_{i \in I} \cup (\beta_j)_{j \in J}$. We extend $d$
    to a differential in $\Lambda V^{\leq k+1}$ by $d \alpha_i = 0$ and $d \beta_j = c_j$. Moreover, we extend $\varphi_k$
    to $\varphi_{k+1} \colon \Lambda V^{ \leq k+1} \to A$ by $\varphi_{k+1} (\alpha_i) = v_i$ and 
-   $\varphi_{k+1} (\beta_j) = w_j$. Now go to \ref{itm:first} and repeat the process for $k+1$.
+   $\varphi_{k+1} (\beta_j) = w_j$. Now go to~\ref{itm:first} and repeat the process for $k+1$.
  \end{enumerate}
 
 \end{Algorithm}
-Let us collect some properties of this algorithm:
+We now collect some properties of this algorithm.
 \begin{Proposition}
 \label{prop:PropertiesOfAlgorithm}
- Let $(A,d)$ be a simply connected cochain algebra and $m \colon \Sullivan \to (A,d)$ the morphism which
- algorithm \ref{alg:ConstructionOfMinimalSullivanAlgebra} produces for $(A,d)$. Then the following  holds:
+ Let $(A,d)$ be a simply connected cochain algebra. Let $\varphi \colon \Sullivan \to (A,d)$ be the morphism that
+ Algorithm~\ref{alg:ConstructionOfMinimalSullivanAlgebra} constructs for $(A,d)$. Then, the following  holds:
  \begin{enumerate}
-  \item $m \colon \Sullivan \to (A,d)$ is a minimal Sullivan model for $(A,d)$
-  \item Let $r$ be the least integer greater zero with $H^r(A) \neq 0$ then $V^i = 0$ for $1 \leq i < r$ and
-    $H^r(m) \colon V^r \overset{\cong}{\to} H^r(A)$
-  \item Let $r$ be the least integer with $H^r(A)$ infinite dimensional (or else $\infty$) then
-    all $V^k$ for $k < r$ are finite dimensional.
+  \item $\varphi \colon \Sullivan \to (A,d)$ is a minimal Sullivan model of $(A,d)$.
+  \item Let $r$ be the least integer greater zero with $H^r(A) \neq 0$. Then, $V^i = 0$ for $1 \leq i < r$ and
+    $H^r(\varphi) \colon V^r \overset{\cong}{\to} H^r(A)$.
+  \item Let $r$ be the least integer, or infinity, such that $H^r(A)$ is infinite dimensional.  Then,
+    all $V^k$ are finite dimensional for $k < r$.
  \end{enumerate}
 
 \end{Proposition}
-Note that this proposition also proves \ref{thm:MinimalSullivanModelsExistForSimplyConnected}.
+Note that this proposition also proves~\ref{thm:MinimalSullivanModelsExistForSimplyConnected}.
 \begin{proof}
 \begin{enumerate}
  \item 
 
- First observe that $\Sullivan$ actually is a Sullivan Algebra, by construction the filtration $V(i) \coloneqq V^{i+2}$ satisfies
- the nilpotence condition and further the choice of the differential in step \ref{itm:second} implies that $\Sullivan$ is minimal.
- Next we want to see that $m$ is a quasi-isomorphism, for this we show by induction over $k \geq 2$ that
- $H^i(m_k)$ is an isomorphism for $i \leq k$ and injective for $ i = k +1$. The case $k = 2$ is clear since $m_2$ is chosen
- as an isomorphism in step \ref{itm:FirstAlgorithmStep}. Now if $k > 2$ it holds by induction hypothesis (since $m_k$ extends
- $m_{k-1}$) that $H^i(m_k)$ is surjective for $i < k$ and by the choice of elements in step \ref{itm:first} also for $i = k$.
- Further, $H^i(m_k)$ is injective by induction hypothesis for $i < k$. Additionally, $H^{k+1}(m_k)$ is injective since
- all elements $[z] \in ker \; H^{k+1}(m_k)$ lie in $\Lambda V^{<k}$ (since $V^1 = 0$) and therefore are
- coboundaries by step \ref{itm:third}. At last, consider $[z] \in ker \; H^k (m_k)$, we can write (using the notation used in
- the algorithm)
- $$z = \sum_{i \in I} \alpha_i \lambda_{\alpha_i} + \sum_{j \in J} \beta_j \lambda_{\beta_j} 
- + r \quad \text{with $r \in \Lambda V^{<k}$ }$$
+ First, observe that $\Sullivan$ is a Sullivan algebra. By construction, the filtration $V(i) \coloneqq V^{i+2}$ satisfies
+ the nilpotence condition. Further, the choice of the differential in Step~\ref{itm:second} 
+ implies that $\Sullivan$ is minimal. 
  
- applying the differential to this yields
- $ -dr = d(\sum_{j \in J} \beta_j \lambda_{\beta_j}) = \sum_{j \in J} \lambda_{\beta_j} c_j$
- and taking homology in this equation gives $ [0] = \sum_{j \in J} \lambda_{\beta_j} [c_j]$ and since
- $[c_j] \neq 0$ for all $j \in J$ by the choice of the $c_j$, we get that $\lambda_{\beta_j} = 0$ for all $j \in J$ and 
- therefore $dr = 0$. We also have:
- $$0 = H^{k}(m_k)(z) = (H^k(m_k))( \sum_{i \in I} \alpha_i \lambda_{\alpha_i} ) + (H^k(m_{k-1}))(r)
-    = \sum_{i \in I} \lambda_{\alpha_i} [v_i] + (H^k(m_{k-1}))(r) $$
-    
-and by choice of the $[v_i]$ it follows that $\lambda_{\alpha_i} = 0$ and therefore 
-$ [z] = [r] \in H^k ( m_{k+1})$ and by induction hypothesis $[z] = 0$ follows.
+ Next, we want to see that $\varphi$ is a quasi-isomorphism. For this, we show by induction over $k \geq 2$ that
+ $H^i(\varphi_k)$ is an isomorphism for $i \leq k$ and injective for $ i = k +1$. The case $k = 2$ is clear since $\varphi_2$ was chosen
+ as an homology isomorphism in degree two in Step~\ref{itm:FirstAlgorithmStep}, and ${(\Lambda V^2)}^3 = 0$.
+ Thus, suppose we have shown the claim for $k \geq 2$.
+ Since $\varphi_{k+1}$ extends $\varphi_{k}$, $H^i(\varphi_{k+1})$ is surjective for $i \leq k$. Further, by the choice
+ of elements in Step~\ref{itm:first}, it is surjective for $i = k + 1$.
+ By induction hypothesis, $H^i(\varphi_{k + 1})$ is injective  for $i \leq k$.
+ Since $V^1 = 0$, all elements $[z] \in ker ( H^{k+2}(\varphi_{k+1}))$ lie in $\Lambda V^{\leq k}$ and therefore are
+ coboundaries by Step~\ref{itm:third}. Thus, $H^{k+2}(\varphi_{k+1})$ is injective.
+ 
+ Finally, consider $[z] \in ker ( H^{k+1} (\varphi_{k+1}))$ and choose a representing cocycle $z \in (\Lambda V^{\leq k+1})^{k+1} $.
+ We can write, using the notation from
+ the algorithm,
+ $$z = \sum_{i \in I} \alpha_i \lambda_{\alpha_i} + \sum_{j \in J} \beta_j \lambda_{\beta_j} + r$$
+ with $r \in \Lambda V^{ \leq k}$.
+ Applying the differential to this equation yields
+ $$ -dr = d(\sum_{j \in J} \beta_j \lambda_{\beta_j}) = \sum_{j \in J} \lambda_{\beta_j} c_j.$$
+ Taking homology in this new equation results in $ [0] = \sum_{j \in J} \lambda_{\beta_j} [c_j]$.
+ By the choice of the $c_j$ we have
+ $[c_j] \neq 0$ for all $j \in J$. Thus, $\lambda_{\beta_j} = 0$ for all $j \in J$, and 
+ therefore $dr = 0$. We also have
+ $$0 = H^{k+1}(\varphi_{k+1})([z]) = H^{k+1}(\varphi_{k+1})( \sum_{i \in I} [\alpha_i] \lambda_{\alpha_i} ) 
+ + H^{k+1}(\varphi_k)([r])
+    = \sum_{i \in I} \lambda_{\alpha_i} [v_i] + H^{k+1}(\varphi_{k})([r]) .$$   
+ By the choice of the $[v_i]$ it follows that $\lambda_{\alpha_i} = 0$. Therefore, 
+ $ [z] = [r] \in H^{k+1} (\Lambda V^{\leq k})$ and by induction hypothesis $[z] = 0$ follows.
 
  \item Follows immediately from the construction.
- \item Let wlog $r > 2$ then $V^2 \cong H^2(A,d)$ is finite dimensional. Now we can proceed inductively, 
- $V^k$ is by construction a
- direct sum of a subspace of $H^k(A,d)$ and a subspace of $(\Lambda V^{ <k })^k$ and therefore is finite dimensional since
- the latter two are by induction hypothesis and by requirement for $k<r$.
+ \item If $r=2$ this is clear, so let $r > 2$. Then, $V^2 \cong H^2(A,d)$ is finite dimensional. Now we can proceed inductively. 
+ By construction, $V^k$ is a
+ direct sum of a subspace of $H^k(A,d)$ and a subspace of $(\Lambda V^{ <k })^k$. Therefore, it is finite dimensional since
+ the latter two are by induction hypothesis and the requirement for $k<r$.
  \end{enumerate}
 \end{proof}
 
 \begin{Theorem}
- \label{thm:UniquenessOfModels}
- If $(A,d)$ is a connected commutative cochain algebra then all minimal Sullivan models of $(A,d)$ are isomorphic
- (as graded algebras).
+\label{thm:UniquenessOfModels}
+ If $(A,d)$ is a connected commutative cochain algebra, then all minimal Sullivan models of $(A,d)$ are isomorphic.
 \end{Theorem}
 \begin{proof}
- A proof would require to introduce some theory about homotopy of Sullivan algebras so we refer to \cite{Felix2001}
- p.191 Theorem 14.12.
+ See~\cite{Felix2001} Theorem 14.12.
 \end{proof}
 
 
@@ -311,7 +325,7 @@ $ [z] = [r] \in H^k ( m_{k+1})$ and by induction hypothesis $[z] = 0$ follows.
 
 %\subsection{Relative Sullivan algebras}
 
-We have now seen how commutative cochain algebras can be modelled. In the following we shall generalise the notion of
+We have now seen how commutative cochain algebras can be modelled. In the following, we shall generalise the notion of
 a Sullivan algebra to be able to model morphisms of commutative cochain algebras.
 
 \begin{Definition}
@@ -348,7 +362,7 @@ a Sullivan algebra to be able to model morphisms of commutative cochain algebras
  if $H^0(B) = \Q = H^0(C)$ and $H^1(\varphi)$ is injective.
 \end{Proposition}
 \begin{proof}
- See \cite{Felix2001} (Proposition 14.3).
+ See~\cite{Felix2001} (Proposition 14.3).
 \end{proof}
 
 \subsection{Properties of Sullivan Algebras}
@@ -358,9 +372,9 @@ the reader that we shall see a correspondence of these definitions to topologica
 
 \par
 
-Let $\Sullivan$ be a Sullivan algebra and consider the projection 
+Let $\Sullivan$ be a Sullivan algebra. Consider the projection 
 $\varrho_m \colon \Sullivan \to (\Lambda V / \Lambda^{> m} V , d)$ for $m \geq 1$, then $H^1(\varrho_m)$ is injective.
-Therefore, Proposition \ref{prop:ExistenceMorphismSullivanModels} tells us that there is a Sullivan model
+Therefore, Proposition~\ref{prop:ExistenceMorphismSullivanModels} tells us that there is a Sullivan model
 
 \centerline{
 \xymatrix{
@@ -469,16 +483,16 @@ $$H_0(\Lambda V, d) \cong \Lambda Q / \Lambda Q \cdot d(P)$$
  For a pure Sullivan algebra $\Sullivan$ the following are equivalent:
  
  \begin{enumerate}
-  \item  \label{itm:PropositionItmFirst} $H(\Lambda V,d)$ is finite dimensional.
-  \item \label{itm:PropositionItmSecond}$H_0(\Lambda V,d)$ is finite dimensional.
+  \item\label{itm:PropositionItmFirst} $H(\Lambda V,d)$ is finite dimensional.
+  \item\label{itm:PropositionItmSecond}$H_0(\Lambda V,d)$ is finite dimensional.
  \end{enumerate}
 
 \end{Proposition}
 
 \begin{proof}
- That \ref{itm:PropositionItmFirst}) implies \ref{itm:PropositionItmSecond}) follows
+ That~\ref{itm:PropositionItmFirst}) implies~\ref{itm:PropositionItmSecond}) follows
  from the remark above. \par Consider that $H_0(\Lambda V,d)$ is finite dimensional.
- We will show that $H(\Lambda V, d)$ is finitely generated as $H_0 \Sullivan$-module which implies \ref{itm:PropositionItmFirst}).
+ We will show that $H(\Lambda V, d)$ is finitely generated as $H_0 \Sullivan$-module which implies~\ref{itm:PropositionItmFirst}).
  First observe that $\Lambda Q$ is a polynomial $\Q$-algebra in finitely many generators and thus Noetherian by
  Hilbert's basis theorem (\ref{thm:HilbertBasisTheorem}). This implies that $\Lambda V$ is a Noetherian $\Lambda Q$-module since it is 
  finitely generated by all products of basis elements in $ P$. Next, observe that
@@ -497,14 +511,14 @@ into a pure one. Then we shall see that the converted algebra has finite dimensi
 \begin{Definition}
  Let $\Sullivan$ be a Sullivan algebra with $V = P \oplus Q$ (where $Q = V^{even}$ and $P = V^{odd}$)
  finite dimensional. We define its 
- \emph{associated pure Sullivan algebra} $(\Lambda V, d_{\sigma})$ by :
+ \emph{associated pure Sullivan algebra} $(\Lambda V, d_{\sigma})$ by:
   
  \begin{align*}\restr{d_{\sigma}}{(\Lambda Q \otimes \Lambda^k P)^p} \coloneqq \pi_{
  (\Lambda Q \otimes \Lambda^{k-1} P)^{p+1}} \circ d 
  & &\text{with} \quad \pi_A \colon \Lambda V \to A \quad \text{being the projection} \\
  \end{align*}
  where formally $(\Lambda Q \otimes \Lambda^{-1} P) \coloneqq 0$. 
- This $d_{\sigma}$ defines a differential (see  \cite{Felix2001} p.438). Further, $(\Lambda V, d_{\sigma})$ 
+ This $d_{\sigma}$ defines a differential (see~\cite{Felix2001} p.438). Further, $(\Lambda V, d_{\sigma})$ 
  is a Sullivan algebra since by definition $d_{\sigma}$ preserves the filtration of the 
  nilpotence condition. Moreover, it satisfies:
  \begin{align*}
@@ -521,7 +535,7 @@ into a pure one. Then we shall see that the converted algebra has finite dimensi
 
  
  \begin{Example}
-  \label{ex:AssociatedNotMinimalSullivanAlgebra}
+ \label{ex:AssociatedNotMinimalSullivanAlgebra}
   Let us see how the construction of the assiocated pure Sullivan algebra works at an example. 
   Consider the Sullivan algebra $$\Sullivan \coloneqq \Lambda( a_3, b_2 ; db = a)$$ which is clearly not pure since
   $b \in V^{even}$ and $db = a \in V^{odd}$. Thus, we will have $d \neq d_{\sigma}$.
@@ -548,17 +562,17 @@ into a pure one. Then we shall see that the converted algebra has finite dimensi
 
 \begin{proof}
   %TODO Hier nach Möglichkeit noch 2 -> 3 einfügen, wenn 29.3 verstanden wurde
- See \cite{Felix2001} Proposition 32.4.
+ See~\cite{Felix2001} Proposition 32.4.
 \end{proof}
 
-If a Sullivan algebra $\Sullivan$ satisfies the conditions of \ref{prop:EquivalenceFiniteDimensionCategoryCohomology},
-we can use its associated pure Sullivan algebra $(\Lambda V, d_{\sigma})$ and criterion \ref{prop:FiniteDimensionDependentOnDegreeOne}
+If a Sullivan algebra $\Sullivan$ satisfies the conditions of~\ref{prop:EquivalenceFiniteDimensionCategoryCohomology},
+we can use its associated pure Sullivan algebra $(\Lambda V, d_{\sigma})$ and criterion~\ref{prop:FiniteDimensionDependentOnDegreeOne}
 to check if $\Sullivan$ has finite dimensional homology and category. Most of the times this will be easier than 
 a direct proof of these properties.
 
 \begin{Remark}
- As we can see from Example \ref{ex:AssociatedNotMinimalSullivanAlgebra} Proposition 
- \ref{prop:EquivalenceFiniteDimensionCategoryCohomology} does not hold if $\Sullivan$ is not minimal as follows: \\
+ As we can see from Example~\ref{ex:AssociatedNotMinimalSullivanAlgebra} Proposition 
+~\ref{prop:EquivalenceFiniteDimensionCategoryCohomology} does not hold if $\Sullivan$ is not minimal as follows: \\
  The Sullivan algebra $$\Sullivan \coloneqq \Lambda( a_3, b_2 ; db = a)$$ is not minimal and 
  has no homology above degree $0$ (since
  the only element that could generate homology is $a$ but $a = db$ and hence $[a] = 0$). In contrary, the associated
